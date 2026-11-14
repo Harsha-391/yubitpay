@@ -1,0 +1,9 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="780" height="400" viewBox="0 0 780 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path id="Ambient glow" d="M780 400C780 293.913 738.911 192.172 665.772 117.157C592.633 42.1427 493.434 8.00932e-06 390 0C286.566 -8.00931e-06 187.368 42.1427 114.228 117.157C41.0892 192.172 1.56182e-05 293.913 0 400L390 400H780Z" fill="url(#paint0_radial_0_69)"/>
+<defs>
+<radialGradient id="paint0_radial_0_69" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(390 400) scale(390 400)">
+<stop stop-color="#C0F476" stop-opacity="0.290196"/>
+<stop offset="1" stop-color="#0C2017" stop-opacity="0"/>
+</radialGradient>
+</defs>
+</svg>

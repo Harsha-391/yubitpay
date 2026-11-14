@@ -1,0 +1,118 @@
+/* New scenes: statement, banner marquee, drag playground, stacked solutions, outro. Same --u scaling and palette as the Figma. */
+.sec-pad { padding: calc(110 * var(--u)) max(calc(72 * var(--u)), calc((100% - 1400 * var(--u)) / 2 + 72 * var(--u))); }
+
+/* ---- statement: pinned, lights up word by word (Flow.tsx writes --p on the paragraph) */
+.statement { position: relative; background: var(--darkest); }
+.m .statement { height: 300svh; margin-top: -100svh; z-index: 3; transform-origin: 50% 0; will-change: scale; overflow: clip; } /* slides over the finished story */
+.statement-pin { position: relative; min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: calc(44 * var(--u)); padding: calc(120 * var(--u)) calc(72 * var(--u)); }
+.m .statement-pin { position: sticky; top: 0; height: 100svh; }
+.statement-y { width: calc(44 * var(--u)); height: calc(66 * var(--u)); color: var(--lime); }
+.m .statement-y { transform: rotate(calc((1 - var(--p, 1)) * -180deg)) scale(calc(0.6 + 0.4 * var(--p, 1))); } /* turns back into the Y as the sentence completes */
+.statement-text { max-width: calc(1180 * var(--u)); text-align: center; font-weight: 600; font-size: calc(72 * var(--u)); line-height: 1.08; letter-spacing: calc(-2.6 * var(--u)); color: var(--white); }
+.statement-text .hi { color: var(--lime); }
+.m .statement-text .w { opacity: clamp(0.13, calc(var(--p, 1) * (var(--n) + 2) - var(--w)), 1); transition: opacity 0.2s linear; }
+
+/* ---- banner: two marquee rows, opposite directions; speed + lean follow scroll velocity (Flow.tsx) */
+.banner { position: relative; z-index: 4; background: var(--darkest); padding-top: calc(70 * var(--u)); overflow-x: clip; } /* x only: the tilted tape still overlaps the frame below */
+.tape { position: relative; z-index: 1; width: 112%; margin: 0 0 calc(-70 * var(--u)) -6%; padding: calc(70 * var(--u)) 0; background: var(--lime); color: var(--darkest); display: flex; flex-direction: column; gap: calc(14 * var(--u)); transform: rotate(-3deg); box-shadow: 0 calc(30 * var(--u)) calc(60 * var(--u)) rgba(0, 0, 0, 0.35); }
+.mq-row { will-change: transform; }
+.mq-track { display: flex; width: max-content; animation: mq 46s linear infinite; will-change: transform; }
+.mq-row.rev .mq-track { animation-direction: reverse; }
+.mq-set { display: flex; align-items: center; gap: calc(48 * var(--u)); padding-right: calc(48 * var(--u)); }
+.mq-item { font-weight: 700; font-size: calc(112 * var(--u)); line-height: 1.05; letter-spacing: calc(-3.5 * var(--u)); white-space: nowrap; }
+.mq-row.rev .mq-item { color: transparent; -webkit-text-stroke: calc(1.6 * var(--u)) var(--darkest); }
+.mq-tri { flex: none; width: calc(40 * var(--u)); height: calc(36 * var(--u)); color: var(--darkest); }
+.mq-row.rev .mq-tri { transform: rotate(180deg); }
+@keyframes mq { to { transform: translateX(-50%); } }
+
+/* ---- drag playground */
+.play { position: relative; background: var(--tint); }
+.play-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: calc(40 * var(--u)); }
+.play-hint { font-size: calc(13 * var(--u)); color: var(--deep); }
+.board {
+  position: relative; height: calc(640 * var(--u)); border-radius: calc(28 * var(--u)); touch-action: pan-y;
+  box-shadow: inset 0 0 0 1px rgba(12, 32, 23, 0.08);
+  background-image: linear-gradient(rgba(12, 32, 23, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(12, 32, 23, 0.05) 1px, transparent 1px);
+  background-size: calc(40 * var(--u)) calc(40 * var(--u));
+}
+.pg-card {
+  position: absolute; display: flex; align-items: center; gap: calc(14 * var(--u)); padding: calc(16 * var(--u));
+  border-radius: calc(18 * var(--u)); background: var(--dark); color: var(--white); line-height: normal;
+  box-shadow: 0 calc(18 * var(--u)) calc(40 * var(--u)) rgba(12, 32, 23, 0.22), inset 0 0 0 1px rgba(192, 244, 118, 0.12);
+  cursor: grab; user-select: none; -webkit-user-select: none; touch-action: none; will-change: transform;
+}
+.pg-card.grab { cursor: grabbing; box-shadow: 0 calc(32 * var(--u)) calc(64 * var(--u)) rgba(12, 32, 23, 0.3), inset 0 0 0 1px rgba(192, 244, 118, 0.35); }
+.m .pg-card { opacity: 0; } /* Playground.tsx flies them in with scroll */
+.m .board { transform-origin: 50% 0; will-change: transform; }
+.pg-chip { width: calc(224 * var(--u)); }
+.pg-webhook { flex-direction: column; align-items: stretch; gap: calc(14 * var(--u)); width: calc(280 * var(--u)); }
+.pg-code { flex-direction: column; align-items: flex-start; gap: calc(8 * var(--u)); font-size: calc(13 * var(--u)); }
+.pg-small { font-size: calc(11 * var(--u)); }
+.pg-pill { padding: calc(12 * var(--u)) calc(18 * var(--u)); border-radius: 100px; gap: calc(10 * var(--u)); font-size: calc(15 * var(--u)); white-space: nowrap; }
+.pg-ok { gap: calc(10 * var(--u)); font-size: calc(12 * var(--u)); white-space: nowrap; }
+.pg-cta { flex-direction: column; align-items: flex-start; gap: calc(22 * var(--u)); padding: calc(26 * var(--u)); width: calc(250 * var(--u)); background: var(--lime); color: var(--darkest); border-radius: calc(24 * var(--u)); }
+.pg-y { width: calc(40 * var(--u)); height: calc(60 * var(--u)); }
+.pg-cta-link { display: flex; align-items: center; gap: calc(12 * var(--u)); font-weight: 600; font-size: calc(16 * var(--u)); }
+
+/* ---- outro: the whole wordmark, huge */
+.outro { padding-top: calc(40 * var(--u)); color: var(--deep); }
+.outro svg { display: block; width: 100%; height: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mq-track { animation: none; }
+}
+
+/* ---- developer: a dark frame that grows out of the lime (Flow.tsx scales it) */
+.frame-wrap { position: relative; background: var(--lime); padding: calc(130 * var(--u)) 0 calc(40 * var(--u)); }
+.m .frame { border-radius: calc(40 * var(--u)); transform-origin: 50% 30%; will-change: scale; box-shadow: 0 calc(40 * var(--u)) calc(90 * var(--u)) rgba(12, 32, 23, 0.35); }
+.journey { position: relative; }
+.journey-bar { position: absolute; left: 0; right: 0; top: -1px; height: 2px; list-style: none; }
+.journey-bar i { display: block; height: 100%; background: var(--lime); transform: scaleX(0); transform-origin: 0 50%; will-change: transform; }
+.m .benefit svg { stroke-dasharray: 30; stroke-dashoffset: 30; transition: stroke-dashoffset 0.7s var(--ease) calc(0.25s + var(--i, 0) * 0.12s); }
+.m .benefit.in svg { stroke-dashoffset: 0; }
+
+/* ---- reveal variants, each used once: masked lines (developer), rising letters (FAQ), blur-in (closing) */
+.ln { display: block; overflow: hidden; padding-bottom: 0.06em; }
+.ln > span { display: block; }
+.m [data-r="lines"], .m [data-r="chars"] { opacity: 1; transform: none; }
+.m [data-r="lines"] .ln > span { transform: translateY(108%); transition: transform 1s var(--ease); }
+.m [data-r="lines"] .ln:nth-child(2) > span { transition-delay: 0.12s; }
+.m [data-r="lines"].in .ln > span { transform: none; }
+.cl-line { display: block; }
+.ch { display: inline-block; white-space: pre; }
+.m [data-r="chars"] .ch { opacity: 0; transform: translateY(70%) rotate(8deg); transition: opacity 0.5s ease, transform 0.8s var(--spring-pop); transition-delay: calc(var(--c) * 22ms); }
+.m [data-r="chars"].in .ch { opacity: 1; transform: none; }
+.m [data-r="blur"] { opacity: 0; filter: blur(calc(14 * var(--u))); transform: translateY(calc(18 * var(--u))); transition: opacity 0.9s ease, filter 0.9s ease, transform 0.9s var(--ease); }
+.m [data-r="blur"].in { opacity: 1; filter: none; transform: none; }
+
+/* ---- solutions: pinned horizontal track (Flow.tsx sets the section height = its travel) */
+.tracks { position: relative; background: var(--dark); }
+.tracks-pin { position: relative; overflow: hidden; padding: calc(120 * var(--u)) 0 calc(80 * var(--u)); }
+.m .tracks-pin { position: sticky; top: 0; height: 100svh; display: flex; flex-direction: column; justify-content: center; padding: calc(80 * var(--u)) 0 0; }
+.track { display: flex; gap: calc(28 * var(--u)); width: max-content; padding: 0 max(calc(72 * var(--u)), calc((100vw - 1400 * var(--u)) / 2 + 72 * var(--u))); will-change: transform; }
+.tcard { position: relative; flex: none; width: calc(560 * var(--u)); height: calc(560 * var(--u)); border-radius: calc(32 * var(--u)); padding: calc(48 * var(--u)); overflow: hidden; display: flex; flex-direction: column; }
+.tc-intro { width: calc(520 * var(--u)); justify-content: center; gap: calc(24 * var(--u)); padding-left: 0; overflow: visible; }
+.tc-1 { background: linear-gradient(226deg, var(--deep), var(--darkest)); color: var(--white); }
+.tc-2 { background: linear-gradient(210deg, var(--lime) 40%, #8fbf55); color: var(--darkest); }
+.tc-3 { background: var(--darkest); color: var(--white); box-shadow: inset 0 0 0 1px rgba(192, 244, 118, 0.35); }
+.tc-n { position: relative; font-size: calc(14 * var(--u)); opacity: 0.8; }
+.tc-y { position: absolute; right: calc(-30 * var(--u)); top: calc(40 * var(--u)); width: calc(260 * var(--u)); height: calc(390 * var(--u)); color: rgba(192, 244, 118, 0.12); will-change: transform; }
+.tc-2 .tc-y { color: rgba(12, 32, 23, 0.13); }
+.tc-body { position: relative; margin-top: auto; display: flex; flex-direction: column; align-items: flex-start; gap: calc(16 * var(--u)); }
+.tc-sym { display: grid; place-items: center; width: calc(64 * var(--u)); height: calc(64 * var(--u)); border-radius: calc(20 * var(--u)); background: rgba(192, 244, 118, 0.12); }
+.tc-2 .tc-sym { background: var(--darkest); }
+.tc-t { font-weight: 600; font-size: calc(40 * var(--u)); line-height: 1.05; letter-spacing: calc(-1.5 * var(--u)); }
+.tc-p { font-size: calc(17 * var(--u)); line-height: 1.55; opacity: 0.85; }
+.tc-link { display: flex; align-items: center; gap: calc(10 * var(--u)); font-weight: 600; font-size: calc(15 * var(--u)); }
+.track-bar { margin: calc(40 * var(--u)) auto 0; width: calc(320 * var(--u)); height: 2px; background: rgba(240, 243, 232, 0.15); border-radius: 2px; overflow: hidden; }
+.track-bar i { display: block; height: 100%; background: var(--lime); transform: scaleX(0); transform-origin: 0 50%; will-change: transform; }
+
+/* ---- closing: tilting panel, magnetic buttons, rising wordmark */
+[data-tilt] { transition: transform 0.6s var(--ease); }
+[data-magnet] { transition: translate 0.45s var(--ease), transform 0.35s var(--ease), filter 0.35s, background-size 0.5s var(--ease), color 0.3s; }
+.outro { overflow: hidden; }
+.outro svg { will-change: transform; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-tilt], [data-magnet] { transition: none; }
+}

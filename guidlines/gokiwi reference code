@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charSet="utf-8" />
+    <meta name="google-site-verification" content="NCcEg5XVNQbfEAxcb6cdTvtDCkomcXoiH6yO1pgRPOU" />
+    <script id="organization-schema"
+        type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Kiwi","legalName":"Gokiwi Technologies Pvt Ltd","url":"https://gokiwi.in","logo":"https://gokiwi.in/android-chrome-96x96.png","address":{"@type":"PostalAddress","streetAddress":"No.1505, 2nd & 3rd Floor, Olsen Spaces, 19th Main Road, HSR Layout","addressLocality":"Bangalore South","addressRegion":"Karnataka","postalCode":"560102","addressCountry":"IN"},"contactPoint":{"@type":"ContactPoint","email":"service@gokiwi.in","contactType":"customer service"},"sameAs":["https://www.facebook.com/kiwiappindia/","https://www.instagram.com/kiwiappindia/","https://x.com/gokiwinow","https://in.linkedin.com/company/gokiwinow","https://youtube.com/@Kiwiappindia","https://play.google.com/store/apps/details?id=in.gokiwi.kiwitpap","https://apps.apple.com/in/app/kiwi-rupay-credit-card-on-upi/id6449386307"]}</script>
+    <script id="android-app-schema"
+        type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Kiwi - UPI Credit Card App","operatingSystem":"ANDROID","applicationCategory":"FinanceApplication","url":"https://play.google.com/store/apps/details?id=in.gokiwi.kiwitpap","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.5","reviewCount":"94000","bestRating":"5","worstRating":"1"},"offers":{"@type":"Offer","price":"0","priceCurrency":"INR"}}</script>
+    <script id="ios-app-schema"
+        type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Kiwi - UPI Credit Card App","operatingSystem":"IOS","applicationCategory":"FinanceApplication","url":"https://apps.apple.com/in/app/kiwi-rupay-credit-card-on-upi/id6449386307","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.2","reviewCount":"5000","bestRating":"5","worstRating":"1"},"offers":{"@type":"Offer","price":"0","priceCurrency":"INR"}}</script>
+    <title>The Most Rewarding UPI with Credit Card</title>
+    <meta name="description"
+        content="Kiwi brings you rewards and savings on every purchase made using a rupay credit card. Explore exciting deals today." />
+    <meta name="facebook-domain-verification" content="kdpfv9uw8ollxa0gcpa8dbgw1c98hv" />
+    <meta name="keywords"
+        content="UPI, Credit card, Credit, RuPAY, digital, Payment, Transactions, debit, Scan, Pay, Rewards" />
+    <meta property="og:site_name" content="Kiwi - UPI with Credit Card" />
+    <meta property="og:title" content="Kiwi : UPI Rupay Credit Card" />
+    <meta property="og:description" content="With Kiwi, you can make credit card payments on UPI for as little as ₹5" />
+    <meta property="og:image" content="/og-gokiwi.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.gokiwi.in/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-96x96.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="canonical" href="https://gokiwi.in" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5BBAD5" />
+    <meta name="msapplication-TileColor" content="#DA532C" />
+    <meta name="theme-color" content="#FFFFFF" />
+    <meta name="next-head-count" content="25" />
+    <meta name="google-site-verification" content="fuopQO57kIKXLLekqoYxkbiKpx_2sOJ9j2xQOPEtQrA" />
+    <meta name="google-site-verification" content="NCcEg5XVNQbfEAxcb6cdTvtDCkomcXoiH6yO1pgRPOU" /><noscript><img
+            height="1" width="1" alt="facebookimage"
+            src="https://www.facebook.com/tr?id=5265455546455446&amp;ev=PageView&amp;noscript=1" /></noscript>
+    <link rel="preload" href="/_next/static/media/f3f7e95f2dbc4fe4-s.p.woff2" as="font" type="font/woff2"
+        crossorigin="anonymous" data-next-font="size-adjust" />
+    <link rel="preload" href="/_next/static/css/832c6c2d43fd7ed1.css" as="style" crossorigin="" />
+    <link rel="stylesheet" href="/_next/static/css/832c6c2d43fd7ed1.css" crossorigin="" data-n-g="" />
+    <link rel="preload" href="/_next/static/css/833da86354613ea0.css" as="style" crossorigin="" />
+    <link rel="stylesheet" href="/_next/static/css/833da86354613ea0.css" crossorigin="" data-n-p="" />
+    <link rel="preload" href="/_next/static/css/120106776e1469f9.css" as="style" crossorigin="" />
+    <link rel="stylesheet" href="/_next/static/css/120106776e1469f9.css" crossorigin="" data-n-p="" /><noscript
+        data-n-css=""></noscript>
+    <script defer="" crossorigin="" nomodule="" src="/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js"></script>
+    <script src="/_next/static/chunks/webpack-6bedc7963b80f3d0.js" defer="" crossorigin=""></script>
+    <script src="/_next/static/chunks/framework-b7fa4bf8e1ae99a1.js" defer="" crossorigin=""></script>
+    <script src="/_next/static/chunks/main-01c2ac2555bf95b8.js" defer="" crossorigin=""></script>
+    <script src="/_next/static/chunks/pages/_app-1813864adc90ad5a.js" defer="" crossorigin=""></script>
+    <script src="/_next/static/chunks/41155975-cbd3760eed07d0d6.js" defer="" crossorigin=""></script>
+    <script src="/_next/static/chunks/83061-77770bc55057c617.js" defer="" crossorigin=""></script>
+    <script src="/_next/static/chunks/84492-21241b3fb2100fb7.js" defer="" crossorigin=""></script>
+    <script src="/_next/static/chunks/88745-844670417f409ee0.js" defer="" crossorigin=""></script>
+    <script src="/_next/static/chunks/pages/index-ed0fa3b759673cb0.js" defer="" crossorigin=""></script>
+    <script src="/_next/static/vMxPiClKxYWZ3DrC4w8qK/_buildManifest.js" defer="" crossorigin=""></script>
+    <script src="/_next/static/vMxPiClKxYWZ3DrC4w8qK/_ssgManifest.js" defer="" crossorigin=""></script>
+    <style id="__jsx-3719445495">
+        html {
+            font-family: '__Sora_00dbc5', '__Sora_Fallback_00dbc5'
+        }
+
+        body {
+            font-family: '__Sora_00dbc5', '__Sora_Fallback_00dbc5'
+        }
+    </style>
+</head>
+
+<body><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T7QT25J" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe><iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-WVLKWCT7" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="__next">
+        <div>
+            <div class="navbar_navbarRoot__PUpFw  navbar_show__DQSix">
+                <div class="navbar_navbar__SjCXx ">
+                    <div class="navbar_navbarlogo__jYmLi"><a href="/"><img alt="kiwi logo" loading="lazy" width="120"
+                                height="32" decoding="async" data-nimg="1" style="color:transparent"
+                                src="/homepage/footerassets/Logo.svg" /></a></div>
+                    <div class="navbar_navlinks__tKv8_"><a class="navbar_nav__W7Zk3 navbar_activeNav__arfWk"
+                            href="/"><span class="navbar_navLabel__1Jee8" data-text="Home">Home</span></a><a
+                            class="navbar_nav__W7Zk3 " href="/aboutus/"><span class="navbar_navLabel__1Jee8"
+                                data-text="About us">About us</span></a>
+                        <div class="navbar_navsubmain__jOlrq"><button class="navbar_nav__W7Zk3 " aria-expanded="false"
+                                aria-haspopup="true" type="button"><span class="navbar_navLabel__1Jee8"
+                                    data-text="Our products">Our products</span><span class="navbar_navChevron__mtma2 "
+                                    aria-hidden="true"><img alt="" loading="lazy" width="14" height="6" decoding="async"
+                                        data-nimg="1" style="color:transparent" src="/chevron.svg" /></span></button>
+                            <div class="navbar_navsubbar__0A2la " style="left:0px">
+                                <div class="navbar_productsGrid__ALL4L"><a
+                                        class="navbar_productCard__zCGeO navbar_productCardCredit__emhpG "
+                                        href="/cards/"><img alt="Kiwi Credit card" loading="lazy" width="338"
+                                            height="184" decoding="async" data-nimg="1"
+                                            class="navbar_productCardImage__wHVhW" style="color:transparent"
+                                            src="/nav-credit-card.svg" /></a><a
+                                        class="navbar_productCard__zCGeO navbar_productCardPostpaid__7QhCT "
+                                        href="/kiwi-postpaid/"><img alt="Kiwi Postpaid" loading="lazy" width="338"
+                                            height="184" decoding="async" data-nimg="1"
+                                            class="navbar_productCardImage__wHVhW" style="color:transparent"
+                                            src="/nav-postpaid-card.svg" /></a></div>
+                            </div>
+                        </div><a class="navbar_nav__W7Zk3 " href="https://gokiwi.in/blog/"><span
+                                class="navbar_navLabel__1Jee8" data-text="Blog">Blog</span></a><button
+                            class="navbar_nav__W7Zk3 " type="button"><span class="navbar_navLabel__1Jee8"
+                                data-text="Help centre">Help centre</span></button><button
+                            class="navbar_buttoncontainer__uT2v8" type="button"><span>APPLY NOW</span><span
+                                class="navbar_buttonIcon__ceFZu" aria-hidden="true"><span
+                                    class="navbar_buttonIconTrack__yJrF_"><img alt="" loading="lazy" width="10"
+                                        height="10" decoding="async" data-nimg="1"
+                                        class="navbar_buttonIconPrimary__cAMeJ" style="color:transparent"
+                                        src="/outbound-light.svg" /><img alt="" loading="lazy" width="10" height="10"
+                                        decoding="async" data-nimg="1" class="navbar_buttonIconSecondary__lAUjM"
+                                        style="color:transparent" src="/outbound-light.svg" /></span></span></button>
+                    </div><button class="navbar_mobilemenu__UHxLt " aria-label="Open menu" aria-expanded="false"
+                        type="button"><img alt="" aria-hidden="true" loading="lazy" width="18" height="10"
+                            decoding="async" data-nimg="1" class="navbar_mobilemenuIcon__9wRhc"
+                            style="color:transparent" src="/burger.svg" /></button>
+                    <div class="navbar_mobilePanel__WL6QX ">
+                        <div class="navbar_mobilePanelDivider__MgvaT"></div><a
+                            class="navbar_mobilePanelLink__d3HhH navbar_activeNav__arfWk" href="/">Home</a><a
+                            class="navbar_mobilePanelLink__d3HhH " href="/aboutus/">About us</a>
+                        <div class="navbar_mobilePanelProducts__XmKpJ"><button type="button"
+                                class="navbar_mobileProductsTrigger__VO_q_ "><span>Our products</span><span
+                                    class="navbar_mobileProductsChevron__rhyku " aria-hidden="true"><img alt=""
+                                        loading="lazy" width="9.333" height="4" decoding="async" data-nimg="1"
+                                        style="color:transparent" src="/chevron-down.svg" /></span></button>
+                            <div class="navbar_mobileProductsList__PYl3F "><a
+                                    class="navbar_mobileProductCard__rDyVq navbar_mobileProductCardCredit__Eq3z1 "
+                                    href="/cards/"><img alt="Kiwi Credit card" loading="lazy" width="264" height="64"
+                                        decoding="async" data-nimg="1" class="navbar_mobileProductCardImage__WZ_OO"
+                                        style="color:transparent" src="/nav-credit-card-mobile.svg" /></a><a
+                                    class="navbar_mobileProductCard__rDyVq navbar_mobileProductCardPostpaid__H2o5D "
+                                    href="/kiwi-postpaid/"><img alt="Kiwi Postpaid" loading="lazy" width="264"
+                                        height="64" decoding="async" data-nimg="1"
+                                        class="navbar_mobileProductCardImage__WZ_OO" style="color:transparent"
+                                        src="/nav-postpaid-card-mobile.svg" /></a></div>
+                        </div><a class="navbar_mobilePanelLink__d3HhH " href="https://gokiwi.in/blog/">Blog</a><button
+                            class="navbar_mobilePanelLink__d3HhH " type="button">Help centre</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="MainHome_container__Q9UPF"><video class="MainHome_video__KAik3 MainHome_mobileHeroVideo__3Woxv"
+                playsinline="" muted="" autoplay="" loop="" preload="auto">
+                <source src="/homepage/main-video-mobile.mp4" type="video/mp4" media="(max-width: 600px)" />
+                <source src="/homepage/main-video-new.mp4" type="video/mp4" media="(min-width: 601px)" />
+            </video>
+            <div class="MainHome_desktopHeroGradient__s3_Ig" aria-hidden="true"></div>
+            <div class="MainHome_mobileHeroGradient__jJQgX" aria-hidden="true"></div>
+            <div class="MainHome_content__fEKVS"></div>
+            <div class="MainHome_lowerLeftOverlay__EdSC6">
+                <div class="MainHome_overlayTitleRow__KAQYb"><img alt="Kiwi" loading="lazy" width="190" height="50"
+                        decoding="async" data-nimg="1" class="MainHome_overlayKiwiLogo__fwwJL" style="color:transparent"
+                        src="/homepage/footerassets/Logo.svg" />
+                    <p class="MainHome_overlayTitle__TW7FX">Credit Card on UPI</p>
+                </div>
+                <p class="MainHome_overlaySubtitle__YpbO7">A little more everyday, for you.</p><button type="button"
+                    class="MainHome_overlayApplyButton__9nDz7"><span>APPLY NOW</span><span
+                        class="MainHome_overlayApplyIcon__qSLFI" aria-hidden="true"><span
+                            class="MainHome_overlayApplyIconTrack__nHykO"><img alt="" loading="lazy" width="13"
+                                height="13" decoding="async" data-nimg="1"
+                                class="MainHome_overlayApplyIconPrimary__gOAQO" style="color:transparent"
+                                src="/outbound-dark.svg" /><img alt="" loading="lazy" width="13" height="13"
+                                decoding="async" data-nimg="1" class="MainHome_overlayApplyIconSecondary__eCHhJ"
+                                style="color:transparent" src="/outbound-dark.svg" /></span></span></button>
+            </div>
+            <div class="MainHome_scrollPrompt__HZXj7"><span>SCROLL TO EXPLORE</span><img alt="" aria-hidden="true"
+                    loading="lazy" width="24" height="24" decoding="async" data-nimg="1" style="color:transparent"
+                    src="/arrow_cool_down.svg" /></div>
+            <div class="MainHome_mobileHeroOverlay__BL2bm">
+                <div class="MainHome_mobileHeroCopy__krPW2"><img alt="Kiwi" loading="lazy" width="120" height="32"
+                        decoding="async" data-nimg="1" class="MainHome_mobileHeroLogo__YlPqW" style="color:transparent"
+                        src="/homepage/footerassets/Logo.svg" />
+                    <h2 class="MainHome_mobileHeroTitle__EyCrF">Credit Card on UPI</h2>
+                    <p class="MainHome_mobileHeroSubtitle__Mxlrq">A little more everyday, for you.</p>
+                </div><button class="MainHome_mobileHeroButton__wnZUK" type="button"><span>APPLY NOW</span><span
+                        class="MainHome_mobileHeroButtonIcon___jCyL" aria-hidden="true"><span
+                            class="MainHome_mobileHeroButtonIconTrack__zizy4"><img alt="" loading="lazy" width="12"
+                                height="12" decoding="async" data-nimg="1"
+                                class="MainHome_mobileHeroButtonIconPrimary__kcHhR" style="color:transparent"
+                                src="/outbound-dark.svg" /><img alt="" loading="lazy" width="12" height="12"
+                                decoding="async" data-nimg="1" class="MainHome_mobileHeroButtonIconSecondary__fIH7m"
+                                style="color:transparent" src="/outbound-dark.svg" /></span></span></button>
+            </div><a class="MainHome_mobileScrollPrompt__RrDpf" href="/#trusted-banks"><span>SCROLL TO
+                    EXPLORE</span><img alt="" aria-hidden="true" loading="lazy" width="12" height="12" decoding="async"
+                    data-nimg="1" style="color:transparent" src="/arrow_cool_down.svg" /></a>
+        </div>
+        <div class="home_highlightBand__q1p_q">
+            <section class="EverydayMoreSection_section__SNaaK">
+                <div class="EverydayMoreSection_stickyPanel__brxZp EverydayMoreSection_panelBefore__FZ4Ao">
+                    <div class="EverydayMoreSection_inner__EZFas">
+                        <p class="EverydayMoreSection_copy__XZ0Ua"><span
+                                class="EverydayMoreSection_copyLine__q4ndb"><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">Your<!-- --> </span><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">everyday<!-- --> </span><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">deserves<!-- --> </span><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">a<!-- --> </span><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">little<!-- --> </span><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">more.</span></span><span
+                                class="EverydayMoreSection_copyLine__q4ndb"><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">Daily<!-- --> </span><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">chai,<!-- --> </span><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">coffee,<!-- --> </span><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">cab<!-- --> </span><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">rides,<!-- --> </span><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">and<!-- --> </span><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">grocery</span></span><span
+                                class="EverydayMoreSection_copyLine__q4ndb"><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">shopping-<!-- --> </span><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">everything<!-- --> </span><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">you&#x27;re<!-- --> </span><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">already<!-- --> </span><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">paying</span></span><span
+                                class="EverydayMoreSection_copyLine__q4ndb"><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">for<!-- --> </span><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">on<!-- --> </span><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">UPI.<!-- --> </span><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">Kiwi<!-- --> </span><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">added<!-- --> </span><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">a<!-- --> </span><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">credit<!-- --> </span><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">card<!-- --> </span><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">behind<!-- --> </span><span
+                                    class="EverydayMoreSection_wordInactive__RLskM ">it.</span></span></p>
+                    </div>
+                </div>
+            </section>
+            <section class="ScrollSequenceSection_section__cy6nY">
+                <div class="ScrollSequenceSection_viewport__Tf_8v"><canvas
+                        class="ScrollSequenceSection_canvas__2qvCq"></canvas>
+                    <div class="ScrollSequenceSection_overlay__mVGYf ScrollSequenceSection_overlayHidden___yhQA">
+                        <div class="ScrollSequenceSection_overlayInner__k7pTI">
+                            <div class="ScrollSequenceSection_overlayCard___ilTn">
+                                <h2 class="ScrollSequenceSection_overlayTitle__l1CMV">Digital credit card with real
+                                    cashback</h2>
+                                <p class="ScrollSequenceSection_overlayDescription__VmBTD"><span>Flat 1.5% cashback
+                                        always. Upgrade to</span> <span
+                                        class="ScrollSequenceSection_overlayDescriptionBreak__74Ivc">5% with Kiwi <span
+                                            class="ScrollSequenceSection_overlayNeonWord__e4Md7">Neon</span>.</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="EverydayBenefitSection_section__C1z1R">
+                <div class="EverydayBenefitSection_row__wSn_C ">
+                    <div class="EverydayBenefitSection_copyWrap__47ZdN">
+                        <div class="EverydayBenefitSection_copyInner__ohVz3 EverydayBenefitSection_copyHidden__3UtqQ">
+                            <h2 class="EverydayBenefitSection_title__YbSdD">Lifetime free Credit Card</h2>
+                            <p class="EverydayBenefitSection_description__9NxUi">No annual fee. No hidden charge. Just
+                                yours, forever.</p>
+                        </div>
+                    </div>
+                    <div class="EverydayBenefitSection_imageWrap__L4FxW">
+                        <div class="EverydayBenefitSection_imageInner__PF8U3"><img alt="Bee illustration" loading="lazy"
+                                width="800" height="800" decoding="async" data-nimg="1"
+                                class="EverydayBenefitSection_image__7jlrE EverydayBenefitSection_imageAnimated__DQmDE EverydayBenefitSection_imageAnimatedRight__8a_xb"
+                                style="color:transparent;transform:translateX(208.1818181818182px) rotate(21.454545454545453deg)"
+                                src="/homepage/bee.svg" /></div>
+                    </div>
+                </div>
+                <div class="EverydayBenefitSection_row__wSn_C EverydayBenefitSection_rowReverse__ru__B">
+                    <div class="EverydayBenefitSection_copyWrap__47ZdN">
+                        <div class="EverydayBenefitSection_copyInner__ohVz3 EverydayBenefitSection_copyHidden__3UtqQ">
+                            <h2 class="EverydayBenefitSection_title__YbSdD">Pay ⅓ on everything</h2>
+                            <p class="EverydayBenefitSection_description__9NxUi">Split any payment into 3 with No-cost
+                                EMI. Zero interest.</p>
+                        </div>
+                    </div>
+                    <div class="EverydayBenefitSection_imageWrap__L4FxW">
+                        <div class="EverydayBenefitSection_imageInner__PF8U3"><img alt="Basket illustration"
+                                loading="lazy" width="800" height="800" decoding="async" data-nimg="1"
+                                class="EverydayBenefitSection_image__7jlrE EverydayBenefitSection_imageAnimated__DQmDE EverydayBenefitSection_imageAnimatedTop__tWvkD"
+                                style="color:transparent;transform:translate(-114.18181818181819px, 169.0909090909091px) rotate(19.454545454545453deg)"
+                                src="/homepage/basket.svg" /></div>
+                    </div>
+                </div>
+            </section>
+            <section class="RewardsShowcaseSection_section__j7EEZ">
+                <div class="RewardsShowcaseSection_header__xAqya">
+                    <h2 class="RewardsShowcaseSection_title__mJGwD">A little more rewards, <span
+                            class="RewardsShowcaseSection_titleAccent__AdKX6">everyday.</span></h2>
+                    <p class="RewardsShowcaseSection_subtitle__SEIZ1">Not just cashback. A whole lot more is waiting.
+                    </p>
+                </div>
+                <div class="RewardsShowcaseSection_carouselShell__m1Oqe">
+                    <div class="RewardsShowcaseSection_viewport__5V5G5">
+                        <div class="RewardsShowcaseSection_track__skG18">
+                            <article class="RewardsShowcaseSection_card__yABk4">
+                                <div
+                                    class="RewardsShowcaseSection_badge__juGfn RewardsShowcaseSection_blueBadge__HoI1D">
+                                    <img alt="" loading="lazy" width="20" height="20" decoding="async" data-nimg="1"
+                                        class="RewardsShowcaseSection_badgeIcon__WYD42" style="color:transparent"
+                                        src="/homepage/rewardsShowcase/piggy.svg" /><span>Maximum Savings</span></div>
+                                <div class="RewardsShowcaseSection_copy__dPByu">
+                                    <h3 class="RewardsShowcaseSection_cardTitle__tVfMd">1.5% cashback on Scan &amp; Pay
+                                    </h3>
+                                    <p class="RewardsShowcaseSection_cardDescription__0kODb">Reward that&#x27;s best in
+                                        the market on UPI spends</p>
+                                </div>
+                                <div class="RewardsShowcaseSection_imageWrap__H3Afh"><img alt="" loading="lazy"
+                                        width="413" height="413" decoding="async" data-nimg="1"
+                                        class="RewardsShowcaseSection_cardImage__okOQw" style="color:transparent"
+                                        src="/homepage/rewardsShowcase/max-savings.svg" /></div>
+                            </article>
+                            <article class="RewardsShowcaseSection_card__yABk4">
+                                <div
+                                    class="RewardsShowcaseSection_badge__juGfn RewardsShowcaseSection_greenBadge__WRn4C">
+                                    <img alt="" loading="lazy" width="20" height="20" decoding="async" data-nimg="1"
+                                        class="RewardsShowcaseSection_badgeIcon__WYD42" style="color:transparent"
+                                        src="/homepage/rewardsShowcase/atom.svg" /><span>Kiwi Neon</span></div>
+                                <div class="RewardsShowcaseSection_copy__dPByu">
+                                    <h3 class="RewardsShowcaseSection_cardTitle__tVfMd">5% with Kiwi Neon membership
+                                    </h3>
+                                    <p class="RewardsShowcaseSection_cardDescription__0kODb">Easy upgrade for a year
+                                        full of even more cashback</p>
+                                </div>
+                                <div class="RewardsShowcaseSection_imageWrap__H3Afh"><img alt="" loading="lazy"
+                                        width="413" height="413" decoding="async" data-nimg="1"
+                                        class="RewardsShowcaseSection_cardImage__okOQw" style="color:transparent"
+                                        src="/homepage/rewardsShowcase/neon-membership.svg" /></div>
+                            </article>
+                            <article class="RewardsShowcaseSection_card__yABk4">
+                                <div
+                                    class="RewardsShowcaseSection_badge__juGfn RewardsShowcaseSection_pinkBadge__VSt1l">
+                                    <img alt="" loading="lazy" width="20" height="20" decoding="async" data-nimg="1"
+                                        class="RewardsShowcaseSection_badgeIcon__WYD42" style="color:transparent"
+                                        src="/homepage/rewardsShowcase/circle-percent.svg" /><span>Zero interest</span>
+                                </div>
+                                <div class="RewardsShowcaseSection_copy__dPByu">
+                                    <h3 class="RewardsShowcaseSection_cardTitle__tVfMd">No-cost EMI</h3>
+                                    <p class="RewardsShowcaseSection_cardDescription__0kODb">Bank charges interest. We
+                                        send it back to your wallet, instantly.</p>
+                                </div>
+                                <div class="RewardsShowcaseSection_imageWrap__H3Afh"><img alt="" loading="lazy"
+                                        width="413" height="413" decoding="async" data-nimg="1"
+                                        class="RewardsShowcaseSection_cardImage__okOQw" style="color:transparent"
+                                        src="/homepage/rewardsShowcase/zero-intrest.svg" /></div>
+                            </article>
+                            <article class="RewardsShowcaseSection_card__yABk4">
+                                <div
+                                    class="RewardsShowcaseSection_badge__juGfn RewardsShowcaseSection_mintBadge__ikPsn">
+                                    <img alt="" loading="lazy" width="20" height="20" decoding="async" data-nimg="1"
+                                        class="RewardsShowcaseSection_badgeIcon__WYD42" style="color:transparent"
+                                        src="/homepage/rewardsShowcase/ticket.svg" /><span>Gift cards</span></div>
+                                <div class="RewardsShowcaseSection_copy__dPByu">
+                                    <h3 class="RewardsShowcaseSection_cardTitle__tVfMd">Exciting offers on popular
+                                        brands</h3>
+                                    <p class="RewardsShowcaseSection_cardDescription__0kODb">Get amazing discounts on
+                                        exciting brands on the Kiwi app.</p>
+                                </div>
+                                <div class="RewardsShowcaseSection_imageWrap__H3Afh"><img alt="" loading="lazy"
+                                        width="413" height="413" decoding="async" data-nimg="1"
+                                        class="RewardsShowcaseSection_cardImage__okOQw" style="color:transparent"
+                                        src="/homepage/rewardsShowcase/gift-cards.svg" /></div>
+                            </article>
+                            <article class="RewardsShowcaseSection_card__yABk4">
+                                <div
+                                    class="RewardsShowcaseSection_badge__juGfn RewardsShowcaseSection_greenBadge__WRn4C">
+                                    <img alt="" loading="lazy" width="20" height="20" decoding="async" data-nimg="1"
+                                        class="RewardsShowcaseSection_badgeIcon__WYD42" style="color:transparent"
+                                        src="/homepage/rewardsShowcase/atom.svg" /><span>Kiwi Neon</span></div>
+                                <div class="RewardsShowcaseSection_copy__dPByu">
+                                    <h3 class="RewardsShowcaseSection_cardTitle__tVfMd">Free Lounge access</h3>
+                                    <p class="RewardsShowcaseSection_cardDescription__0kODb">Because waiting for your
+                                        flight doesn&#x27;t need to be painful.</p>
+                                </div>
+                                <div class="RewardsShowcaseSection_imageWrap__H3Afh"><img alt="" loading="lazy"
+                                        width="413" height="413" decoding="async" data-nimg="1"
+                                        class="RewardsShowcaseSection_cardImage__okOQw" style="color:transparent"
+                                        src="/homepage/rewardsShowcase/neon-lounge.svg" /></div>
+                            </article>
+                            <article class="RewardsShowcaseSection_card__yABk4">
+                                <div
+                                    class="RewardsShowcaseSection_badge__juGfn RewardsShowcaseSection_lilacBadge__G1qHZ">
+                                    <img alt="" loading="lazy" width="20" height="20" decoding="async" data-nimg="1"
+                                        class="RewardsShowcaseSection_badgeIcon__WYD42" style="color:transparent"
+                                        src="/homepage/rewardsShowcase/receipt-indian-rupee.svg" /><span>Bill
+                                        payments</span></div>
+                                <div class="RewardsShowcaseSection_copy__dPByu">
+                                    <h3 class="RewardsShowcaseSection_cardTitle__tVfMd">Pay bills &amp; get rewarded
+                                    </h3>
+                                    <p class="RewardsShowcaseSection_cardDescription__0kODb">Utility payments with ease
+                                        and added surprise rewards</p>
+                                </div>
+                                <div class="RewardsShowcaseSection_imageWrap__H3Afh"><img alt="" loading="lazy"
+                                        width="413" height="413" decoding="async" data-nimg="1"
+                                        class="RewardsShowcaseSection_cardImage__okOQw" style="color:transparent"
+                                        src="/homepage/rewardsShowcase/bill-payments.svg" /></div>
+                            </article>
+                            <article class="RewardsShowcaseSection_card__yABk4">
+                                <div
+                                    class="RewardsShowcaseSection_badge__juGfn RewardsShowcaseSection_purpleBadge__XFYnc">
+                                    <img alt="" loading="lazy" width="20" height="20" decoding="async" data-nimg="1"
+                                        class="RewardsShowcaseSection_badgeIcon__WYD42" style="color:transparent"
+                                        src="/homepage/rewardsShowcase/credit-card.svg" /><span>Card management</span>
+                                </div>
+                                <div class="RewardsShowcaseSection_copy__dPByu">
+                                    <h3 class="RewardsShowcaseSection_cardTitle__tVfMd">All your cards in one place.
+                                    </h3>
+                                    <p class="RewardsShowcaseSection_cardDescription__0kODb">Track all your spends &amp;
+                                        manage your cards on Kiwi app</p>
+                                </div>
+                                <div class="RewardsShowcaseSection_imageWrap__H3Afh"><img alt="" loading="lazy"
+                                        width="413" height="413" decoding="async" data-nimg="1"
+                                        class="RewardsShowcaseSection_cardImage__okOQw" style="color:transparent"
+                                        src="/homepage/rewardsShowcase/card-management.svg" /></div>
+                            </article>
+                        </div>
+                    </div>
+                    <div class="RewardsShowcaseSection_mobileControls__TIDwr"><button type="button"
+                            class="RewardsShowcaseSection_mobileNavButton__71zxU" aria-label="Next rewards"><span
+                                class="RewardsShowcaseSection_mobileNavFace__21iPA"><img alt="" loading="lazy"
+                                    width="10" height="28" decoding="async" data-nimg="1"
+                                    class="RewardsShowcaseSection_mobileNavIcon__j8_1T" style="color:transparent"
+                                    src="/homepage/next.svg" /></span></button></div><button type="button"
+                        class="RewardsShowcaseSection_navButton__57AQt RewardsShowcaseSection_navButtonRight__SCBA4"
+                        aria-label="Next rewards"><span class="RewardsShowcaseSection_navFace__H9juZ"><img alt=""
+                                loading="lazy" width="18" height="34" decoding="async" data-nimg="1"
+                                class="RewardsShowcaseSection_navIcon__nwQdE" style="color:transparent"
+                                src="/homepage/next.svg" /></span></button>
+                </div>
+            </section>
+        </div>
+        <section class="LoveVideoSection_section__GM3Lm"><video class="LoveVideoSection_video__iBJZq" muted=""
+                playsinline="" preload="auto">
+                <source src="/bottom-video-mobile.mp4" type="video/mp4" media="(max-width: 768px)" />
+                <source src="/bottom-video.mp4" type="video/mp4" media="(min-width: 769px)" />
+            </video>
+            <div class="LoveVideoSection_overlay__IQLZi"></div>
+            <div class="LoveVideoSection_content__7CJc6">
+                <h2 class="LoveVideoSection_title__slGWS">Your money&#x27;s new home.</h2>
+                <p class="LoveVideoSection_subtitle__Uk3Lw">Payments, bills, cashback, score, everything is on Kiwi.</p>
+            </div>
+        </section>
+        <section class="LoveSection_section__spNJh">
+            <div class="LoveSection_inner__Lm7LI">
+                <header class="LoveSection_header__C_sov">
+                    <h2 class="LoveSection_title__OfJec">1.5 million people <span
+                            class="LoveSection_titleAccent__A8lxk">love us</span></h2>
+                    <p class="LoveSection_subtitle__aSnJT">Adding more to the list, everyday</p>
+                </header>
+                <div class="LoveSection_avatarRail__l294n" aria-label="Kiwi customer count">
+                    <div class="LoveSection_avatarStack__9_JFK">
+                        <div class="LoveSection_avatarWrap__C05_r LoveSection_avatarOne__nzXON"><img
+                                alt="Kiwi customer one" loading="lazy" width="209" height="209" decoding="async"
+                                data-nimg="1" class="LoveSection_avatar__b3ptc" style="color:transparent"
+                                src="/homepage2/avatar.png" /></div>
+                        <div class="LoveSection_avatarWrap__C05_r LoveSection_avatarTwo__D6bcR"><img
+                                alt="Kiwi customer two" loading="lazy" width="209" height="209" decoding="async"
+                                data-nimg="1" class="LoveSection_avatar__b3ptc" style="color:transparent"
+                                src="/homepage2/avatar2.png" /></div>
+                        <div class="LoveSection_avatarWrap__C05_r LoveSection_avatarThree__xgkZc"><img
+                                alt="Kiwi customer three" loading="lazy" width="209" height="209" decoding="async"
+                                data-nimg="1" class="LoveSection_avatar__b3ptc" style="color:transparent"
+                                src="/homepage2/avatar3.png" /></div>
+                        <div class="LoveSection_avatarWrap__C05_r LoveSection_avatarFour__Ki9CT"><img
+                                alt="Kiwi customer four" loading="lazy" width="209" height="209" decoding="async"
+                                data-nimg="1" class="LoveSection_avatar__b3ptc" style="color:transparent"
+                                src="/homepage2/avatar4.png" /></div>
+                        <div class="LoveSection_totalBubble__ribOH"><img alt="" loading="lazy" width="209" height="209"
+                                decoding="async" data-nimg="1" class="LoveSection_totalBubbleDisc__ZcnbL"
+                                style="color:transparent" src="/homepage2/text-bg-disc.png" />
+                            <div class="LoveSection_totalBubbleInner__r7ytI" aria-hidden="true"></div><span>1.5M+</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="LoveSection_ratingsGrid__jVUeU">
+                    <article class="LoveSection_ratingCard__yk7bs">
+                        <div class="LoveSection_ratingMeta__yaPuV">
+                            <div class="LoveSection_ratingSummary__e8v0e"><img alt="" loading="lazy" width="176"
+                                    height="28" decoding="async" data-nimg="1" class="LoveSection_starRating__8P_Zo"
+                                    style="color:transparent" src="/homepage/star-rating.svg" />
+                                <div class="LoveSection_ratingCount__YwuJw"><img alt="" loading="lazy" width="33"
+                                        height="33" decoding="async" data-nimg="1" class="LoveSection_crowdIcon__t0Vfp"
+                                        style="color:transparent" src="/homepage/crowd.svg" /><span>(100k)</span></div>
+                            </div>
+                        </div>
+                        <div class="LoveSection_scorePill__zVcRY"><img alt="" loading="lazy" width="58" height="58"
+                                decoding="async" data-nimg="1" class="LoveSection_storeIcon__rcDtF"
+                                style="color:transparent" src="/homepage/playstore-new.svg" /><span>4.7 / 5</span></div>
+                    </article>
+                    <article class="LoveSection_ratingCard__yk7bs">
+                        <div class="LoveSection_ratingMeta__yaPuV">
+                            <div class="LoveSection_ratingSummary__e8v0e"><img alt="" loading="lazy" width="176"
+                                    height="28" decoding="async" data-nimg="1" class="LoveSection_starRating__8P_Zo"
+                                    style="color:transparent" src="/homepage/star-rating.svg" />
+                                <div class="LoveSection_ratingCount__YwuJw"><img alt="" loading="lazy" width="33"
+                                        height="33" decoding="async" data-nimg="1" class="LoveSection_crowdIcon__t0Vfp"
+                                        style="color:transparent" src="/homepage/crowd.svg" /><span>(5k)</span></div>
+                            </div>
+                        </div>
+                        <div class="LoveSection_scorePill__zVcRY"><img alt="" loading="lazy" width="58" height="58"
+                                decoding="async" data-nimg="1" class="LoveSection_storeIcon__rcDtF"
+                                style="color:transparent" src="/homepage/appstore-new.svg" /><span>4.3 / 5</span></div>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <section class="TrustedBanksSection_section__vhA_L">
+            <div class="TrustedBanksSection_inner__rWZs_">
+                <div class="TrustedBanksSection_header__ozydg">
+                    <h2 class="TrustedBanksSection_title__K4E9y">You&#x27;re in good hands,<br />and <span
+                            class="TrustedBanksSection_titleAccent__h9F1v">good banks</span></h2>
+                    <p class="TrustedBanksSection_subtitle__AJLbC">Credit Cards that work everywhere UPI does</p>
+                </div>
+                <div class="TrustedBanksSection_grid__a1HWt">
+                    <article class="TrustedBanksSection_card__BnqFS "><img alt="AU Small Finance Bank" loading="lazy"
+                            width="355" height="90" decoding="async" data-nimg="1"
+                            class="TrustedBanksSection_logo__h83Jf TrustedBanksSection_auLogo__Snl1G"
+                            style="color:transparent" src="/homepage/partners/au-main.svg" /></article>
+                    <article class="TrustedBanksSection_card__BnqFS "><img alt="Punjab National Bank" loading="lazy"
+                            width="355" height="90" decoding="async" data-nimg="1"
+                            class="TrustedBanksSection_logo__h83Jf TrustedBanksSection_pnbLogo__sJiHj"
+                            style="color:transparent" src="/homepage/partners/pnb-main.svg" /></article>
+                    <article class="TrustedBanksSection_card__BnqFS TrustedBanksSection_yesCard___muHW"><img
+                            alt="YES Bank" loading="lazy" width="355" height="90" decoding="async" data-nimg="1"
+                            class="TrustedBanksSection_logo__h83Jf TrustedBanksSection_yesLogo__uWcX6"
+                            style="color:transparent" src="/homepage/partners/yes-main.svg" /></article>
+                </div>
+            </div>
+        </section>
+        <section class="FeaturedInSection_section__K9cGN" aria-labelledby="featured-in-heading">
+            <div class="FeaturedInSection_inner__WNAJb">
+                <div class="FeaturedInSection_titleWrap__xrnFa">
+                    <h2 id="featured-in-heading" class="FeaturedInSection_title__u2AJU">Featured in</h2>
+                </div>
+                <div class="FeaturedInSection_marqueeWrap__KZaK8">
+                    <div class="FeaturedInSection_marqueeTrack__aHRvX">
+                        <div class="FeaturedInSection_logoItem__ODYSA" aria-hidden="false"><img alt="Inc42"
+                                loading="lazy" width="394" height="48" decoding="async" data-nimg="1"
+                                class="FeaturedInSection_logo__91Kxx FeaturedInSection_inc42Logo__kWYGe"
+                                style="color:transparent" src="/homepage/featured-in-logos/inc42.svg" /></div>
+                        <div class="FeaturedInSection_logoItem__ODYSA" aria-hidden="false"><img alt="ISN" loading="lazy"
+                                width="394" height="48" decoding="async" data-nimg="1"
+                                class="FeaturedInSection_logo__91Kxx FeaturedInSection_isnLogo__TRCwz"
+                                style="color:transparent" src="/homepage/featured-in-logos/isn.svg" /></div>
+                        <div class="FeaturedInSection_logoItem__ODYSA" aria-hidden="false"><img alt="The Economic Times"
+                                loading="lazy" width="394" height="48" decoding="async" data-nimg="1"
+                                class="FeaturedInSection_logo__91Kxx FeaturedInSection_economicTimesLogo__qXxg1"
+                                style="color:transparent" src="/homepage/featured-in-logos/the-economic-times.svg" />
+                        </div>
+                        <div class="FeaturedInSection_logoItem__ODYSA" aria-hidden="false"><img alt="Mint"
+                                loading="lazy" width="394" height="48" decoding="async" data-nimg="1"
+                                class="FeaturedInSection_logo__91Kxx FeaturedInSection_mintLogo__BK4RY"
+                                style="color:transparent" src="/homepage/featured-in-logos/mint.svg" /></div>
+                        <div class="FeaturedInSection_logoItem__ODYSA" aria-hidden="false"><img alt="Business Standard"
+                                loading="lazy" width="394" height="48" decoding="async" data-nimg="1"
+                                class="FeaturedInSection_logo__91Kxx FeaturedInSection_businessStandardLogo__YXCK_"
+                                style="color:transparent" src="/homepage/featured-in-logos/business-standard.svg" />
+                        </div>
+                        <div class="FeaturedInSection_logoItem__ODYSA" aria-hidden="false"><img alt="Business Line"
+                                loading="lazy" width="394" height="48" decoding="async" data-nimg="1"
+                                class="FeaturedInSection_logo__91Kxx FeaturedInSection_businessLineLogo__6qh87"
+                                style="color:transparent" src="/homepage/featured-in-logos/business-line.svg" /></div>
+                        <div class="FeaturedInSection_logoItem__ODYSA" aria-hidden="true"><img alt="" loading="lazy"
+                                width="394" height="48" decoding="async" data-nimg="1"
+                                class="FeaturedInSection_logo__91Kxx FeaturedInSection_inc42Logo__kWYGe"
+                                style="color:transparent" src="/homepage/featured-in-logos/inc42.svg" /></div>
+                        <div class="FeaturedInSection_logoItem__ODYSA" aria-hidden="true"><img alt="" loading="lazy"
+                                width="394" height="48" decoding="async" data-nimg="1"
+                                class="FeaturedInSection_logo__91Kxx FeaturedInSection_isnLogo__TRCwz"
+                                style="color:transparent" src="/homepage/featured-in-logos/isn.svg" /></div>
+                        <div class="FeaturedInSection_logoItem__ODYSA" aria-hidden="true"><img alt="" loading="lazy"
+                                width="394" height="48" decoding="async" data-nimg="1"
+                                class="FeaturedInSection_logo__91Kxx FeaturedInSection_economicTimesLogo__qXxg1"
+                                style="color:transparent" src="/homepage/featured-in-logos/the-economic-times.svg" />
+                        </div>
+                        <div class="FeaturedInSection_logoItem__ODYSA" aria-hidden="true"><img alt="" loading="lazy"
+                                width="394" height="48" decoding="async" data-nimg="1"
+                                class="FeaturedInSection_logo__91Kxx FeaturedInSection_mintLogo__BK4RY"
+                                style="color:transparent" src="/homepage/featured-in-logos/mint.svg" /></div>
+                        <div class="FeaturedInSection_logoItem__ODYSA" aria-hidden="true"><img alt="" loading="lazy"
+                                width="394" height="48" decoding="async" data-nimg="1"
+                                class="FeaturedInSection_logo__91Kxx FeaturedInSection_businessStandardLogo__YXCK_"
+                                style="color:transparent" src="/homepage/featured-in-logos/business-standard.svg" />
+                        </div>
+                        <div class="FeaturedInSection_logoItem__ODYSA" aria-hidden="true"><img alt="" loading="lazy"
+                                width="394" height="48" decoding="async" data-nimg="1"
+                                class="FeaturedInSection_logo__91Kxx FeaturedInSection_businessLineLogo__6qh87"
+                                style="color:transparent" src="/homepage/featured-in-logos/business-line.svg" /></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="StickyDownloadCard_card__BamuQ" aria-label="Get Kiwi app"><img
+                alt="Scan QR code to get the Kiwi app" loading="lazy" width="135" height="142" decoding="async"
+                data-nimg="1" class="StickyDownloadCard_qr__sVhUT" style="color:transparent" src="/download-qr.svg" />
+            <div class="StickyDownloadCard_footer__ySCex"><span>Get App</span><span
+                    class="StickyDownloadCard_arrow__4Z43X" aria-hidden="true"><img alt="" loading="lazy" width="18"
+                        height="18" decoding="async" data-nimg="1" style="color:transparent"
+                        src="/download-qr-arrow.svg" /></span></div>
+        </div>
+        <div>
+            <footer class="footer_container__ZEowW">
+                <div class="footer_topGrid__uWO2A"><a class="footer_logoLink__lehUs" aria-label="Kiwi home"
+                        href="/"><img alt="Kiwi" loading="lazy" width="211" height="57" decoding="async" data-nimg="1"
+                            class="footer_mainlogo__UTXWj" style="color:transparent"
+                            src="/homepage/footerassets/Logo.svg" /></a>
+                    <nav class="footer_footerColumn__ahQpJ footer_navColumn__01i5s" aria-label="Footer navigation">
+                        <div class="footer_navList__i9626"><a class="footer_footercontentlink__KdVRT"
+                                href="/">Home</a><a class="footer_footercontentlink__KdVRT" href="/aboutus/">About
+                                us</a><a class="footer_footercontentlink__KdVRT" href="/cards/yesbank/">YES Bank Klick
+                                Card</a><a class="footer_footercontentlink__KdVRT" href="/cards/pnb/">PNB Kiwi
+                                Card</a><a class="footer_footercontentlink__KdVRT" href="/kiwi-postpaid/">Yes Bank
+                                Credit Line on UPI</a><a class="footer_footercontentlink__KdVRT"
+                                href="/cards/aubank/">AU KOSMO Card</a><a class="footer_footercontentlink__KdVRT"
+                                href="/helpcenter/">Help centre</a><a class="footer_footercontentlink__KdVRT"
+                                href="https://gokiwi.in/blog/">Blog</a></div>
+                    </nav>
+                    <nav class="footer_footerColumn__ahQpJ footer_companyColumn__50Hcq" aria-label="Company">
+                        <p class="footer_footertitle__1NyKe">Company</p>
+                        <div class="footer_navList__i9626"><a class="footer_footercontentlink__KdVRT"
+                                href="/terms-and-conditions/">Terms &amp; conditions</a><a
+                                class="footer_footercontentlink__KdVRT"
+                                href="/individual-consumer-consent-v1/">Individual consumer consent</a><a
+                                class="footer_footercontentlink__KdVRT" href="/privacy-policy-v1/">Privacy policy</a><a
+                                class="footer_footercontentlink__KdVRT"
+                                href="/terms-and-conditions/digital-lending-partners/">Digital lending partners</a><a
+                                class="footer_footercontentlink__KdVRT" href="/grievance/">Grievance redressal</a></div>
+                    </nav>
+                    <div class="footer_footerColumn__ahQpJ footer_contactColumn__U95qn">
+                        <p class="footer_footertitle__1NyKe">Contact us</p>
+                        <p class="footer_addressText__oS1q7"><span>Office address :</span>No.1505, 2nd &amp; 3rd Floor,
+                            Olsen Spaces, 19th Main Road, HSR Layout, Bangalore South, Bangalore- 560102, Karnataka,
+                            India</p>
+                        <p class="footer_addressText__oS1q7"><span>Chat with us:</span>service@gokiwi.in</p>
+                    </div>
+                    <div class="footer_footerColumn__ahQpJ footer_certificateColumn__je5yZ">
+                        <p class="footer_footertitle__1NyKe">Certificate</p>
+                        <div class="footer_auditlogos__JFQtH">
+                            <div class="footer_auditTile__Fep2F"><img alt="PCI DSS certificate" loading="lazy"
+                                    width="76" height="58" decoding="async" data-nimg="1"
+                                    class="footer_auditlogo__G4dRC" style="color:transparent"
+                                    src="/homepage/footerassets/pci-dss.svg" /></div>
+                            <div class="footer_auditTile__Fep2F"><img alt="CISA certificate" loading="lazy" width="76"
+                                    height="58" decoding="async" data-nimg="1" class="footer_auditlogo__G4dRC"
+                                    style="color:transparent" src="/homepage/footerassets/cisa.svg" /></div>
+                            <div class="footer_auditTile__Fep2F"><img alt="ISO certificate" loading="lazy" width="76"
+                                    height="58" decoding="async" data-nimg="1" class="footer_auditlogo__G4dRC"
+                                    style="color:transparent" src="/homepage/footerassets/iso.svg" /></div>
+                            <div class="footer_auditTile__Fep2F"><img alt="SISA certificate" loading="lazy" width="76"
+                                    height="58" decoding="async" data-nimg="1" class="footer_auditlogo__G4dRC"
+                                    style="color:transparent" src="/homepage/footerassets/sisa-new.svg" /></div>
+                        </div>
+                    </div>
+                    <div class="footer_downloadSection__MTYC3">
+                        <div class="footer_downloadStack__j5jsb">
+                            <div class="footer_downloadQrCard__VggcH" aria-label="Get Kiwi app"><img
+                                    alt="Scan QR code to get the Kiwi app" loading="lazy" width="135" height="142"
+                                    decoding="async" data-nimg="1" class="footer_downloadQrImage__91PNv"
+                                    style="color:transparent" src="/download-qr.svg" />
+                                <div class="footer_downloadQrFooter__H4s0V"><span>Get App</span><span
+                                        class="footer_downloadQrArrow__Fz_hZ" aria-hidden="true"><img alt=""
+                                            loading="lazy" width="18" height="18" decoding="async" data-nimg="1"
+                                            style="color:transparent" src="/download-qr-arrow.svg" /></span></div>
+                            </div><a target="_blank" rel="noreferrer"
+                                class="footer_storeButton__VYxwc footer_mobileStoreButton__i0JnY"
+                                href="https://play.google.com/store/apps/details?id=in.gokiwi.kiwitpap&amp;source=gokiwi"><span
+                                    class="footer_storeButtonLabel__pSlL8">Download Kiwi</span></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer_footerEndSection__nuioX"><a class="footer_footerEndLogoLink__RC2lR"
+                        aria-label="Kiwi home" href="/"><img alt="Kiwi" loading="lazy" width="755" height="202"
+                            decoding="async" data-nimg="1" class="footer_footerEndLogo__Zlsh9" style="color:transparent"
+                            src="/homepage/footerassets/kiwi-logo-large.svg" /></a>
+                    <div class="footer_footerEndSocials__EgFcl" aria-label="Kiwi social links"><a
+                            href="https://youtube.com/@Kiwiappindia" target="_blank" rel="noreferrer"
+                            aria-label="YouTube" class="footer_footerEndSocialLink__gWyar"><span
+                                class="footer_footerEndSocialIcon__c1k5Q" aria-hidden="true"><svg stroke="currentColor"
+                                    fill="currentColor" stroke-width="0" viewBox="0 0 576 512" height="1em" width="1em"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z">
+                                    </path>
+                                </svg></span></a><a href="https://in.linkedin.com/company/gokiwinow" target="_blank"
+                            rel="noreferrer" aria-label="LinkedIn" class="footer_footerEndSocialLink__gWyar"><span
+                                class="footer_footerEndSocialIcon__c1k5Q" aria-hidden="true"><svg stroke="currentColor"
+                                    fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z">
+                                    </path>
+                                </svg></span></a><a href="https://x.com/gokiwinow" target="_blank" rel="noreferrer"
+                            aria-label="X" class="footer_footerEndSocialLink__gWyar"><span
+                                class="footer_footerEndSocialIcon__c1k5Q" aria-hidden="true"><svg stroke="currentColor"
+                                    fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z">
+                                    </path>
+                                </svg></span></a><a href="https://www.instagram.com/kiwiappindia/" target="_blank"
+                            rel="noreferrer" aria-label="Instagram" class="footer_footerEndSocialLink__gWyar"><span
+                                class="footer_footerEndSocialIcon__c1k5Q" aria-hidden="true"><svg stroke="currentColor"
+                                    fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z">
+                                    </path>
+                                </svg></span></a><a href="https://www.facebook.com/people/GoKiwi/100094750146010/"
+                            target="_blank" rel="noreferrer" aria-label="Facebook"
+                            class="footer_footerEndSocialLink__gWyar"><span class="footer_footerEndSocialIcon__c1k5Q"
+                                aria-hidden="true"><svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                    viewBox="0 0 320 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5c16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z">
+                                    </path>
+                                </svg></span></a></div>
+                    <p class="footer_footerCopyright__JsAu8">copyright © 2022-26 Gokiwi Technologies Pvt Ltd.</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script id="__NEXT_DATA__" type="application/json"
+        crossorigin="">{"props":{"pageProps":{}},"page":"/","query":{},"buildId":"vMxPiClKxYWZ3DrC4w8qK","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[{"id":"pixelCode","strategy":"afterInteractive","dangerouslySetInnerHTML":{"__html":"\n              !function(f,b,e,v,n,t,s)\n              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?\n              n.callMethod.apply(n,arguments):n.queue.push(arguments)};\n              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';\n              n.queue=[];t=b.createElement(e);t.async=!0;\n              t.src=v;s=b.getElementsByTagName(e)[0];\n              s.parentNode.insertBefore(t,s)}(window, document,'script',\n              'https://connect.facebook.net/en_US/fbevents.js');\n              fbq('init', '1219526868685343');\n              fbq('track', 'PageView');\n            "}},{"id":"microsoftClarity","strategy":"afterInteractive","dangerouslySetInnerHTML":{"__html":"\n            (function(c,l,a,r,i,t,y){\n              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};\n              t=l.createElement(r);t.async=1;t.src=\"https://www.clarity.ms/tag/\"+i;\n              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);\n          })(window, document, \"clarity\", \"script\", \"gnvwpkue16\");"}},{"src":"https://www.googletagmanager.com/gtag/js?id=G-700XCTXVZE","strategy":"afterInteractive"},{"id":"googleTagManager","strategy":"afterInteractive","dangerouslySetInnerHTML":{"__html":"\n\t\t\t\t\t\twindow.dataLayer = window.dataLayer || [];\n\t\t\t\t\t\tfunction gtag(){dataLayer.push(arguments);}\n\t\t\t\t\t\tgtag('js', new Date());\n\t\t\t\t\t\tgtag('config', 'G-700XCTXVZE');"}},{"src":"https://www.googletagmanager.com/gtag/js?id=AW-11226152255","strategy":"afterInteractive"},{"id":"googleTagManager1","strategy":"afterInteractive","dangerouslySetInnerHTML":{"__html":"\n\t\t\t\t\t\twindow.dataLayer = window.dataLayer || [];\n                function gtag(){dataLayer.push(arguments);}\n                gtag('js', new Date());\n                gtag('config', 'AW-11226152255', {\n                  'send_page_view': false, // Prevents initial pageview from being tracked again\n                });\n              "}},{"id":"googleTagManager2","strategy":"afterInteractive","dangerouslySetInnerHTML":{"__html":"\n\t\t\t\t\t\t(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':\n\t\t\t\t\t\tnew Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\n\t\t\t\t\t\tj=d.createElement(s),dl=l!='dataLayer'?'\u0026l='+l:'';j.async=true;j.src=\n\t\t\t\t\t\t'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);\n\t\t\t\t\t\t})(window,document,'script','dataLayer','GTM-T7QT25J');"}},{"strategy":"afterInteractive","src":"https://www.googletagmanager.com/gtag/js?id=G-DZ0TZ9GW12"},{"id":"ga-DZ0TZ9GW12","strategy":"afterInteractive","children":"\n          window.dataLayer = window.dataLayer || [];\n          function gtag(){dataLayer.push(arguments);}\n          gtag('js', new Date());\n          gtag('config', 'G-DZ0TZ9GW12');\n        "},{"id":"gtm-WVLKWCT7","strategy":"lazyOnload","children":"\n          (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':\n          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\n          j=d.createElement(s),dl=l!='dataLayer'?'\u0026l='+l:'';j.async=true;j.src=\n          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);\n          })(window,document,'script','dataLayer','GTM-WVLKWCT7');\n        "},{"id":"cleverTap","strategy":"afterInteractive","dangerouslySetInnerHTML":{"__html":"\n\t\t\t\t\tvar clevertap = {event:[], profile:[], account:[], onUserLogin:[], region:'in1', notifications:[], privacy:[]};\n\t\t\t\tclevertap.account.push({\"id\": \"R9K-74Z-576Z\"});\n\t\t\t\tclevertap.privacy.push({optOut: false});\n\t\t\t\tclevertap.privacy.push({useIP: false});\n\t\t\t\t\t(function () {\n\t\t\t\t\t\t\tvar wzrk = document.createElement('script');\n\t\t\t\t\t\t\twzrk.type = 'text/javascript';\n\t\t\t\t\t\t\twzrk.async = true;\n\t\t\t\t\t\t\twzrk.src = ('https:' == document.location.protocol ? 'https://d2r1yp2w7bby2u.cloudfront.net' : 'http://static.clevertap.com') + '/js/clevertap.min.js';\n\t\t\t\t\t\t\tvar s = document.getElementsByTagName('script')[0];\n\t\t\t\t\t\t\ts.parentNode.insertBefore(wzrk, s);\n\t\t\t\t\t})();"}}]}</script>
+</body>
+
+</html>

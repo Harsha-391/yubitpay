@@ -1,0 +1,211 @@
+/* Yubit Pay — hero + product section. Sizes are Figma px × --u, so the 1400×978 frame scales to any screen. */
+:root {
+  --u: min(calc(100vw / 1400), calc(100svh / 978));
+  --darkest: #0c2017;
+  --deep: #1c382a;
+  --dark: #152c22;
+  --lime: #c0f476;
+  --tint: #e8f5d0;
+  --white: #f9faf4;
+  --cream: #f0f3e8;
+  --ease: cubic-bezier(0.632, 0.017, 0.145, 1); /* the Figma motion curve */
+  --ease-soft: cubic-bezier(0.5, 0, 0.5, 1);
+  --spring-drop: linear(0, 0.0518, 0.1801, 0.3486, 0.5286, 0.6989, 0.8459, 0.9624, 1.0466, 1.1002, 1.1274, 1.1338, 1.1251, 1.107, 1.084, 1.0599, 1.0374, 1.0183, 1.0032, 0.9926, 0.9859, 0.9827, 0.9821, 0.9835, 0.9861, 0.9892, 0.9924, 0.9954, 0.9979, 0.9998, 1.0011, 1.002, 1.0023, 1.0024, 1.0022, 1.0018, 1.0014, 1.001, 1.0006, 1.0002, 1);
+  --spring-pop: linear(0, 0.1298, 0.3997, 0.6785, 0.8968, 1.0329, 1.0951, 1.1049, 1.0854, 1.0554, 1.0271, 1.0062, 0.9941, 0.9892, 0.9892, 0.9918, 0.995, 0.9978, 0.9998, 1.0008, 1.0012, 1.0011, 1.0008, 1.0004, 1.0002, 1, 0.9999, 0.9999, 0.9999, 0.9999, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: var(--darkest); -webkit-text-size-adjust: 100%; }
+body {
+  overflow-x: clip;
+  background: var(--darkest);
+  color: var(--white);
+  font-family: var(--font-dm), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img, svg { display: block; max-width: none; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+p { margin: 0; }
+h1, h2, h3 { font: inherit; }
+
+/* ------------------------------------------------------------------ nav */
+.navlayer { position: fixed; inset: 0 0 auto 0; pointer-events: none; z-index: 50; } /* persistent across the whole page (one continuous piece) */
+.nav {
+  position: relative; pointer-events: auto; color: var(--white);
+  transition: background-color 0.5s, color 0.5s, padding 0.4s var(--ease);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: calc(16 * var(--u)) max(calc(64 * var(--u)), calc((100% - 1400 * var(--u)) / 2 + 64 * var(--u)));
+  background: rgba(21, 44, 34, 0.25);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+}
+.nav-links { display: flex; align-items: center; gap: calc(32 * var(--u)); font-size: calc(14 * var(--u)); }
+.nav-item { display: flex; align-items: center; gap: calc(6 * var(--u)); }
+.nav-actions { display: flex; align-items: center; gap: calc(24 * var(--u)); font-size: calc(14 * var(--u)); }
+
+.btn {
+  display: inline-flex; align-items: center; gap: calc(16 * var(--u));
+  height: calc(52 * var(--u)); padding: 0 calc(24 * var(--u));
+  border: 1px solid var(--lime); border-radius: 100px;
+  font-weight: 600; font-size: calc(15 * var(--u)); line-height: normal; white-space: nowrap;
+}
+.btn-lime { background: var(--lime); color: var(--dark); }
+.btn-ghost { color: var(--white); }
+
+/* ----------------------------------------------------------------- hero */
+.hero {
+  position: relative; overflow: clip; background: var(--darkest);
+  display: flex; flex-direction: column; align-items: center;
+  gap: calc(24 * var(--u)); padding: calc(140 * var(--u)) 0 calc(24 * var(--u));
+}
+/* 18 "architectural flutes": 40px lime→clear strips on an 80px pitch, one layer so it stays cheap */
+.flutes {
+  position: absolute; left: 0; top: 0; width: 100%; height: calc(998 * var(--u)); pointer-events: none;
+  background: repeating-linear-gradient(90deg, rgba(192, 244, 118, 0.03) 0, rgba(192, 244, 118, 0) calc(40 * var(--u)), rgba(192, 244, 118, 0) calc(80 * var(--u)));
+}
+.glow { position: absolute; left: 50%; top: 0; width: calc(780 * var(--u)); height: calc(400 * var(--u)); margin-left: calc(-390 * var(--u)); transform: scaleY(-1); pointer-events: none; }
+
+.copy { position: relative; display: flex; flex-direction: column; align-items: center; gap: calc(30 * var(--u)); }
+.titles { display: flex; flex-direction: column; align-items: center; gap: calc(8 * var(--u)); text-align: center; }
+.head { display: flex; flex-direction: column; align-items: center; gap: calc(8 * var(--u)); font: inherit; }
+.h1 { width: calc(1020 * var(--u)); font-weight: 700; font-size: calc(64 * var(--u)); line-height: 1; }
+.h1-lime { color: var(--lime); }
+.sub { font-family: var(--font-satoshi), var(--font-dm), sans-serif; font-size: calc(18 * var(--u)); line-height: calc(30 * var(--u)); color: var(--cream); white-space: nowrap; }
+.actions { display: flex; gap: calc(12 * var(--u)); }
+
+.illu { position: relative; flex: none; width: calc(1256 * var(--u)); height: calc(436 * var(--u)); }
+.abs { position: absolute; }
+/* the Yubit Pay mark replaces the Figma sculpture image, centred in the same 656×428 slot */
+.logo-big { left: calc(368 * var(--u)); top: calc(96 * var(--u)); width: calc(520 * var(--u)); height: calc(244.4 * var(--u)); color: var(--white); }
+.logo-big svg { width: 100%; height: 100%; overflow: visible; }
+.m .logo-big .tri-static { opacity: 0; } /* with JS the triangle lives in the story overlay so it can grow, flip and become the Y */
+
+/* the four connector curves are one sprite cropped by a window; flips make the other corners */
+.conn { width: calc(181 * var(--u)); height: calc(102 * var(--u)); }
+.conn-flip { position: absolute; inset: 0; overflow: hidden; }
+.conn img { position: absolute; width: 428.73%; height: 186.27%; left: 8.29%; top: 18.63%; }
+
+.chip {
+  display: flex; align-items: center; gap: calc(14 * var(--u)); padding: calc(16 * var(--u));
+  background: rgba(28, 56, 42, 0.1); border-radius: calc(18 * var(--u)); overflow: clip;
+  box-shadow: inset 0 0 0 1px rgba(240, 243, 232, 0.14), 0 calc(12 * var(--u)) calc(30 * var(--u)) rgba(0, 0, 0, 0.19);
+}
+.chip-sym { display: grid; place-items: center; width: calc(40 * var(--u)); height: calc(40 * var(--u)); flex: none; background: var(--deep); border-radius: calc(12 * var(--u)); }
+.chip-text { display: flex; flex-direction: column; gap: calc(5 * var(--u)); white-space: nowrap; line-height: normal; }
+.chip-title { font-weight: 600; font-size: calc(15 * var(--u)); color: var(--white); }
+.chip-sub { font-size: calc(11 * var(--u)); color: var(--cream); }
+.mono { font-family: var(--font-mono), ui-monospace, monospace; }
+.webhook { flex-direction: column; align-items: stretch; justify-content: center; gap: calc(14 * var(--u)); }
+.webhook-head { display: flex; align-items: center; justify-content: space-between; font-size: calc(12 * var(--u)); color: var(--lime); line-height: normal; }
+.webhook-amt { font-family: var(--font-rupee), var(--font-dm), sans-serif; font-weight: 600; font-size: calc(30 * var(--u)); line-height: normal; color: var(--white); white-space: nowrap; }
+.webhook-foot { font-size: calc(10 * var(--u)); line-height: normal; color: var(--cream); white-space: pre; }
+.label { background: rgba(46, 92, 64, 0.1); font-size: calc(12 * var(--u)); color: var(--white); line-height: normal; white-space: nowrap; }
+.label svg { flex: none; }
+
+.principles {
+  position: relative; width: 100%; max-width: calc(1400 * var(--u)); display: flex; align-items: center; justify-content: space-between;
+  padding: calc(16 * var(--u)) calc(100 * var(--u)); overflow: clip;
+}
+.principle { display: flex; align-items: center; justify-content: center; gap: calc(8 * var(--u)); width: calc(230 * var(--u)); font-size: calc(16 * var(--u)); color: var(--cream); line-height: normal; white-space: nowrap; }
+.vline { display: grid; place-items: center; width: 0; height: calc(42 * var(--u)); }
+.vline svg { transform: rotate(90deg); }
+
+/* ray burst: four soft beams from the cube (Act VI) */
+.rays { position: absolute; left: calc(628 * var(--u)); top: calc(205 * var(--u)); width: 0; height: 0; pointer-events: none; }
+.ray { position: absolute; left: 0; top: 0; width: calc(470 * var(--u)); height: calc(5 * var(--u)); margin-top: calc(-2.5 * var(--u)); transform-origin: 0 50%; border-radius: 99px; }
+.ray i { display: block; width: 100%; height: 100%; border-radius: inherit; transform-origin: 0 50%; opacity: 0;
+  background: linear-gradient(90deg, rgba(192, 244, 118, 0.9), rgba(192, 244, 118, 0.35) 50%, rgba(192, 244, 118, 0));
+  filter: blur(calc(2.5 * var(--u)));
+}
+
+/* -------------------------------------------------------- entrance (Figma motion timeline, 0 → ~5s) */
+@keyframes from-top { from { transform: translateY(calc(var(--from) * var(--u))); } }
+@keyframes from-left { from { transform: translateX(calc(-50vw - 510 * var(--u))); } }
+@keyframes from-right { from { transform: translateX(calc(50vw + 510 * var(--u))); } }
+@keyframes pop { from { transform: scale(0); } }
+@keyframes rise { from { transform: translateY(calc(577 * var(--u))); } } /* Figma holds it off-canvas at 577, then lifts from 501 */
+@keyframes slide-x { from { transform: translateX(calc(var(--from) * var(--u))); opacity: 0; } }
+@keyframes drop { from { transform: translateY(calc(-200 * var(--u))); opacity: 0; } 10% { opacity: 1; } }
+@keyframes ray { 0% { transform: scaleX(0); opacity: 0; } 30% { opacity: 1; } 100% { transform: scaleX(1); opacity: 0; } }
+
+.nav { --from: -109; animation: from-top 0.4s var(--ease) both; }
+.flutes { --from: -1040; animation: from-top 0.8s linear 0.4s both; }
+.t1 { animation: from-left 0.6s var(--ease) 1.2s both; }
+.t2 { animation: from-right 0.6s var(--ease) 1.2s both; }
+.sub { animation: pop 0.6s var(--ease) 1.2s both; }
+.btn-a { animation: pop 0.34s var(--spring-pop) 1.8s both; }
+.btn-b { animation: pop 0.34s var(--spring-pop) 1.88s both; }
+.sculpt-wrap { animation: rise 0.9s var(--ease) 2.1s both; }
+.c1 { --from: 239; animation: slide-x 0.6s var(--ease) 2.4s both; }
+.c2 { --from: -165; animation: slide-x 0.6s var(--ease) 2.4s both; }
+.c3 { --from: 222; animation: slide-x 0.6s var(--ease) 2.4s both; }
+.c4 { --from: -135; animation: slide-x 0.6s var(--ease) 2.4s both; }
+.chip-a { animation: pop 0.8s var(--ease-soft) 2.8s both; }
+.chip-b { animation: pop 0.8s var(--ease) 2.88s both; }
+.chip-c { animation: pop 0.8s var(--ease) 2.96s both; }
+.chip-d { animation: pop 0.8s var(--ease) 3.04s both; }
+.label { animation: pop 0.6s var(--ease-soft) 3.4s both; }
+.principle, .vline { animation: drop 0.8s var(--spring-drop) both; }
+.p1 { animation-delay: 4s; }
+.p2 { animation-delay: 4.09s; }
+.p3 { animation-delay: 4.18s; }
+.p4 { animation-delay: 4.27s; }
+.vline { animation-delay: 4.1s; }
+.ray i { animation: ray 2s var(--ease) 3s both; }
+.ray:nth-child(2) i { animation-delay: 3.08s; }
+.ray:nth-child(3) i { animation-delay: 3.16s; }
+.ray:nth-child(4) i { animation-delay: 3.24s; }
+
+/* ----------------------------------------------------- the story: hero → logo triangle → Y → product cards (one pinned scene) */
+.story { position: relative; background: var(--darkest); }
+.m .story { height: calc(100svh + 550svh); } /* 450svh of story + 100svh where the next panel slides over the finished cards */
+.story-pin { position: relative; }
+.m .story-pin { position: sticky; top: 0; height: 100svh; overflow: clip; transform-origin: 50% 0; will-change: scale; }
+.m .story-pin > .hero { position: absolute; inset: 0 0 auto 0; }
+/* the hero's leaving pieces move every scroll frame: own layers so they composite instead of repainting the hero */
+.m .story-pin .hero :is(.t1, .t2, .sub, .actions, .chip, .conn, .principles, .logo-big, .rays) { will-change: transform, opacity; }
+
+.cards { position: relative; height: calc(978 * var(--u)); min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: calc(32 * var(--u)); padding: calc(80 * var(--u)) max(calc(64 * var(--u)), calc((100% - 1400 * var(--u)) / 2 + 64 * var(--u))); overflow: clip; background: var(--tint); }
+.m .cards { position: absolute; inset: 0; height: 100svh; background: none; pointer-events: none; }
+.m .cards.live { pointer-events: auto; }
+.tint { position: absolute; inset: 0; background: var(--tint); opacity: 1; pointer-events: none; }
+.m .tint { opacity: 0; }
+.intro { position: relative; display: flex; align-items: flex-end; gap: calc(100 * var(--u)); width: 100%; }
+.intro-h { width: calc(670 * var(--u)); font-weight: 600; font-size: calc(46 * var(--u)); line-height: 1.12; letter-spacing: calc(-1.8 * var(--u)); color: var(--darkest); }
+.intro-p { flex: 1 0 0; min-width: 1px; text-align: right; font-size: calc(16 * var(--u)); line-height: 1.7; color: var(--deep); }
+.catalog { position: relative; display: flex; align-items: flex-end; justify-content: center; gap: calc(24 * var(--u)); width: 100%; }
+.mcard {
+  flex: 1 0 0; min-width: 1px; display: flex; flex-direction: column; align-items: center; gap: calc(32 * var(--u));
+  position: relative; overflow: hidden; isolation: isolate;
+  padding: calc(40 * var(--u)); border-radius: calc(15 * var(--u)); font-family: var(--font-grotesk), sans-serif; line-height: 1.25; color: var(--white);
+}
+.mcard > * { position: relative; }
+.mcard > .fill { position: absolute; inset: 0; z-index: -1; border-radius: inherit; }
+.mcard-1 > .fill, .mcard-3 > .fill { background: linear-gradient(226.4deg, var(--deep) 0%, var(--darkest) 101.43%); }
+.mcard-2 > .fill { background: linear-gradient(210.42deg, var(--lime) 40.704%, var(--deep) 127.86%); }
+.mcard-2 { color: var(--darkest); }
+.mcard-text { width: calc(312 * var(--u)); display: flex; flex-direction: column; gap: calc(16 * var(--u)); text-align: center; }
+.mcard-title { font-weight: 700; font-size: calc(20 * var(--u)); letter-spacing: calc(0.1 * var(--u)); text-transform: capitalize; }
+.mcard-body { font-size: calc(16 * var(--u)); letter-spacing: calc(0.08 * var(--u)); }
+.mcard-btn { width: 100%; padding: calc(16 * var(--u)) 0; border-radius: calc(15 * var(--u)); text-align: center; font-weight: 700; font-size: calc(16 * var(--u)); letter-spacing: calc(0.08 * var(--u)); text-transform: capitalize; color: var(--darkest); background: linear-gradient(153.18deg, var(--lime) 39.155%, var(--deep) 101.64%); }
+.mcard-2 .mcard-btn { background: var(--dark); color: var(--white); }
+
+.m .fill { will-change: transform, opacity; transform: translateY(100%); }
+.m .mcard-2 > .fill { transform: scale(0); }
+.m [data-l] { opacity: 0; }
+.m .intro-h, .m .intro-p { opacity: 0; }
+
+/* the mark overlay: triangle (grows, flips, grows a stem = Y) and the three strokes that become card borders */
+.mark, .y-glow, .y-label { display: none; }
+.m .mark { display: block; position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 30; overflow: visible; }
+.mark line, .mark .border { fill: none; stroke: var(--lime); stroke-linecap: round; opacity: 0; }
+.tri-pop { transform-box: fill-box; transform-origin: 50% 60%; animation: pop 0.7s var(--spring-pop) 3s backwards; } /* backwards, not both: once played it must not stay a layer rastered at the small size, or the grown triangle blurs */
+.m .y-glow { display: block; position: absolute; left: 0; top: 0; width: calc(900 * var(--u)); height: calc(900 * var(--u)); margin: calc(-450 * var(--u)) 0 0 calc(-450 * var(--u)); border-radius: 50%; pointer-events: none; opacity: 0; will-change: transform, opacity;
+  background: radial-gradient(closest-side, rgba(192, 244, 118, 0.22), rgba(192, 244, 118, 0.06) 55%, transparent); }
+.m .y-label { display: block; position: absolute; left: 50%; top: 0; z-index: 31; transform: translateX(-50%); opacity: 0; font-size: calc(16 * var(--u)); letter-spacing: calc(1.5 * var(--u)); color: var(--cream); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .nav, .flutes, .t1, .t2, .sub, .btn-a, .btn-b, .sculpt-wrap, .tri-pop, .conn, .chip, .label, .principle, .vline, .ray i { animation: none !important; }
+  .rays { display: none; }
+}
