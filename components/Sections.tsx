@@ -126,7 +126,7 @@ export function Closing() {
       </section>
       <footer className="sec foot">
         <div className="foot-nav">
-          <div className="foot-brand" data-r="up">
+          <div className="foot-brand" data-r="deal">
             <a className="brand" href="#">
               <span className="brand-sym"><Icon n="waypoints" w={23} /></span>
               yubit pay

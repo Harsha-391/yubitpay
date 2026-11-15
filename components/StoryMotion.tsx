@@ -8,9 +8,11 @@ import { onViewport, storyPace, unit } from "@/lib/viewport";
     0.15–0.80  the lime triangle on the "i" grows and travels to the centre
     0.80–1.30  it flips (rotates 180° with a squash, so it reads as a turn) → ▼
     1.30–1.75  a stem grows from the tip → Y ("One integration. More potential.")
-    2.05–2.45  the fill drains, leaving the Y's three strokes
-    2.45–3.05  each stroke flies to one card's top edge (left arm → left card, stem → centre, right arm → right card)
-    2.95–3.33  borders draw around the cards · 3.25–3.79 cards fill · 3.6–3.9 light tint · 3.85–4.3 heading ← / text →
+    1.80–2.15  Beat 1: the fill drains like ink, leaving the Y's luminous outline
+    2.15–2.68  Beat 2: its three strokes peel off one at a time and float (left arm, stem, right arm)
+    2.50–3.08  … then each travels to one card's top edge (left arm → left card, stem → centre, right arm → right card)
+    2.90–3.46  Beat 3: borders draw round each card and lock with a click · held as outlines until 3.42
+    3.42–3.92  Beat 4: cards fill (sides like liquid, centre like a light) · 3.7–3.95 light tint · 3.92–4.3 Beat 5: heading ← / text →
   Every write goes through a change-only cache, at most once per frame; Lenis (Flow.tsx) smooths the scroll.
   On phones/tablets the same timeline runs faster (storyPace) so the pin is ~3 screens, and every position is measured from the DOM,
   so the strokes land on whatever layout the cards have (a row on desktop, a stack on phones).
@@ -38,8 +40,9 @@ export function StoryMotion() {
     const pin = $<HTMLElement>("#story-pin");
     const mark = $<SVGSVGElement>("#mark");
     const yMark = $<SVGGElement>("#y-mark");
-    const yTri = $<SVGPathElement>("#y-tri");
     const yStem = $<SVGRectElement>("#y-stem");
+    const yFill = $<SVGGElement>("#y-fill"), yInk = $<SVGRectElement>("#y-ink");
+    const yLine = $<SVGPathElement>("#y-line"), yLineGlow = $<SVGPathElement>("#y-line-glow");
     const yGlow = $<HTMLElement>("#y-glow");
     const yLabel = $<HTMLElement>("#y-label");
     const cardsLayer = $<HTMLElement>("#cards");
@@ -56,7 +59,8 @@ export function StoryMotion() {
       const g = $(`[data-line="${j}"]`, mark);
       return { glow: $<SVGLineElement>("[data-glow]", g), core: $<SVGLineElement>("[data-core]", g) };
     });
-    const borders = [0, 1, 2].map((k) => [...$(`[data-card="${k}"]`, mark).querySelectorAll("path")] as SVGPathElement[]);
+    const frames = [0, 1, 2].map((k) => $<SVGGElement>(`[data-card="${k}"]`, mark));
+    const borders = frames.map((fr) => [...fr.querySelectorAll("path")] as SVGPathElement[]);
     const cardEls = [...pin.querySelectorAll<HTMLElement>("[data-mcard]")];
     const fills = cardEls.map((c) => $<HTMLElement>("[data-fill]", c));
     const layers = cardEls.map((c) => [...c.querySelectorAll<HTMLElement>("[data-l]")]);
@@ -132,16 +136,25 @@ export function StoryMotion() {
       const g = io(seg(S, 0.15 * Vh, 0.8 * Vh));
       const f = io(seg(S, 0.8 * Vh, 1.3 * Vh));
       const st = out(seg(S, 1.3 * Vh, 1.75 * Vh));
-      const dr = io(seg(S, 2.05 * Vh, 2.45 * Vh));
       const cx = mix(c0[0], C1[0], g), cy = mix(c0[1], C1[1], g);
       const k = k0 * Math.pow(K / k0, g); // log-space so the growth feels even
       const rot = 180 * f, sx = 1 - 0.35 * Math.sin(Math.PI * f);
       put(yMark, "transform", `translate(${cx.toFixed(2)} ${cy.toFixed(2)}) rotate(${rot.toFixed(2)}) scale(${(k * sx).toFixed(4)} ${k.toFixed(4)}) translate(${-G[0]} ${-G[1]})`, true);
       const h = st * 7.6;
       put(yStem, "height", h.toFixed(3), true); put(yStem, "y", (1.6 - h).toFixed(3), true);
-      put(yTri, "opacity", (1 - dr).toFixed(3)); put(yStem, "opacity", (1 - dr).toFixed(3));
 
-      const away = seg(S, 2.45 * Vh, 2.9 * Vh);
+      // Beat 1 — the ink drains: the fill's level sinks from the top of the Y out through the stem; the sharp outline stays.
+      // The mask is only attached while draining (a mask on every growth frame would be paint for nothing).
+      const dr = io(seg(S, 1.8 * Vh, 2.15 * Vh));
+      put(yFill, "mask", dr > 0 && dr < 1 ? "url(#y-drain)" : "none", true);
+      put(yFill, "opacity", dr >= 1 ? "0" : "1");
+      put(yInk, "transform", `translate(0 ${(-dr * 20).toFixed(3)})`, true);
+      const handover = seg(S, 2.1 * Vh, 2.2 * Vh); // the outline becomes the three separate strokes
+      const lineO = Math.min(1, dr * 3) * (1 - handover);
+      put(yLine, "opacity", lineO.toFixed(3)); put(yLine, "stroke-width", (3 * u).toFixed(2));
+      put(yLineGlow, "opacity", (lineO * (0.22 + 0.25 * Math.sin(Math.PI * dr))).toFixed(3)); put(yLineGlow, "stroke-width", (15 * u).toFixed(2));
+
+      const away = seg(S, 2.5 * Vh, 2.95 * Vh);
       put(yGlow, "opacity", (seg(S, 0.5 * Vh, 1.1 * Vh) * (1 - 0.5 * dr) * (1 - away)).toFixed(3));
       put(yGlow, "transform", `translate(${cx.toFixed(1)}px, ${(cy + 3.5 * k).toFixed(1)}px) scale(${(0.55 + 0.45 * g).toFixed(3)})`);
       const lab = seg(S, 1.5 * Vh, 1.85 * Vh) * (1 - seg(S, 2.1 * Vh, 2.4 * Vh));
@@ -157,44 +170,67 @@ export function StoryMotion() {
 
       for (let j = 0; j < 3; j++) {
         const cd = cards[j];
-        const land = io(seg(S, (2.45 + 0.05 * j) * Vh, (2.95 + 0.05 * j) * Vh));
+        // Beat 2 — one at a time, each stroke lifts away from the Y (outward, a slight turn), then floats before it travels
+        const pe = io(seg(S, (2.15 + 0.1 * j) * Vh, (2.4 + 0.1 * j) * Vh));
+        const go = 2.5 + 0.09 * j, at = go + 0.4; // travel starts / lands
+        const fl = seg(S, (2.4 + 0.1 * j) * Vh, go * Vh);
+        const land = io(seg(S, go * Vh, at * Vh));
         const [p1, p2] = strokes[j];
+        const mx = (p1[0] + p2[0]) / 2, my = (p1[1] + p2[1]) / 2;
+        let nx = mx - cx, ny = my - cy;
+        const nl = Math.hypot(nx, ny) || 1; nx /= nl; ny /= nl;
+        const off = (pe * 34 + fl * 14) * u, bob = -Math.sin(Math.PI * fl) * 6 * u;
+        const th = (((j - 1) * 7 * pe + Math.sin(Math.PI * fl) * 2 * (j - 1)) * Math.PI) / 180;
+        const lift = (p: number[]) => {
+          const dx = p[0] - mx, dy = p[1] - my;
+          return [mx + dx * Math.cos(th) - dy * Math.sin(th) + nx * off, my + dx * Math.sin(th) + dy * Math.cos(th) + ny * off + bob];
+        };
+        const f1 = lift(p1), f2 = lift(p2);
+
         const [q1, q2] = [[cd.x + r, cd.y], [cd.x + cd.w - r, cd.y]];
-        const [s1, s2] = p1[0] <= p2[0] ? [p1, p2] : [p2, p1];
-        const lift = Math.sin(Math.PI * land) * 70 * u; // a small arc on the way
-        const x1 = mix(s1[0], q1[0], land), y1 = mix(s1[1], q1[1], land) - lift;
-        const x2 = mix(s2[0], q2[0], land), y2 = mix(s2[1], q2[1], land) - lift;
+        const [s1, s2] = f1[0] <= f2[0] ? [f1, f2] : [f2, f1];
+        const arc = Math.sin(Math.PI * land) * 70 * u; // a small arc on the way
+        const x1 = mix(s1[0], q1[0], land), y1 = mix(s1[1], q1[1], land) - arc;
+        const x2 = mix(s2[0], q2[0], land), y2 = mix(s2[1], q2[1], land) - arc;
         const landed = land >= 1;
-        const show = landed ? 0 : dr;
+        const show = landed ? 0 : handover;
         const wdt = mix(3 * u, 1.7 * u, land);
         line(lines[j].core, x1, y1, x2, y2, wdt, show);
-        line(lines[j].glow, x1, y1, x2, y2, wdt * 5, show * 0.22);
+        line(lines[j].glow, x1, y1, x2, y2, wdt * 5, show * (0.22 + 0.12 * Math.sin(Math.PI * fl)));
 
-        const draw = io(seg(S, (2.95 + 0.04 * j) * Vh, (3.25 + 0.04 * j) * Vh));
-        const fade = 1 - seg(S, 3.8 * Vh, 4.05 * Vh);
+        // Beat 3 — the landed stroke draws the card's border both ways round from the top, and closes with a click:
+        // a tiny overshoot of the whole frame plus a pulse of its glow
+        const dEnd = at + 0.28;
+        const draw = io(seg(S, at * Vh, dEnd * Vh));
+        const bump = Math.sin(Math.PI * seg(S, (dEnd - 0.03) * Vh, (dEnd + 0.1) * Vh));
+        const fade = 1 - seg(S, 3.9 * Vh, 4.15 * Vh);
         const dash = `${mix(fTop[j], 1, draw).toFixed(4)} 2`;
+        const sc = 1 + 0.012 * bump, ccx = cd.x + cd.w / 2, ccy = cd.y + cd.h / 2;
+        put(frames[j], "transform", bump > 0 ? `translate(${ccx.toFixed(1)} ${ccy.toFixed(1)}) scale(${sc.toFixed(4)}) translate(${(-ccx).toFixed(1)} ${(-ccy).toFixed(1)})` : "", true);
         borders[j].forEach((path, n) => {
-          const o = (landed ? 1 : 0) * fade * (n < 2 ? 0.18 : 1);
+          const o = (landed ? 1 : 0) * fade * (n < 2 ? 0.18 + 0.45 * bump : 1);
           put(path, "opacity", o.toFixed(3));
           if (o === 0) return;
           put(path, "stroke-dasharray", dash); put(path, "stroke-width", String(n < 2 ? 6 * u : 1.7 * u));
         });
 
-        // cards fill: sides rise like liquid, the centre opens from its middle; then icon → title → text → button
-        const fl = seg(S, (3.25 + 0.07 * j) * Vh, (3.65 + 0.07 * j) * Vh), ef = out(fl);
-        if (j === 1) { put(fills[j], "transform", `scale(${ef.toFixed(4)})`); put(fills[j], "opacity", seg(fl, 0, 0.3).toFixed(3)); }
-        else put(fills[j], "transform", `translateY(${((1 - ef) * 100).toFixed(2)}%)`);
+        // Beat 4 — after a held moment as pure outlines, the cards fill: the sides rise like liquid (wave edge in CSS),
+        // the centre opens from its middle like a light; then icon → title → text → button surface in turn
+        const fi = seg(S, (3.42 + 0.07 * j) * Vh, (3.78 + 0.07 * j) * Vh), ef = out(fi);
+        if (j === 1) { put(fills[j], "transform", `scale(${ef.toFixed(4)})`); put(fills[j], "opacity", seg(fi, 0, 0.3).toFixed(3)); }
+        else put(fills[j], "transform", `translateY(calc(${((1 - ef) * 100).toFixed(2)}% + ${((1 - ef) * 18 * u).toFixed(1)}px))`); // + the wave crest, so it starts fully below the card
         layers[j].forEach((el, n) => {
-          const t = out(seg(fl, 0.3 + n * 0.14, 0.58 + n * 0.14));
+          const t = out(seg(fi, 0.3 + n * 0.14, 0.58 + n * 0.14));
           put(el, "opacity", t.toFixed(3)); put(el, "transform", `translateY(${((1 - t) * 8 * u).toFixed(2)}px)`);
         });
       }
 
-      put(tint, "opacity", io(seg(S, 3.6 * Vh, 3.9 * Vh)).toFixed(3));
-      const hh = out(seg(S, 3.85 * Vh, 4.25 * Vh)), pp = out(seg(S, 3.9 * Vh, 4.3 * Vh));
+      // Beat 5 — the light tint, then heading from the left and text from the right
+      put(tint, "opacity", io(seg(S, 3.7 * Vh, 3.95 * Vh)).toFixed(3));
+      const hh = out(seg(S, 3.92 * Vh, 4.25 * Vh)), pp = out(seg(S, 3.97 * Vh, 4.3 * Vh));
       put(headEl, "opacity", hh.toFixed(3)); put(headEl, "transform", `translateX(${((hh - 1) * 90 * u).toFixed(1)}px)`);
       put(bodyEl, "opacity", pp.toFixed(3)); put(bodyEl, "transform", `translateX(${((1 - pp) * 90 * u).toFixed(1)}px)`);
-      cardsLayer.classList.toggle("live", S > 3.7 * Vh);
+      cardsLayer.classList.toggle("live", S > 3.8 * Vh);
       hero.style.pointerEvents = S > 0.4 * Vh ? "none" : "";
     };
 

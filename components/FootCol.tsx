@@ -10,7 +10,7 @@ export function FootCol({ g, n }: { g: Group; n: number }) {
   const [open, setOpen] = useState(false);
   const shut = phone && !open;
   return (
-    <nav className="foot-col" aria-label={g.h} data-r="up" data-open={!shut} style={{ "--i": n } as React.CSSProperties}>
+    <nav className="foot-col" aria-label={g.h} data-r="deal" data-open={!shut} style={{ "--i": n } as React.CSSProperties}>
       {phone ? (
         <h2>
           <button type="button" className="foot-h" aria-expanded={open} aria-controls={`foot-${n}`} onClick={() => setOpen(!open)}>

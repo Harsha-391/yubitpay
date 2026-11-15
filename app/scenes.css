@@ -85,6 +85,8 @@
 .m [data-r="chars"].in .ch { opacity: 1; transform: none; }
 .m [data-r="blur"] { opacity: 0; filter: blur(calc(14 * var(--u))); transform: translateY(calc(18 * var(--u))); transition: opacity 0.9s ease, filter 0.9s ease, transform 0.9s var(--ease); }
 .m [data-r="blur"].in { opacity: 1; filter: none; transform: none; }
+/* footer: columns are dealt in left to right, each landing with a slight turn, as the wordmark rises behind them */
+.m [data-r="deal"] { transform: translateY(calc(40 * var(--u))) rotate(-2.5deg); transform-origin: 0 100%; transition: opacity 0.7s ease calc(var(--i, 0) * 110ms), transform 1s var(--spring-drop) calc(var(--i, 0) * 110ms); }
 
 /* ---- solutions: pinned horizontal track (Flow.tsx sets the section height = its travel) */
 .tracks { position: relative; background: var(--dark); }

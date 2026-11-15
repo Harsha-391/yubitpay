@@ -3,6 +3,9 @@ import { Icon } from "./Icon";
 import { StoryMotion } from "./StoryMotion";
 import { TRI_D } from "./sprite.generated";
 
+// Outline of the finished Y (triangle + full stem) in the logo's units: what Beat 1's draining ink leaves behind.
+const Y_OUTLINE = "M75.1973 7.1324L83.2114 7.1323L80.1826 1.6H80.31V-6H78.31V1.6H78.3848Z";
+
 const cards = [
   { cls: "mcard-1", icon: "card-icon", size: 95, title: "Collections", body: "Send and receive money instantly with secure, seamless payment solutions." },
   { cls: "mcard-2", icon: "card-icon-lg", size: 140, title: "Financial Insights", body: "Turn financial data into clear insights and smarter decisions with intelligent analytics built your financial future." },
@@ -48,11 +51,23 @@ export function Story() {
         <div className="y-glow" id="y-glow" aria-hidden="true" />
         <p className="y-label mono" id="y-label" aria-hidden="true">One integration. More potential.</p>
         <svg className="mark" id="mark" aria-hidden="true">
+          <defs>
+            {/* Beat 1: the fill drains like ink — a soft-edged mask whose rect slides toward the stem's end (only its transform changes) */}
+            <linearGradient id="y-ink-g" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0.9" stopColor="#fff" />
+              <stop offset="1" stopColor="#000" />
+            </linearGradient>
+            <mask id="y-drain" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="60" y="-30" width="40" height="50">
+              <rect id="y-ink" x="60" y="-26" width="40" height="40" fill="url(#y-ink-g)" />
+            </mask>
+          </defs>
           <g id="y-mark">
-            <g className="tri-pop">
+            <g className="tri-pop" id="y-fill">
               <path id="y-tri" d={TRI_D} fill="#C0F476" />
               <rect id="y-stem" fill="#C0F476" x="78.31" y="1.6" width="2" height="0" />
             </g>
+            <path id="y-line-glow" className="y-line" d={Y_OUTLINE} vectorEffect="non-scaling-stroke" />
+            <path id="y-line" className="y-line" d={Y_OUTLINE} vectorEffect="non-scaling-stroke" />
           </g>
           {[0, 1, 2].map((j) => (
             <g key={j} data-line={j}>

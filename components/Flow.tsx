@@ -51,7 +51,7 @@ export function Flow() {
 
     const measure = () => {
       vh = storyPin.offsetHeight; W = window.innerWidth; u = unit(); // the pin is 100svh: ignores a phone's address bar
-      tintAt = docTop(story) + (3.75 * vh) / storyPace(); // the story turns light here (StoryMotion)
+      tintAt = docTop(story) + (3.8 * vh) / storyPace(); // the story turns light here (StoryMotion)
       if (statement) { stTop = docTop(statement); stH = statement.offsetHeight; }
       if (banner) bnTop = docTop(banner);
       if (frame) { frame.style.scale = "1"; seen.delete(frame); frTop = docTop(frame); frH = frame.offsetHeight; } // measure unscaled, then re-apply
