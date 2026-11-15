@@ -88,7 +88,7 @@ async function touchChecks(page, label) {
   // an empty spot on the board: a vertical swipe there must scroll the page
   const spot = await page.evaluate(() => {
     const b = document.querySelector(".board"), r = b.getBoundingClientRect();
-    for (let y = r.top + 30; y < Math.min(r.bottom, innerHeight) - 30; y += 20)
+    for (let y = Math.min(r.bottom, innerHeight) - 30; y > r.top + 30; y -= 20) // low on screen, so the swipe stays inside the viewport
       for (let x = r.left + 20; x < r.right - 20; x += 20) if (document.elementFromPoint(x, y) === b) return { x, y };
     return null;
   });
@@ -117,6 +117,41 @@ async function menuChecks(page, label) {
   await wait(page, 600);
   const shut = await page.evaluate(() => document.querySelector(".sheet").dataset.open === "false" && document.activeElement?.classList.contains("nav-burger"));
   if (shut) ok("Escape closes the menu and returns focus"); else fail(label, "Escape did not close the menu");
+}
+
+// interactive controls: FAQ deep link, code tabs + test request, solutions expand, desktop dropdowns, section-aware nav
+async function interactions(page, label, touch) {
+  const w = page.viewportSize().width;
+  const check = (cond, good, bad) => (cond ? ok(good) : fail(label, bad));
+  await scrollTo(page, 0);
+  if (w >= 1100) {
+    check(await page.evaluate(() => document.querySelector("#nav-t0").hasAttribute("aria-current")), "nav marks the scene in view", "nav does not mark the current scene");
+    await page.hover("#nav-t1"); await wait(page, 700);
+    check(await page.evaluate(() => document.querySelector("#nav-t1").getAttribute("aria-expanded") === "true"), "dropdown opens on hover", "dropdown did not open on hover");
+    await page.screenshot({ path: `${label}/16-dropdown.png` });
+    await page.mouse.move(5, 500); await wait(page, 600);
+    await page.focus("#nav-t2"); await page.keyboard.press("ArrowDown"); await wait(page, 300);
+    check(await page.evaluate(() => !!document.activeElement?.closest("#nav-p2")), "↓ opens a dropdown and focuses its first link", "↓ did not move focus into the dropdown");
+    await page.keyboard.press("Escape"); await wait(page, 200);
+    check(await page.evaluate(() => document.activeElement?.id === "nav-t2" && document.querySelector("#nav-t2").getAttribute("aria-expanded") === "false"), "Esc closes it and returns focus", "Esc did not close the dropdown");
+  }
+  // code card
+  await scrollTo(page, (await docTop(page, ".code")) - 100);
+  await page.click("#code-tab-2"); await wait(page, 900);
+  check(await page.evaluate(() => document.querySelector("#code-panel").textContent.includes("requests.post")), "code tab switches to Python", "code tab did not switch");
+  await page.click(".code-send"); await wait(page, 2900);
+  check(await page.evaluate(() => document.querySelector(".code-hook").dataset.open === "true" && /25,000\.00$/.test(document.querySelector(".hook-card .webhook-amt").textContent)), "test request plays through to the webhook (₹25,000.00)", "test request did not complete");
+  await page.screenshot({ path: `${label}/15-code-sent.png` });
+  // solutions card
+  const card = ".tc-2";
+  await page.evaluate((s) => document.querySelector(s).scrollIntoView({ block: "center", inline: "center" }), card);
+  if (touch) await page.tap(`${card} .tc-t`); else await page.click(`${card} .tc-toggle`);
+  await wait(page, 700);
+  check(await page.evaluate((s) => document.querySelector(s).dataset.open === "true", card), "solutions card expands", "solutions card did not expand");
+  // FAQ: deep link + only one open
+  await page.evaluate(() => { location.hash = "#faq-3"; }); await wait(page, 1500);
+  check(await page.evaluate(() => document.querySelector("#faq-3").dataset.open === "true" && document.querySelectorAll('.faq-item[data-open="true"]').length === 1), "#faq-3 opens the third answer (only one open)", "#faq-3 deep link did not open its answer");
+  await page.evaluate(() => history.replaceState(null, "", location.pathname));
 }
 
 async function diff(a, b) {
@@ -153,6 +188,7 @@ for (const [w, h, touch] of SIZES) {
   }
   if (touch) await touchChecks(page, dir);
   if (w < 1100) await menuChecks(page, dir);
+  await interactions(page, dir, touch);
   if (errors.length) fail(dir, `console errors: ${[...new Set(errors)].slice(0, 3).join(" | ")}`); else ok("no console errors");
   await ctx.close();
 }
@@ -177,7 +213,9 @@ for (const [w, h, touch] of [[390, 844, true], [1440, 900, false]]) {
   });
   if (hidden.length) fail(label, `hidden under reduced motion: ${hidden.slice(0, 5).join(" | ")}`); else ok("every section and revealed element is visible");
   if ((await overflow(page)) > 0) fail(label, "horizontal overflow");
-  await page.screenshot({ path: `scripts/shots/reduced-${w}x${h}.png`, fullPage: true });
+  const dir = `scripts/shots/reduced-${w}x${h}`; mkdirSync(dir, { recursive: true });
+  await page.screenshot({ path: `${dir}/full.png`, fullPage: true });
+  await interactions(page, dir, touch); // every control still works without the motion
   await ctx.close();
 }
 

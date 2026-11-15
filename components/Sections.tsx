@@ -17,6 +17,7 @@ const steps = [
 // Only the first answer is in the Figma; the other three are assembled from copy already on the page — replace with real answers.
 const faqs: QA[] = [
   { q: "What can I build with Yubit Pay?", a: "Use our APIs to collect payments, send payouts and connect banking workflows to your product. Start with one use case and add more as your business grows." },
+  // TODO: real copy (answers 2–4 are placeholders)
   { q: "Who is Yubit Pay built for?", a: "Startups and fintechs, platforms and marketplaces, and SaaS and tech companies that want to embed collections, payouts and open banking into their product." },
   { q: "Can I test the APIs before going live?", a: "Yes. Connect your workflows in the sandbox and test them before you go live." },
   { q: "How do I get started with pricing and onboarding?", a: "Talk to our team. We’ll help you find the APIs that fit your product and get launch-ready." },

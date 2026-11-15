@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { countUp } from "@/lib/countUp";
 import { onViewport, unit } from "@/lib/viewport";
 import { Icon } from "./Icon";
-import { YMark } from "./Scenes";
+import { YMark } from "./YMark";
 
 /*
   Drag playground (Loopsii "dashboard" pattern, Figma content): as the board scrolls in it zooms up from 0.82 and every card
@@ -43,7 +43,8 @@ export function Playground() {
   useEffect(() => {
     const root = document.documentElement;
     const el = board.current;
-    if (!el || !root.classList.contains("m")) return;
+    if (!el) return;
+    const motion = root.classList.contains("m"); // reduced motion / no .m: no fly-in, no throw — dragging and keys still work
     const cards = [...el.querySelectorAll<HTMLElement>(".pg-card")];
     const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
     const u = unit;
@@ -63,6 +64,7 @@ export function Playground() {
     };
     const ease = (t: number) => 1 - (1 - t) ** 3;
     const onScroll = () => {
+      if (!motion) { st.forEach((s) => (s.ent = 1)); wake(); return; }
       // board progress: 0 when its top is at the bottom of the screen, 1 when it has risen 85% of a screen
       const p = Math.min(1, Math.max(0, (window.scrollY + innerHeight - boardTop) / (innerHeight * 0.85)));
       const sc = `scale(${(0.82 + 0.18 * ease(p)).toFixed(4)})`;
@@ -123,7 +125,7 @@ export function Playground() {
         active.vx = active.vx * 0.6 + ((e.clientX - lx) / dt) * 0.4; active.vy = active.vy * 0.6 + ((e.clientY - ly) / dt) * 0.4;
         lx = e.clientX; ly = e.clientY; lt = e.timeStamp;
         wake();
-      } else if (fine) {
+      } else if (fine && motion) {
         const b = el.getBoundingClientRect(), nx = ((e.clientX - b.left) / b.width) * 2 - 1, ny = ((e.clientY - b.top) / b.height) * 2 - 1, m = u();
         st.forEach((s) => { s.tx = -nx * s.z * 18 * m; s.ty = -ny * s.z * 14 * m; });
         wake();
@@ -132,8 +134,18 @@ export function Playground() {
     const up = () => {
       if (!active) return;
       active.drag = false; active.c.classList.remove("grab");
-      if (performance.now() - lt > 80) { active.vx = 0; active.vy = 0; } // let go without a throw
+      if (!motion || performance.now() - lt > 80) { active.vx = 0; active.vy = 0; } // let go without a throw
       active = null; wake();
+    };
+    // keyboard: a focused card moves with the arrow keys (the same bounds keep it on the board)
+    const DIRS: Record<string, [number, number]> = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] };
+    const key = (e: KeyboardEvent) => {
+      const i = cards.indexOf(e.target as HTMLElement), d = DIRS[e.key];
+      if (i < 0 || !d) return;
+      e.preventDefault();
+      const s = st[i], step = 24 * u();
+      s.dx += d[0] * step; s.dy += d[1] * step; s.c.style.zIndex = String(++zTop);
+      wake();
     };
     const leave = () => { if (!active) { st.forEach((s) => { s.tx = 0; s.ty = 0; }); wake(); } };
 
@@ -145,6 +157,7 @@ export function Playground() {
     el.addEventListener("pointerup", up);
     el.addEventListener("pointercancel", up);
     el.addEventListener("pointerleave", leave);
+    el.addEventListener("keydown", key);
     const offViewport = onViewport(() => { measure(); onScroll(); });
     const seen = new IntersectionObserver(([e]) => el.classList.toggle("on", e.isIntersecting)); // idle drift only while visible
     seen.observe(el);
@@ -152,7 +165,7 @@ export function Playground() {
       offViewport(); seen.disconnect();
       cancelAnimationFrame(raf); window.removeEventListener("scroll", onScroll);
       el.removeEventListener("pointerdown", down); el.removeEventListener("pointermove", move);
-      el.removeEventListener("pointerup", up); el.removeEventListener("pointercancel", up); el.removeEventListener("pointerleave", leave);
+      el.removeEventListener("pointerup", up); el.removeEventListener("pointercancel", up); el.removeEventListener("pointerleave", leave); el.removeEventListener("keydown", key);
     };
   }, []);
 
@@ -160,11 +173,11 @@ export function Playground() {
     <section className="play sec-pad" data-tone="light" aria-label="One integration">
       <div className="play-head">
         <h2 className="h2 ink" data-r="left">One integration.<br />More potential.</h2>
-        <p className="play-hint mono" data-r="right">Drag the cards around</p>
+        <p className="play-hint mono" data-r="right" id="pg-hint">Drag the cards around<span className="sr-only"> (or focus one and use the arrow keys)</span></p>
       </div>
-      <div className="board" ref={board}>
+      <div className="board" ref={board} data-idle aria-describedby="pg-hint">
         {DEFS.map((d, i) => (
-          <div key={i} className={`pg-card ${d.cls ?? "pg-chip"}`} data-drop={d.drop} style={{ left: `${d.x}%`, top: `${d.y}%`, "--px": `${d.px}%`, "--py": `${d.py}%`, "--z": d.z, transform: `rotate(${d.r}deg)`, "--i": i } as React.CSSProperties}>
+          <div key={i} className={`pg-card ${d.cls ?? "pg-chip"}`} data-drop={d.drop} tabIndex={0} aria-roledescription="draggable card" style={{ left: `${d.x}%`, top: `${d.y}%`, "--px": `${d.px}%`, "--py": `${d.py}%`, "--z": d.z, transform: `rotate(${d.r}deg)`, "--i": i } as React.CSSProperties}>
             {d.node}
           </div>
         ))}

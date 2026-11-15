@@ -25,7 +25,8 @@
   .nav-burger i { display: block; width: calc(18 * var(--u)); height: 1.5px; background: currentColor; transition: transform 0.45s var(--ease); }
   .nav-burger[aria-expanded="true"] i:first-child { transform: translateY(calc(3.75 * var(--u))) rotate(45deg); }
   .nav-burger[aria-expanded="true"] i:last-child { transform: translateY(calc(-3.75 * var(--u))) rotate(-45deg); }
-  .navlayer[data-sheet="true"] .nav[data-tone] { background: transparent; color: var(--white); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .navlayer[data-sheet="true"] .nav[data-tone] { background: transparent; color: var(--white); }
+  .navlayer[data-sheet="true"] .nav::before { -webkit-backdrop-filter: none; backdrop-filter: none; }
 
   /* the menu sheet: dark glass; the hero's flute lines rain down into it, then the groups stagger in */
   .sheet {
@@ -147,6 +148,9 @@
   .code-body p, .code-body pre { white-space: pre; }
   .c11, .c12, .c13 { font-size: calc(12.5 * var(--u)); }
   .code-resp { flex-wrap: wrap; padding: calc(14 * var(--u)) calc(18 * var(--u)); font-size: calc(12 * var(--u)); }
+  .code-send { min-height: var(--tap); margin: calc(4 * var(--u)) 0 0 auto; }
+  .copy-tip { font-size: calc(12 * var(--u)); right: calc(50 * var(--u)); }
+  .hook-card { margin-inline: calc(12 * var(--u)); }
   .code-note { padding: calc(10 * var(--u)) calc(16 * var(--u)); font-size: calc(12 * var(--u)); line-height: 1.5; }
   .journey { flex-direction: column; gap: calc(22 * var(--u)); padding: 0 0 0 calc(22 * var(--u)); border-top: 0; border-left: 1px solid var(--deep); }
   .journey-bar { left: -1px; right: auto; top: 0; bottom: 0; width: 2px; height: auto; }

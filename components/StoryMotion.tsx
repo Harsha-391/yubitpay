@@ -1,5 +1,6 @@
 "use client";
 import { useEffect } from "react";
+import { countUp } from "@/lib/countUp";
 import { onViewport, storyPace, unit } from "@/lib/viewport";
 
 /*
@@ -66,6 +67,8 @@ export function StoryMotion() {
     const layers = cardEls.map((c) => [...c.querySelectorAll<HTMLElement>("[data-l]")]);
 
     // the hero entrance is CSS; once it has played, drop those animations so scroll writes are the only thing styling these nodes
+    const amt = $<HTMLElement>(".webhook-amt", hero);
+    const counting = setTimeout(() => amt && countUp(amt, 25000, 1100), 3100); // Act VII: the payout chip surfaces at 3.1s
     const entrance = hero.getAnimations({ subtree: true });
     Promise.all(entrance.map((a) => a.finished)).then(() => entrance.forEach((a) => a.cancel()), () => {});
 
@@ -242,7 +245,7 @@ export function StoryMotion() {
     const offViewport = onViewport(remeasure);
     document.fonts?.ready.then(remeasure);
     return () => {
-      window.removeEventListener("scroll", wake); offViewport();
+      window.removeEventListener("scroll", wake); offViewport(); clearTimeout(counting);
       cancelAnimationFrame(raf);
     };
   }, []);

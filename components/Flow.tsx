@@ -33,6 +33,7 @@ export function Flow() {
     const tcards = track ? [...track.children] as HTMLElement[] : [];
     const tys = tcards.map((c) => c.querySelector<HTMLElement>(".tc-y"));
     const outro = $<SVGSVGElement>("#outro-mark"), outroBox = outro?.parentElement ?? null; // measure the box, move the mark
+    const fluteGlow = $<HTMLElement>(".flute-glow");
     const toneEls = [...document.querySelectorAll<HTMLElement>("[data-tone]")].filter((e) => e !== nav);
 
     const storyDim = document.createElement("div");
@@ -47,7 +48,8 @@ export function Flow() {
     };
     const docTop = (el: Element) => el.getBoundingClientRect().top + window.scrollY;
     let vh = 0, W = 0, u = 1, tintAt = 0, stTop = 0, stH = 0, bnTop = 0, frTop = 0, frH = 0, jTop = 0;
-    let tkTop = 0, tkTravel = 0, tkH = 0, outTop = 0, outH = 0, tones: [number, string][] = [], centers: number[] = [];
+    const progress = nav.querySelector<HTMLElement>(".nav-progress");
+    let docH = 1, tkTop = 0, tkTravel = 0, tkH = 0, outTop = 0, outH = 0, tones: [number, string][] = [], centers: number[] = [];
 
     const measure = () => {
       vh = storyPin.offsetHeight; W = window.innerWidth; u = unit(); // the pin is 100svh: ignores a phone's address bar
@@ -63,6 +65,7 @@ export function Flow() {
         centers = tcards.map((c) => c.offsetLeft + c.offsetWidth / 2);
       }
       if (outroBox) { outTop = docTop(outroBox); outH = outroBox.offsetHeight; }
+      docH = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
       tones = toneEls.map((e) => [docTop(e), e.dataset.tone ?? "dark"] as [number, string]).sort((a, b) => a[0] - b[0]);
     };
 
@@ -119,6 +122,7 @@ export function Flow() {
 
       // nav
       nav.classList.toggle("is-mini", sy > 100);
+      put(progress, "transform", `scaleX(${clamp(sy / docH).toFixed(4)})`);
       const probe = sy + 40;
       let tone = probe >= tintAt ? "light" : "dark"; // inside the story: light once it has turned light
       for (const [t, k] of tones) if (probe >= t) tone = k; // after it: whatever scene is under the nav
@@ -134,6 +138,10 @@ export function Flow() {
     const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
     const onPointer = (e: PointerEvent) => {
       const t = e.target as Element;
+      if (fluteGlow && t.closest(".hero")) {
+        const r = fluteGlow.getBoundingClientRect();
+        put(fluteGlow, "--fx", `${(e.clientX - r.left).toFixed(0)}px`); put(fluteGlow, "--fy", `${(e.clientY - r.top).toFixed(0)}px`);
+      }
       const spot = t.closest<HTMLElement>("[data-spot]");
       if (spot) { const r = spot.getBoundingClientRect(); spot.style.setProperty("--mx", `${e.clientX - r.left}px`); spot.style.setProperty("--my", `${e.clientY - r.top}px`); }
       const tilt = t.closest<HTMLElement>("[data-tilt]");
@@ -169,6 +177,7 @@ export function Flow() {
       e.preventDefault();
       const id = a.getAttribute("href")!.slice(1);
       lenis.scrollTo(id ? document.getElementById(id) ?? 0 : 0);
+      if (id && location.hash !== `#${id}`) { history.pushState(null, "", `#${id}`); dispatchEvent(new HashChangeEvent("hashchange")); } // e.g. #faq-2 opens its answer
     };
     document.addEventListener("click", onClick);
 

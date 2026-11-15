@@ -1,18 +1,11 @@
 import { Fragment } from "react";
-import { Icon } from "./Icon";
 import { Words } from "./Sections";
+import { TrackCard } from "./TrackCard";
+import { YMark } from "./YMark";
+
+export { YMark };
 
 const vars = (o: Record<string, number>) => o as unknown as React.CSSProperties;
-
-// The Y mark (the logo triangle flipped, plus its stem): the shape the hero story ends on.
-export function YMark({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 10 15" aria-hidden="true">
-      <path d="M0.2 0.4 L9.8 0.4 L5 8.6 Z" fill="currentColor" />
-      <rect x="3.9" y="7" width="2.2" height="7.6" fill="currentColor" />
-    </svg>
-  );
-}
 
 // Letters that rise one by one when revealed (FAQ heading). Each line keeps its words together.
 export function Chars({ lines, className }: { lines: string[]; className: string }) {
@@ -101,21 +94,7 @@ export function SolutionsTrack() {
             <Words className="h2" lines={["Different products.", "Shared possibilities."]} />
             <p className="lead">From a first release to your next stage of growth, build financial workflows around your business—not the other way around.</p>
           </div>
-          {SOLUTIONS.map((s, i) => (
-            <article key={s.t} className={`tcard ${s.cls}`}>
-              <span className="tc-n mono">0{i + 1} / 03</span>
-              <YMark className="tc-y" />
-              <div className="tc-body">
-                <span className="tc-sym"><Icon n={s.icon} w={30} /></span>
-                <h3 className="tc-t">{s.t}</h3>
-                <p className="tc-p">{s.d}</p>
-                <a className="tc-link" href="#">
-                  <span className="roll" data-text="Explore"><span>Explore</span></span>
-                  <Icon n="arrow-up-right-docs" w={18} />
-                </a>
-              </div>
-            </article>
-          ))}
+          {SOLUTIONS.map((s, i) => <TrackCard key={s.t} n={i + 1} icon={s.icon} t={s.t} d={s.d} cls={s.cls} />)}
         </div>
         <div className="track-bar" aria-hidden="true"><i id="track-fill" /></div>
       </div>

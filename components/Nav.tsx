@@ -6,18 +6,32 @@ import { Icon } from "./Icon";
 
 const v = (o: Record<string, number>) => o as unknown as React.CSSProperties;
 
+// which nav group each scene belongs to (section-aware highlight)
+const SCENES: [string, number][] = [["#story", 0], ["#statement", 0], [".banner", 0], ["#dev", 2], [".play", 2], ["#tracks", 1], [".faq", 3], [".closing", 3]];
+
 /*
-  Desktop: the bar with four groups. Phone/tablet (< 1100px): logo + Start building + a menu button that opens a full-screen
-  glass sheet — the hero's flute lines rain down as its entrance, groups are accordions. While open the page behind is
-  inert and Lenis is stopped, so focus and scroll both stay in the sheet.
+  Desktop: four groups, each a glass dropdown — opens on hover (with intent delays, so passing over doesn't flicker it open)
+  or on click; keyboard: Enter/Space/↓ opens, ←/→ moves between groups, ↑/↓ moves between links, Esc closes.
+  The current scene's group is marked, and a thin lime line along the bottom shows page progress (written by Flow.tsx).
+  Phone/tablet (< 1100px): logo + Start building + a menu button that opens a full-screen glass sheet — the hero's flute
+  lines rain down as its entrance, groups are accordions. While open the page behind is inert and Lenis is stopped.
 */
 export function Nav() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false); // phone/tablet sheet
   const [acc, setAcc] = useState(-1); // expanded sheet group
+  const [menu, setMenu] = useState(-1); // open desktop dropdown
+  const [here, setHere] = useState(-1); // group of the scene in view
+  const [ready, setReady] = useState(false); // closed panels go inert only once JS runs: without it CSS opens them on hover
   const layer = useRef<HTMLDivElement>(null);
   const burger = useRef<HTMLButtonElement>(null);
+  const timer = useRef(0);
   const close = () => setOpen(false);
 
+  const trigger = (i: number) => layer.current?.querySelector<HTMLElement>(`#nav-t${i}`);
+  const items = (i: number) => [...(layer.current?.querySelectorAll<HTMLElement>(`#nav-p${i} a`) ?? [])];
+  const later = (fn: () => void, ms: number) => { clearTimeout(timer.current); timer.current = window.setTimeout(fn, ms); };
+
+  // phone/tablet sheet: lock scroll + focus while open
   useEffect(() => {
     if (!open) return;
     const root = document.documentElement;
@@ -47,6 +61,41 @@ export function Nav() {
       removeEventListener("keydown", key); removeEventListener("hashchange", close); wide.removeEventListener("change", close);
     };
   }, [open]);
+
+  // desktop dropdown: close on outside click / scroll away / hash navigation
+  useEffect(() => {
+    if (menu < 0) return;
+    const off = (e: Event) => { if (!(e.target as Element).closest?.(".nav-group")) setMenu(-1); };
+    const shut = () => setMenu(-1);
+    document.addEventListener("pointerdown", off);
+    addEventListener("hashchange", shut);
+    return () => { document.removeEventListener("pointerdown", off); removeEventListener("hashchange", shut); };
+  }, [menu]);
+
+  // section-aware: the scene crossing the middle of the screen
+  useEffect(() => {
+    setReady(true);
+    const els = SCENES.map(([s, g]) => [document.querySelector(s), g] as const).filter(([e]) => e) as [Element, number][];
+    const io = new IntersectionObserver((es) => {
+      for (const e of es) if (e.isIntersecting) setHere(els.find(([el]) => el === e.target)?.[1] ?? -1);
+    }, { rootMargin: "-50% 0px -50% 0px" });
+    els.forEach(([e]) => io.observe(e));
+    return () => io.disconnect();
+  }, []);
+
+  const onTriggerKey = (e: React.KeyboardEvent, i: number) => {
+    const go = (j: number) => { const n = (j + NAV.length) % NAV.length; trigger(n)?.focus(); if (menu >= 0) setMenu(n); };
+    if (e.key === "ArrowRight") { e.preventDefault(); go(i + 1); }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); go(i - 1); }
+    else if (e.key === "ArrowDown") { e.preventDefault(); setMenu(i); requestAnimationFrame(() => items(i)[0]?.focus()); }
+    else if (e.key === "Escape") setMenu(-1);
+  };
+  const onPanelKey = (e: React.KeyboardEvent, i: number) => {
+    const list = items(i), at = list.indexOf(document.activeElement as HTMLElement);
+    if (e.key === "ArrowDown") { e.preventDefault(); list[(at + 1) % list.length]?.focus(); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); if (at <= 0) trigger(i)?.focus(); else list[at - 1]?.focus(); }
+    else if (e.key === "Escape") { setMenu(-1); trigger(i)?.focus(); }
+  };
 
   return (
     <div className="navlayer" ref={layer} data-sheet={open}>
@@ -86,12 +135,47 @@ export function Nav() {
           <Icon n="logo" w={68} h={32} />
         </a>
         <nav className="nav-links" aria-label="Primary">
-          {NAV.map((g) => (
-            <button key={g.h} className="nav-item" type="button">
-              <span className="roll" data-text={g.h}><span>{g.h}</span></span>
-              <Icon n="chevron-down" w={12} />
-            </button>
-          ))}
+          {NAV.map((g, i) => {
+            const on = menu === i;
+            return (
+              <div
+                key={g.h}
+                className="nav-group"
+                data-open={on}
+                onPointerEnter={(e) => { if (e.pointerType === "mouse") later(() => setMenu(i), menu >= 0 ? 0 : 120); }}
+                onPointerLeave={(e) => { if (e.pointerType === "mouse") later(() => setMenu((m) => (m === i ? -1 : m)), 250); }}
+                onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) setMenu((m) => (m === i ? -1 : m)); }}
+              >
+                <button
+                  id={`nav-t${i}`}
+                  className="nav-item"
+                  type="button"
+                  aria-expanded={on}
+                  aria-controls={`nav-p${i}`}
+                  aria-current={here === i ? "true" : undefined}
+                  onClick={() => { clearTimeout(timer.current); setMenu(on ? -1 : i); }}
+                  onKeyDown={(e) => onTriggerKey(e, i)}
+                >
+                  <span className="roll" data-text={g.h}><span>{g.h}</span></span>
+                  <Icon n="chevron-down" w={12} />
+                </button>
+                <div className="nav-panel disc" id={`nav-p${i}`} inert={ready && !on} onKeyDown={(e) => onPanelKey(e, i)}>
+                  <div>
+                    <ul className="nav-menu">
+                      {g.links.map((l, n) => (
+                        <li key={l.t} style={v({ "--i": n })}>
+                          <a href={l.href}>
+                            {l.t}
+                            <Icon n="arrow-up-right-light" w={16} />
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </nav>
         <div className="nav-actions">
           <a className="nav-login" href="#"><span className="roll" data-text="Login"><span>Login</span></span></a>
@@ -103,6 +187,7 @@ export function Nav() {
             <i /><i />
           </button>
         </div>
+        <i className="nav-progress" aria-hidden="true" />
       </header>
     </div>
   );
