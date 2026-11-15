@@ -1,16 +1,14 @@
 import { Flow } from "@/components/Flow";
-import { Nav } from "@/components/Nav";
+import { Reveal } from "@/lib/motion/Reveal";
 import { Playground } from "@/components/Playground";
-import { Reveal } from "@/components/Reveal";
 import { Banner, SolutionsTrack, Statement } from "@/components/Scenes";
-import { Closing, DeveloperExperience, Faq } from "@/components/Sections";
+import { CtaBand, DeveloperExperience, Faq } from "@/components/Sections";
 import { Story } from "@/components/Story";
 
 // Each scene has its own way in (see Flow.tsx): cover → tape → growing frame → zooming board → horizontal track → letters → tilt + rising wordmark.
 export default function Home() {
   return (
     <main>
-      <Nav />
       <Story />
       <Statement />
       <Banner />
@@ -18,7 +16,7 @@ export default function Home() {
       <Playground />
       <SolutionsTrack />
       <Faq />
-      <Closing />
+      <CtaBand />
       <Reveal />
       <Flow />
     </main>

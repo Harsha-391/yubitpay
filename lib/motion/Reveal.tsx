@@ -1,11 +1,12 @@
 "use client";
 import { useEffect } from "react";
 
-// Adds `.in` to every [data-r] once it scrolls into view (CSS does the motion). Also the "JS is alive" signal for the failsafe in layout.tsx.
+// Adds `.in` to every [data-r] once it scrolls into view (CSS does the motion). Each page renders one as its last child,
+// so it runs after the page's own content has hydrated. Also the "JS is alive" signal for the failsafe in layout.tsx.
 export function Reveal() {
   useEffect(() => {
     document.documentElement.dataset.ready = "1";
-    const els = [...document.querySelectorAll<HTMLElement>("[data-r]")];
+    const els = [...document.querySelectorAll<HTMLElement>("[data-r]:not(.in)")];
     if (!("IntersectionObserver" in window)) { els.forEach((e) => e.classList.add("in")); return; }
     const io = new IntersectionObserver((entries) => {
       for (const e of entries) if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { lenisRef } from "@/lib/lenis";
+import { lenisRef } from "@/lib/motion/lenis";
 import { Icon } from "./Icon";
 
 export type QA = { q: string; a: string };

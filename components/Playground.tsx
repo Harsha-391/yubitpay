@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { countUp } from "@/lib/countUp";
+import { countUp } from "@/lib/motion/countUp";
 import { onViewport, unit } from "@/lib/viewport";
 import { Icon } from "./Icon";
 import { YMark } from "./YMark";

@@ -1,6 +1,6 @@
 "use client";
 import { useLayoutEffect, useRef, useState } from "react";
-import { countUp } from "@/lib/countUp";
+import { countUp } from "@/lib/motion/countUp";
 import { Icon } from "./Icon";
 
 const JSON_BODY = `{

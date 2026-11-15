@@ -1,7 +1,10 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { NAV } from "@/lib/ia";
-import { lenisRef } from "@/lib/lenis";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { NAV, ROUTES } from "@/lib/ia";
+import { lenisRef } from "@/lib/motion/lenis";
+import { Roll } from "@/lib/motion/Roll";
 import { Icon } from "./Icon";
 
 const v = (o: Record<string, number>) => o as unknown as React.CSSProperties;
@@ -26,6 +29,10 @@ export function Nav() {
   const burger = useRef<HTMLButtonElement>(null);
   const timer = useRef(0);
   const close = () => setOpen(false);
+  const path = usePathname();
+  const pageGroup = NAV.findIndex((g) => g.links.some((l) => l.href === path)); // the group this page belongs to
+  const current = path === "/" ? here : pageGroup; // on the homepage the highlight follows the scene in view instead
+  useEffect(() => { setOpen(false); setMenu(-1); }, [path]);
 
   const trigger = (i: number) => layer.current?.querySelector<HTMLElement>(`#nav-t${i}`);
   const items = (i: number) => [...(layer.current?.querySelectorAll<HTMLElement>(`#nav-p${i} a`) ?? [])];
@@ -35,7 +42,7 @@ export function Nav() {
   useEffect(() => {
     if (!open) return;
     const root = document.documentElement;
-    const behind = [...document.querySelectorAll<HTMLElement>("main > :not(.navlayer)")];
+    const behind = [...document.querySelectorAll<HTMLElement>("main, .closing")];
     behind.forEach((e) => (e.inert = true));
     lenisRef.current?.stop();
     root.classList.add("sheet-open"); // native touch scroll is not Lenis's: stop it with overflow
@@ -113,7 +120,7 @@ export function Nav() {
                 <div className="disc" id={`sheet-g${i}`} inert={!on}>
                   <ul className="sheet-links">
                     {g.links.map((l) => (
-                      <li key={l.t}><a href={l.href} onClick={close}>{l.t}</a></li>
+                      <li key={l.t}><Link href={l.href} aria-current={l.href === path ? "page" : undefined} onClick={close}>{l.t}</Link></li>
                     ))}
                   </ul>
                 </div>
@@ -121,19 +128,19 @@ export function Nav() {
             );
           })}
           <div className="sheet-foot" style={v({ "--i": NAV.length })}>
-            <a className="btn btn-ghost" href="#" onClick={close}>Login</a>
-            <a className="btn btn-lime" href="#" onClick={close}>
+            <Link className="btn btn-ghost" href={ROUTES.login} onClick={close}>Login</Link>
+            <Link className="btn btn-lime" href={ROUTES.start} onClick={close}>
               Start building
               <Icon n="arrow-up-right-dark" w={18} />
-            </a>
+            </Link>
           </div>
         </nav>
       </div>
 
       <header className="nav">
-        <a href="#" aria-label="Yubit Pay">
+        <Link href="/" aria-label="Yubit Pay">
           <Icon n="logo" w={68} h={32} />
-        </a>
+        </Link>
         <nav className="nav-links" aria-label="Primary">
           {NAV.map((g, i) => {
             const on = menu === i;
@@ -152,7 +159,7 @@ export function Nav() {
                   type="button"
                   aria-expanded={on}
                   aria-controls={`nav-p${i}`}
-                  aria-current={here === i ? "true" : undefined}
+                  aria-current={current === i ? "true" : undefined}
                   onClick={() => { clearTimeout(timer.current); setMenu(on ? -1 : i); }}
                   onKeyDown={(e) => onTriggerKey(e, i)}
                 >
@@ -164,10 +171,10 @@ export function Nav() {
                     <ul className="nav-menu">
                       {g.links.map((l, n) => (
                         <li key={l.t} style={v({ "--i": n })}>
-                          <a href={l.href}>
+                          <Link href={l.href} aria-current={l.href === path ? "page" : undefined}>
                             {l.t}
                             <Icon n="arrow-up-right-light" w={16} />
-                          </a>
+                          </Link>
                         </li>
                       ))}
                     </ul>
@@ -178,11 +185,11 @@ export function Nav() {
           })}
         </nav>
         <div className="nav-actions">
-          <a className="nav-login" href="#"><span className="roll" data-text="Login"><span>Login</span></span></a>
-          <a className="btn btn-lime" href="#">
+          <Link className="nav-login" href={ROUTES.login}><Roll>Login</Roll></Link>
+          <Link className="btn btn-lime" href={ROUTES.start}>
             Start building
             <Icon n="arrow-up-right-dark" w={18} />
-          </a>
+          </Link>
           <button ref={burger} type="button" className="nav-burger" aria-expanded={open} aria-controls="nav-sheet" aria-label={open ? "Close menu" : "Open menu"} onClick={() => setOpen(!open)}>
             <i /><i />
           </button>

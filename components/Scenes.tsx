@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Words } from "./Sections";
+import { Words } from "./Words";
 import { TrackCard } from "./TrackCard";
 import { YMark } from "./YMark";
 

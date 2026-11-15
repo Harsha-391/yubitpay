@@ -1,7 +1,9 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import type { Group } from "@/lib/ia";
 import { useMedia } from "@/lib/viewport";
+import { Roll } from "@/lib/motion/Roll";
 import { Icon } from "./Icon";
 
 // A footer link column. On phones it is an accordion; the server renders the open, heading-only version (desktop and no-JS).
@@ -24,9 +26,9 @@ export function FootCol({ g, n }: { g: Group; n: number }) {
       <div className="disc" id={`foot-${n}`} inert={shut}>
         <div className="foot-links">
           {g.links.map((l) => (
-            <a key={l.t} href={l.href}>
-              <span className="roll" data-text={l.t}><span>{l.t}</span></span>
-            </a>
+            <Link key={l.t} href={l.href}>
+              <Roll>{l.t}</Roll>
+            </Link>
           ))}
         </div>
       </div>

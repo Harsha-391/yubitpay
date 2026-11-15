@@ -38,6 +38,12 @@ Pattern IDs (L, G, H) refer to `docs/motion-patterns.md`.
 ### In Figma only as empty placeholders: not buildable
 Terms, Refund, Not Found, Maintenance, Thank You and "States" exist only as "Building …" frames on the drafts page (three grey rectangles each, no content). They are not built. The footer's "Terms of service" link has nowhere to go.
 
+### Decisions so far
+- **Scope (answered):** website only. The seven dashboard frames are not built.
+- **Defaults taken where there was no answer** (say so if any is wrong): the newer mobile set; each route shows the nav its own Figma frame shows; pricing is built word for word; links with no Figma frame stay `#`; the two "your decision" audit lists are left as they are.
+- **Menu entries:** Figma shows the nav chevrons but no open menu, so the dropdown and phone-menu entries are the Figma page names (`lib/ia.ts`).
+- **Assets:** icons and images are exported from Figma page by page, in the commit that builds the page, not all up front.
+
 ### Questions for review
 1. **Dashboard (7 frames):** it is an app, with its own sidebar and sample data, not a marketing page. In scope now, or a later round?
 2. **Which mobile set:** drafts holds two sets per page. The older one is named "Mobile 375 / Tablet 768"; the newer one "Mobile375 / Tablet768" matches the desktop naming and is the one listed above. Confirm the newer set is current.

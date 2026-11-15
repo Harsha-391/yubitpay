@@ -1,8 +1,8 @@
-import { Fragment } from "react";
 import { Accordion, type QA } from "./Accordion";
 import { CodeCard } from "./CodeCard";
 import { FootCol } from "./FootCol";
-import { FOOTER } from "@/lib/ia";
+import Link from "next/link";
+import { FOOTER, ROUTES } from "@/lib/ia";
 import { Icon } from "./Icon";
 import { Chars, Outro } from "./Scenes";
 
@@ -22,24 +22,6 @@ const faqs: QA[] = [
   { q: "Can I test the APIs before going live?", a: "Yes. Connect your workflows in the sandbox and test them before you go live." },
   { q: "How do I get started with pricing and onboarding?", a: "Talk to our team. We’ll help you find the APIs that fit your product and get launch-ready." },
 ];
-
-// Heading words fill in with scroll: opacity comes from the panel's --enter (set by Flow.tsx), so the line reads as it rises.
-export function Words({ lines, className }: { lines: string[]; className: string }) {
-  let w = 0;
-  const n = lines.join(" ").split(" ").length;
-  return (
-    <h2 className={`${className} words`} style={{ "--n": n } as React.CSSProperties}>
-      {lines.map((l, li) => (
-        <Fragment key={li}>
-          {li > 0 && <br />}
-          {l.split(" ").map((word, k) => (
-            <span key={k} className="w" style={{ "--w": w++ } as React.CSSProperties}>{word} </span>
-          ))}
-        </Fragment>
-      ))}
-    </h2>
-  );
-}
 
 export function DeveloperExperience() {
   return (
@@ -105,7 +87,8 @@ export function Faq() {
   );
 }
 
-export function Closing() {
+// Closing CTA band (Figma component "Home / CTA Band"): the last section of most pages.
+export function CtaBand() {
   return (
     <div className="closing" data-tone="dark">
       <section className="cta-wrap sec" aria-label="Build with Yubit Pay">
@@ -121,17 +104,25 @@ export function Closing() {
               Talk to our team
               <Icon n="arrow-up-right-cta" w={18} />
             </a>
-            <a className="cta-doc" href="#">Or explore the documentation ↗</a>
+            <Link className="cta-doc" href={ROUTES.docs}>Or explore the documentation ↗</Link>
           </div>
         </div>
       </section>
+    </div>
+  );
+}
+
+// Site footer (Figma component "Home / Footer"), rendered once by the shared layout.
+export function Footer() {
+  return (
+    <div className="closing" data-tone="dark">
       <footer className="sec foot">
         <div className="foot-nav">
           <div className="foot-brand" data-r="deal">
-            <a className="brand" href="#">
+            <Link className="brand" href="/">
               <span className="brand-sym"><Icon n="waypoints" w={23} /></span>
               yubit pay
-            </a>
+            </Link>
             <p className="foot-about">Financial infrastructure for the next generation of Indian businesses.</p>
             <p className="foot-tag">Built for India. Open to possibility.</p>
           </div>
@@ -140,7 +131,7 @@ export function Closing() {
         <div className="legal">
           <p>© 2026 Yubit Pay. All rights reserved.</p>
           <div className="legal-links">
-            <a href="#">Privacy policy</a>
+            <Link href={ROUTES.privacy}>Privacy policy</Link>
             <a href="#">Terms of service</a>
           </div>
           <p>India · English</p>

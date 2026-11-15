@@ -1,7 +1,10 @@
 "use client";
 import { useEffect } from "react";
-import { countUp } from "@/lib/countUp";
-import { onViewport, storyPace, unit } from "@/lib/viewport";
+import { countUp } from "@/lib/motion/countUp";
+import { easeInOut as io, easeOut as out, mix, seg } from "@/lib/motion/math";
+import { createPut } from "@/lib/motion/put";
+import { scene } from "@/lib/motion/scene";
+import { storyPace, unit } from "@/lib/viewport";
 
 /*
   The pinned story (Story.tsx). One scroll position S, in viewport heights V, drives:
@@ -14,16 +17,10 @@ import { onViewport, storyPace, unit } from "@/lib/viewport";
     2.50–3.08  … then each travels to one card's top edge (left arm → left card, stem → centre, right arm → right card)
     2.90–3.46  Beat 3: borders draw round each card and lock with a click · held as outlines until 3.42
     3.42–3.92  Beat 4: cards fill (sides like liquid, centre like a light) · 3.7–3.95 light tint · 3.92–4.3 Beat 5: heading ← / text →
-  Every write goes through a change-only cache, at most once per frame; Lenis (Flow.tsx) smooths the scroll.
+  Every write goes through the change-only put(), at most once per frame, on the shared scroll loop (lib/motion).
   On phones/tablets the same timeline runs faster (storyPace) so the pin is ~3 screens, and every position is measured from the DOM,
   so the strokes land on whatever layout the cards have (a row on desktop, a stack on phones).
 */
-
-const clamp = (x: number, a = 0, b = 1) => Math.min(b, Math.max(a, x));
-const seg = (s: number, a: number, b: number) => clamp((s - a) / (b - a));
-const io = (t: number) => (t < 0.5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2);
-const out = (t: number) => 1 - (1 - t) ** 3;
-const mix = (a: number, b: number, t: number) => a + (b - a) * t;
 
 // triangle on the logo's "i", in the logo's 100×47 units (from the Figma vector)
 const A = [79.3067, 0], B = [83.2114, 7.1323], C = [75.1973, 7.1324];
@@ -72,13 +69,7 @@ export function StoryMotion() {
     const entrance = hero.getAnimations({ subtree: true });
     Promise.all(entrance.map((a) => a.finished)).then(() => entrance.forEach((a) => a.cancel()), () => {});
 
-    const seen = new WeakMap<Element, Record<string, string>>();
-    const put = (el: Element, k: string, v: string, attr = false) => {
-      const c = seen.get(el) ?? {};
-      if (c[k] === v) return;
-      c[k] = v; seen.set(el, c);
-      if (attr) el.setAttribute(k, v); else (el as HTMLElement).style.setProperty(k, v);
-    };
+    const { put, forget } = createPut();
     const line = (el: SVGLineElement, x1: number, y1: number, x2: number, y2: number, w: number, o: number) => {
       put(el, "x1", x1.toFixed(1), true); put(el, "y1", y1.toFixed(1), true);
       put(el, "x2", x2.toFixed(1), true); put(el, "y2", y2.toFixed(1), true);
@@ -112,7 +103,7 @@ export function StoryMotion() {
       });
       const mid = ill.left + ill.width / 2;
       chipDir = chips.map((c) => (c.getBoundingClientRect().left + c.offsetWidth / 2 < mid ? -1 : 1));
-      seen.delete(yMark);
+      forget(yMark);
     };
 
     const render = () => {
@@ -237,17 +228,8 @@ export function StoryMotion() {
       hero.style.pointerEvents = S > 0.4 * Vh ? "none" : "";
     };
 
-    let raf = 0;
-    const wake = () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; render(); }); };
-    const remeasure = () => { measure(); render(); };
-    remeasure();
-    window.addEventListener("scroll", wake, { passive: true });
-    const offViewport = onViewport(remeasure);
-    document.fonts?.ready.then(remeasure);
-    return () => {
-      window.removeEventListener("scroll", wake); offViewport(); clearTimeout(counting);
-      cancelAnimationFrame(raf);
-    };
+    const off = scene({ measure, frame: render });
+    return () => { off(); clearTimeout(counting); };
   }, []);
   return null;
 }
