@@ -1,0 +1,34 @@
+/* Inner pages on phone (< 768) and tablet (768–1099): sizes from the Figma Mobile375 / Tablet768 frames, on the site's 390 frame.
+   Where Figma's phone frames use 10–11px text, this uses 12px (the site minimum). */
+@media (max-width: 1099px) {
+  .nav .brand { font-size: calc(22 * var(--u)); gap: calc(8 * var(--u)); }
+  .ihero { padding-top: calc(env(safe-area-inset-top) + 68 * var(--u)); }
+  .ihero-in { padding-block: calc(24 * var(--u)); }
+  .ihero-row { flex-direction: column; gap: calc(24 * var(--u)); }
+  .ihero-copy, .ihero-side { flex: none; width: 100%; }
+  .ihero-copy { gap: calc(16 * var(--u)); }
+  .ih1 { font-size: calc(36 * var(--u)); letter-spacing: calc(-1 * var(--u)); }
+  .ihero-sub { font-size: calc(14 * var(--u)); }
+  .inner .btn { height: max(48px, calc(52 * var(--u))); }
+  .ihero .btn { padding: 0 calc(16 * var(--u)); gap: calc(12 * var(--u)); }
+  .ihero-tags { gap: 1ch; font-size: calc(12 * var(--u)); }
+  .ihero-side { animation-name: surface; } /* a short rise: 140u from below would start under the fold */
+
+  .isec { padding: calc(48 * var(--u)) var(--gut); }
+  .ih2 { font-size: calc(30 * var(--u)); letter-spacing: calc(-0.8 * var(--u)); }
+  .steps { grid-template-columns: 1fr 1fr; }
+  .pv-entry, .pv-va, .pv-status, .pv-cap, .pv-rail { font-size: calc(12 * var(--u)); }
+  .pcard-link { min-height: var(--tap); font-size: calc(14 * var(--u)); }
+}
+
+@media (max-width: 767px) {
+  .steps, .panels { grid-template-columns: 1fr; }
+  .pcards { flex-direction: column; }
+  /* Figma "Responsive pricing records": each row is a card, each cell carries its column name */
+  .ptable { display: flex; flex-direction: column; gap: calc(16 * var(--u)); background: none; border: 0; border-radius: 0; overflow: visible; }
+  .pt-head { display: none; }
+  .pt-row { grid-template-columns: 1fr; gap: calc(12 * var(--u)); padding: calc(16 * var(--u)); background: var(--white); border: 1px solid var(--cream); border-radius: calc(16 * var(--u)); }
+  .pt-row::after { display: none; }
+  .pt-row > span { display: flex; flex-direction: column; gap: calc(4 * var(--u)); }
+  .pt-row > span::before { content: attr(data-label); font-weight: 400; font-size: calc(12 * var(--u)); line-height: normal; color: var(--deep); }
+}

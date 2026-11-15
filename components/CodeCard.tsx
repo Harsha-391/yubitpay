@@ -1,6 +1,7 @@
 "use client";
 import { useLayoutEffect, useRef, useState } from "react";
 import { countUp } from "@/lib/motion/countUp";
+import { CopyButton } from "./CopyButton";
 import { Icon } from "./Icon";
 
 const JSON_BODY = `{
@@ -57,7 +58,6 @@ const still = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 export function CodeCard() {
   const [lang, setLang] = useState<Lang>("cURL"); // selected tab
   const [shown, setShown] = useState<Lang>("cURL"); // rendered snippet: follows `lang` after the fade-out
-  const [copied, setCopied] = useState<"" | "ok" | "fail">("");
   const [run, setRun] = useState(0); // 0 idle · 1 sending · 2 200 OK · 3 webhook delivered
   const stage = useRef<HTMLDivElement>(null), from = useRef(0), swapped = useRef(false), amt = useRef<HTMLParagraphElement>(null);
   const s = SNIPPETS[shown];
@@ -96,12 +96,6 @@ export function CodeCard() {
     document.getElementById(`code-tab-${LANGS.indexOf(n)}`)?.focus();
   };
 
-  const copy = () => {
-    const done = (k: "ok" | "fail") => { setCopied(k); setTimeout(() => setCopied(""), 1600); };
-    if (!navigator.clipboard) return done("fail");
-    navigator.clipboard.writeText(text).then(() => done("ok"), () => done("fail"));
-  };
-
   const send = () => {
     if (run === 1 || run === 2) return;
     const q = still();
@@ -115,10 +109,7 @@ export function CodeCard() {
       <div className="code-head">
         <Icon n="window-controls" w={33} h={7} />
         <span className="mono code-file">your-next-integration.sh</span>
-        <button type="button" className="copy-btn" data-state={copied} onClick={copy} aria-label="Copy code">
-          <Icon n={copied === "ok" ? "check" : "copy"} w={16} />
-        </button>
-        <span className="copy-tip mono" role="status">{copied === "ok" ? "Copied" : copied === "fail" ? "Couldn’t copy" : ""}</span>
+        <CopyButton text={text} />
       </div>
       <div className="code-tabs mono" role="tablist" aria-label="Language">
         {LANGS.map((l, n) => (

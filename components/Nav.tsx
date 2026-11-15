@@ -29,10 +29,14 @@ export function Nav() {
   const burger = useRef<HTMLButtonElement>(null);
   const timer = useRef(0);
   const close = () => setOpen(false);
-  const path = usePathname();
+  const pathname = usePathname();
+  // The layout's HTML is shared by every route, so nothing rendered here may depend on the path until after hydration:
+  // `path` fills in on mount, and the home / inner variants of the bar are both in the markup (CSS shows one, see inner.css).
+  const [path, setPath] = useState("");
+  useEffect(() => setPath(pathname), [pathname]);
   const pageGroup = NAV.findIndex((g) => g.links.some((l) => l.href === path)); // the group this page belongs to
   const current = path === "/" ? here : pageGroup; // on the homepage the highlight follows the scene in view instead
-  useEffect(() => { setOpen(false); setMenu(-1); }, [path]);
+  useEffect(() => { setOpen(false); setMenu(-1); }, [pathname]);
 
   const trigger = (i: number) => layer.current?.querySelector<HTMLElement>(`#nav-t${i}`);
   const items = (i: number) => [...(layer.current?.querySelectorAll<HTMLElement>(`#nav-p${i} a`) ?? [])];
@@ -128,9 +132,9 @@ export function Nav() {
             );
           })}
           <div className="sheet-foot" style={v({ "--i": NAV.length })}>
-            <Link className="btn btn-ghost" href={ROUTES.login} onClick={close}>Login</Link>
+            <Link className="btn btn-ghost" href={ROUTES.login} onClick={close}><span className="on-home">Login</span><span className="on-inner">Sign in</span></Link>
             <Link className="btn btn-lime" href={ROUTES.start} onClick={close}>
-              Start building
+              <span className="on-home">Start building</span><span className="on-inner">Get Started</span>
               <Icon n="arrow-up-right-dark" w={18} />
             </Link>
           </div>
@@ -138,8 +142,12 @@ export function Nav() {
       </div>
 
       <header className="nav">
-        <Link href="/" aria-label="Yubit Pay">
+        <Link className="on-home" href="/" aria-label="Yubit Pay">
           <Icon n="logo" w={68} h={32} />
+        </Link>
+        <Link className="brand on-inner" href="/">
+          <span className="brand-sym"><Icon n="waypoints" w={23} /></span>
+          yubit pay
         </Link>
         <nav className="nav-links" aria-label="Primary">
           {NAV.map((g, i) => {
@@ -185,9 +193,9 @@ export function Nav() {
           })}
         </nav>
         <div className="nav-actions">
-          <Link className="nav-login" href={ROUTES.login}><Roll>Login</Roll></Link>
+          <Link className="nav-login" href={ROUTES.login}><span className="on-home"><Roll>Login</Roll></span><span className="on-inner"><Roll>Sign in</Roll></span></Link>
           <Link className="btn btn-lime" href={ROUTES.start}>
-            Start building
+            <span className="on-home">Start building</span><span className="on-inner">Get Started</span>
             <Icon n="arrow-up-right-dark" w={18} />
           </Link>
           <button ref={burger} type="button" className="nav-burger" aria-expanded={open} aria-controls="nav-sheet" aria-label={open ? "Close menu" : "Open menu"} onClick={() => setOpen(!open)}>

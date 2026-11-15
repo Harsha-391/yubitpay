@@ -1,0 +1,134 @@
+/* Inner pages (everything except the homepage). Values are the Figma px of the 1440 frames × --u, like the rest of the site.
+   Phone / tablet overrides live in inner-mobile.css. */
+.inner { background: var(--cream); }
+
+/* nav on inner pages: Figma's navbar there is 104 tall (brand mark + "Sign in / Get Started") */
+.nav .brand { color: inherit; }
+/* both variants of the bar are in the shared layout's markup; the page decides which shows (inner pages are <main class="inner">) */
+:root:not(:has(main.inner)) .on-inner, :root:has(main.inner) .on-home { display: none; }
+@media (min-width: 1100px) { :root:has(main.inner) .nav:not(.is-mini) { padding-block: calc(26 * var(--u)); } }
+
+/* ------------------------------------------------------------------ hero */
+.ihero { position: relative; overflow: clip; background: var(--darkest); color: var(--white); padding-top: calc(104 * var(--u)); }
+.ihero .flutes { height: 100%; }
+.ihero-glow { position: absolute; left: calc(50% - 340 * var(--u)); top: calc(-96 * var(--u)); pointer-events: none; }
+.ihero-in { position: relative; display: flex; flex-direction: column; gap: calc(32 * var(--u)); padding-block: calc(56 * var(--u)); }
+.ihero-row { display: flex; align-items: flex-start; gap: calc(56 * var(--u)); }
+.ihero-copy, .ihero-side { flex: 1 0 0; min-width: 0; }
+.ihero-copy { display: flex; flex-direction: column; align-items: flex-start; gap: calc(24 * var(--u)); }
+.inner .eyebrow { line-height: 1.5; white-space: normal; }
+.ih1 { font-weight: 700; font-size: calc(56 * var(--u)); line-height: 1.13; letter-spacing: calc(-1.8 * var(--u)); }
+.ih1-l { display: block; overflow: hidden; padding-bottom: 0.1em; margin-bottom: -0.1em; } /* a mask each line rises out of; the padding keeps descenders */
+.ih1-l > span { display: block; }
+.ihero-sub { font-size: calc(16 * var(--u)); line-height: 1.7; color: var(--cream); }
+.ihero-actions { display: flex; flex-wrap: wrap; gap: calc(12 * var(--u)); }
+.btn-line { gap: calc(20 * var(--u)); border-color: var(--deep); color: inherit; } /* Figma "Secondary action" on inner pages */
+.ihero-tags { display: flex; flex-wrap: wrap; gap: 2ch; font-size: calc(11 * var(--u)); line-height: 1.8; color: var(--cream); }
+.api .json { color: var(--lime); }
+.api .code-note { line-height: calc(24 * var(--u)); }
+.api .tab[aria-current] { color: var(--lime); font-weight: 600; }
+.api-resp { flex: 1 0 0; min-width: 0; white-space: pre-wrap; }
+
+/* load sequence (inner pages' own): eyebrow → title lines rise in turn → sub-line surfaces → buttons pop → preview rises → tags drop.
+   The title lines stay unpainted until their turn and first paint near home, so the heading counts as the page's Largest Contentful Paint. */
+@keyframes ih-rise { from { transform: translateY(60%); opacity: 0.01; visibility: hidden; } 0.1% { visibility: visible; } }
+@keyframes ih-up { from { transform: translateY(calc(140 * var(--u))); opacity: 0; } }
+@keyframes ih-drop { from { transform: translateY(calc(-22 * var(--u))); opacity: 0; } }
+.ihero-eb { animation: surface 0.7s var(--ease-soft) 0.5s both; }
+.ih1-l > span { animation: ih-rise 0.9s var(--ease) 0.6s both; }
+.ih1-l + .ih1-l > span { animation-delay: 0.74s; }
+.ihero-sub { animation: surface 0.8s var(--ease-soft) 0.95s both; }
+.ihero .ihero-actions .btn { animation: pop 0.34s var(--spring-pop) 1.2s both; }
+.ihero .ihero-actions .btn + .btn { animation-delay: 1.28s; }
+.ihero-side { animation: ih-up 1s var(--ease) 0.8s both; }
+.m .ihero .code .cl { animation-delay: calc(1.35s + var(--i, 0) * 90ms); }
+.m .ihero .code.in .resp { animation-delay: 1.9s; }
+.ihero-tags span { animation: ih-drop 0.8s var(--spring-drop) calc(1.7s + var(--k, 0) * 70ms) both; }
+.ihero-tags span:nth-child(n + 3) { --k: 1; }
+.ihero-tags span:nth-child(n + 5) { --k: 2; }
+
+/* the hero stays put while the ivory page slides up over it (desktop: there the hero is always shorter than the screen) */
+@media (min-width: 1100px) {
+  .m .ihero { position: sticky; top: 0; z-index: 0; }
+  .m .inner > :not(.ihero) { position: relative; z-index: 1; }
+}
+
+/* ------------------------------------------------------------------ sections */
+.isec {
+  position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: calc(32 * var(--u));
+  padding: calc(80 * var(--u)) max(calc(72 * var(--u)), calc((100% - 1400 * var(--u)) / 2 + 72 * var(--u)));
+  background: var(--cream); color: var(--dark);
+}
+.isec > * { width: 100%; }
+.isec > [data-r="pop"] { width: auto; }
+.inner [data-r="pop"] { transform-origin: 0 50%; }
+.intro-i { display: flex; flex-direction: column; gap: calc(18 * var(--u)); }
+.ih2 { font-weight: 600; font-size: calc(46 * var(--u)); line-height: 1.12; letter-spacing: calc(-1.2 * var(--u)); }
+.ih3 { font-weight: 600; font-size: calc(24 * var(--u)); line-height: 1.12; letter-spacing: calc(-1.2 * var(--u)); }
+.ih3-lg { font-size: calc(30 * var(--u)); }
+.ibody { font-size: calc(16 * var(--u)); line-height: 1.7; color: var(--deep); }
+.step-d14 { font-size: calc(14 * var(--u)); line-height: 1.7; color: var(--deep); }
+
+/* process: the steps arrive one after another as the row scrolls in (PageMotion writes --p; scrubbed, so it runs backwards too) */
+.steps { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); align-items: start; gap: calc(20 * var(--u)); }
+.step-c { display: flex; flex-direction: column; gap: calc(14 * var(--u)); padding: calc(24 * var(--u)); background: var(--white); border: 1px solid var(--cream); border-radius: calc(16 * var(--u)); }
+.step-no { font-size: calc(13 * var(--u)); line-height: normal; color: var(--deep); }
+.step-arrow { display: inline-block; }
+.m [data-seq] { --p: 0; }
+.m [data-seq] > * { --t: clamp(0, (var(--p) - var(--i) * 0.18) / 0.46, 1); opacity: var(--t); translate: 0 calc((1 - var(--t)) * 44 * var(--u)); will-change: translate, opacity; }
+.m [data-seq] .step-arrow { translate: calc((var(--t) - 1) * 16 * var(--u)) 0; }
+
+.panels { display: grid; grid-template-columns: 1fr 1fr; gap: calc(20 * var(--u)); }
+.panel { display: flex; flex-direction: column; gap: calc(16 * var(--u)); padding: calc(24 * var(--u)); background: var(--white); border: 1px solid var(--cream); border-radius: calc(24 * var(--u)); }
+
+/* dark band: grows out of the ivory around it (PageMotion) */
+.grow-wrap { background: var(--cream); }
+.band { background: var(--darkest); color: var(--white); will-change: scale; }
+.band .ibody { color: var(--cream); }
+
+/* pricing table: rows arrive in order, each row's rule draws from the left */
+.pricing-b { display: flex; flex-direction: column; gap: calc(24 * var(--u)); }
+.ptable { background: var(--white); border: 1px solid var(--cream); border-radius: calc(16 * var(--u)); overflow: hidden; }
+.pt-head, .pt-row { display: grid; grid-template-columns: repeat(var(--cols), 1fr); gap: calc(16 * var(--u)); padding: calc(20 * var(--u)); }
+.pt-head { background: var(--cream); font-weight: 700; font-size: calc(12 * var(--u)); line-height: 1.6; color: var(--deep); }
+.pt-row { position: relative; align-items: center; font-size: calc(14 * var(--u)); line-height: 1.6; }
+.pt-row > :first-child { font-weight: 600; }
+.pt-row::after { content: ""; position: absolute; inset: auto 0 0 0; height: 1px; background: var(--cream); transform-origin: 0 50%; }
+.m [data-r="rows"] { opacity: 1; transform: none; }
+.m [data-r="rows"] .pt-row { opacity: 0; transform: translateY(calc(12 * var(--u))); transition: opacity 0.5s ease, transform 0.7s var(--ease); transition-delay: calc(0.15s + var(--i) * 110ms); }
+.m [data-r="rows"] .pt-row::after { transform: scaleX(0); transition: transform 0.9s var(--ease) calc(0.15s + var(--i) * 110ms); }
+.m [data-r="rows"].in .pt-row { opacity: 1; transform: none; }
+.m [data-r="rows"].in .pt-row::after { transform: none; }
+
+/* product cards (Figma "Home / Card / …") */
+.pcards { display: flex; gap: calc(24 * var(--u)); }
+.pcard { flex: 1 0 0; min-width: 0; display: flex; flex-direction: column; gap: calc(24 * var(--u)); padding: calc(24 * var(--u)); background: var(--white); border: 1px solid var(--cream); border-radius: calc(24 * var(--u)); }
+.pcard-prev { height: calc(168 * var(--u)); display: flex; flex-direction: column; justify-content: center; gap: calc(10 * var(--u)); padding: calc(18 * var(--u)); background: var(--cream); border-radius: calc(16 * var(--u)); line-height: normal; }
+.pv-entry { display: flex; align-items: center; gap: calc(8 * var(--u)); height: calc(40 * var(--u)); padding: calc(8 * var(--u)) calc(10 * var(--u)); background: var(--white); border-radius: calc(8 * var(--u)); font-size: calc(11 * var(--u)); }
+.pv-entry i { flex: none; width: calc(24 * var(--u)); height: calc(24 * var(--u)); border-radius: 50%; background: var(--lime); }
+.pv-entry span { flex: 1 0 0; }
+.pv-va { display: flex; align-items: center; justify-content: space-between; font-size: calc(11 * var(--u)); color: var(--deep); }
+.pv-amt { font-family: var(--font-rupee), var(--font-dm), sans-serif; font-weight: 600; font-size: calc(30 * var(--u)); letter-spacing: calc(-1 * var(--u)); }
+.pv-status { display: flex; align-items: center; gap: calc(8 * var(--u)); padding: calc(10 * var(--u)); background: var(--white); border-radius: calc(8 * var(--u)); font-size: calc(11 * var(--u)); }
+.pv-rail { font-size: calc(10 * var(--u)); color: var(--deep); }
+.pv-open-banking { align-items: center; background: var(--white); color: #2e5c40; }
+.pv-hub { display: flex; align-items: center; gap: calc(16 * var(--u)); }
+.pv-hub i { width: calc(32 * var(--u)); height: 1px; background: var(--lime); }
+.pv-hub span { display: grid; place-items: center; width: calc(62 * var(--u)); height: calc(62 * var(--u)); border-radius: calc(18 * var(--u)); background: var(--darkest); color: var(--lime); }
+.pv-cap { font-size: calc(11 * var(--u)); }
+.pcard-d { display: flex; flex-direction: column; gap: calc(12 * var(--u)); }
+.pcard-t { font-weight: 600; font-size: calc(24 * var(--u)); letter-spacing: calc(-0.6 * var(--u)); line-height: normal; }
+.pcard-p { font-size: calc(15 * var(--u)); line-height: 1.65; color: var(--deep); }
+.pcard-link { display: flex; align-items: center; justify-content: space-between; font-weight: 700; font-size: calc(13 * var(--u)); line-height: normal; }
+
+/* closing band + footer sit on the dark green on inner pages (Figma), not the homepage's black */
+:root:has(main.inner) .closing { background: var(--darkest); }
+
+/* FAQ on inner pages: one column (Figma), same accordion component */
+.ch-w { display: inline-block; white-space: pre; }
+.ifaq .faq-list { flex: none; }
+.faq-q[aria-disabled="true"] { cursor: default; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ihero * { animation: none !important; }
+}

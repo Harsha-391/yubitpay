@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { lenisRef } from "@/lib/motion/lenis";
 import { Icon } from "./Icon";
 
-export type QA = { q: string; a: string };
+export type QA = { q: string; a?: string }; // no `a`: Figma has no answer for it yet, the row does not open
 
 // One answer open at a time; each item is deep-linkable as #faq-1 … #faq-n (opening one also updates the address bar).
 export function Accordion({ items }: { items: QA[] }) {
@@ -35,16 +35,18 @@ export function Accordion({ items }: { items: QA[] }) {
         return (
           <div key={it.q} id={`faq-${i + 1}`} className="faq-item" data-open={on} data-r="right" style={{ "--i": i } as React.CSSProperties}>
             <h3>
-              <button type="button" className="faq-q" aria-expanded={on} aria-controls={`faq-a-${i}`} onClick={() => toggle(i)}>
+              <button type="button" className="faq-q" aria-expanded={it.a ? on : undefined} aria-controls={it.a ? `faq-a-${i}` : undefined} aria-disabled={it.a ? undefined : true} onClick={() => it.a && toggle(i)}>
                 <span>{it.q}</span>
-                <Icon n={on ? "minus" : "plus"} w={18} />
+                <Icon n={on && it.a ? "minus" : "plus"} w={18} />
               </button>
             </h3>
-            <div className="faq-a" id={`faq-a-${i}`} role="region" aria-label={it.q}>
-              <div>
-                <p>{it.a}</p>
+            {it.a && (
+              <div className="faq-a" id={`faq-a-${i}`} role="region" aria-label={it.q}>
+                <div>
+                  <p>{it.a}</p>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         );
       })}

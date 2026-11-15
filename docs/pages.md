@@ -180,7 +180,21 @@ Frames listed in the route table. Structure in each: sidebar (workspace switcher
 
 ## Mobile disagreements
 
-None yet. Recorded here when a Figma mobile frame and a good phone experience disagree.
+- **Nav on phones:** Figma's phone frames show a "Menu +" / "Sign in ↗" row under the bar. The build keeps the existing menu button and full-screen sheet (44px targets, focus trap, already tested).
+- **Small text:** Figma's phone frames use 10–11px for code, tags, card labels and legal text. The build uses 12px, the site minimum.
+- **Hero cover:** the hero staying put while the page slides over it is desktop only. On phones the hero is taller than the screen, so it scrolls normally.
+
+## Built so far
+
+| Route | Commit | Notes for review |
+|---|---|---|
+| `/products/payouts`, `/products/collections`, `/products/upi` | one commit (one template, three data sets) | see below |
+
+Missing in Figma, so not invented (product pages):
+- **FAQ answers 2–4:** Figma only draws the first answer. The other three questions are shown but do not open.
+- **Node.js / Python requests:** Figma's API card shows three language labels but only the cURL request. The other two are labels, not tabs.
+- **"Explore open banking":** no Open banking page exists, so the link is `#`.
+- **Button hover:** Figma's secondary hover variant is identical to its normal state, so the new outline button has no hover design of its own.
 
 ## Banned-style allowlist (for the Phase 3 check)
 

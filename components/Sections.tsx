@@ -88,7 +88,7 @@ export function Faq() {
 }
 
 // Closing CTA band (Figma component "Home / CTA Band"): the last section of most pages.
-export function CtaBand() {
+export function CtaBand({ label = "Talk to our team", href = "#" }: { label?: string; href?: string }) {
   return (
     <div className="closing" data-tone="dark">
       <section className="cta-wrap sec" aria-label="Build with Yubit Pay">
@@ -100,10 +100,10 @@ export function CtaBand() {
             <p className="cta-p">Let’s build your next financial experience, together.</p>
           </div>
           <div className="cta-actions">
-            <a className="btn btn-lime btn-cta" href="#" data-r="pop" data-magnet>
-              Talk to our team
+            <Link className="btn btn-lime btn-cta" href={href} data-r="pop" data-magnet>
+              {label}
               <Icon n="arrow-up-right-cta" w={18} />
-            </a>
+            </Link>
             <Link className="cta-doc" href={ROUTES.docs}>Or explore the documentation ↗</Link>
           </div>
         </div>

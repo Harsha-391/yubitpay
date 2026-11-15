@@ -5,7 +5,9 @@ import { SPRITE } from "@/components/sprite.generated";
 import "./globals.css";
 import "./sections.css";
 import "./scenes.css";
+import "./inner.css";
 import "./mobile.css"; // phone + tablet overrides; last so they win at equal specificity
+import "./inner-mobile.css";
 
 const dm = DM_Sans({ subsets: ["latin"], axes: ["opsz"], variable: "--font-dm", display: "swap" });
 const mono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "600"], variable: "--font-mono", display: "swap" });
