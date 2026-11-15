@@ -162,6 +162,11 @@
   /* ---------------------------------------------------------------- playground: own card spots, fewer cards, ~1.1 screens */
   .play-head { flex-direction: column; align-items: flex-start; gap: calc(10 * var(--u)); margin-bottom: calc(24 * var(--u)); }
   .play-hint { font-size: calc(13 * var(--u)); }
+  .play-aside { align-items: stretch; width: 100%; }
+  .ticker { width: 100%; max-width: calc(420 * var(--u)); }
+  .ticker-label { text-align: left; font-size: calc(12 * var(--u)); }
+  .ticker-list { height: calc(60 * var(--u)); }
+  .tk { height: calc(28 * var(--u)); font-size: calc(12 * var(--u)); transform: translateY(calc(var(--k) * 32 * var(--u))); }
   .board { height: calc(560 * var(--u)); border-radius: calc(22 * var(--u)); }
   .pg-card { left: var(--px) !important; top: var(--py) !important; gap: calc(10 * var(--u)); padding: calc(12 * var(--u)); border-radius: calc(16 * var(--u)); }
   .pg-card[data-drop] { display: none; }

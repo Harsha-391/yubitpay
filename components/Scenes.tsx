@@ -32,7 +32,7 @@ const STATEMENT: [string, boolean][] = [
 export function Statement() {
   return (
     <section className="statement" id="statement" data-tone="dark" aria-label="What Yubit Pay does">
-      <div className="statement-pin" data-p style={vars({ "--n": STATEMENT.length })}>
+      <div className="statement-pin" data-p data-idle style={vars({ "--n": STATEMENT.length })}>
         <YMark className="statement-y" />
         <p className="statement-text">
           {STATEMENT.map(([w, hi], i) => (

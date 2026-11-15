@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { countUp } from "@/lib/countUp";
+import { Ticker } from "./Ticker";
 import { onViewport, unit } from "@/lib/viewport";
 import { Icon } from "./Icon";
 import { YMark } from "./YMark";
@@ -173,7 +174,10 @@ export function Playground() {
     <section className="play sec-pad" data-tone="light" aria-label="One integration">
       <div className="play-head">
         <h2 className="h2 ink" data-r="left">One integration.<br />More potential.</h2>
-        <p className="play-hint mono" data-r="right" id="pg-hint">Drag the cards around<span className="sr-only"> (or focus one and use the arrow keys)</span></p>
+        <div className="play-aside" data-r="right">
+          <p className="play-hint mono" id="pg-hint">Drag the cards around<span className="sr-only"> (or focus one and use the arrow keys)</span></p>
+          <Ticker />
+        </div>
       </div>
       <div className="board" ref={board} data-idle aria-describedby="pg-hint">
         {DEFS.map((d, i) => (
