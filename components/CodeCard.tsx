@@ -111,7 +111,7 @@ export function CodeCard() {
   };
 
   return (
-    <div className="code" data-r="up" data-run={run} data-idle style={i(1)}>
+    <div className="code" data-r="up" data-run={run} style={i(1)}>
       <div className="code-head">
         <Icon n="window-controls" w={33} h={7} />
         <span className="mono code-file">your-next-integration.sh</span>
@@ -140,7 +140,7 @@ export function CodeCard() {
         </div>
       </div>
       <div className="code-resp mono resp">
-        <Icon n="response-dot" w={7} className="resp-dot" />
+        <Icon n="response-dot" w={7} />
         <span className="lime">200 OK</span>
         <span className="cream">{`{ "status": "processing" }`}</span>
         <button type="button" className="code-send" onClick={send} disabled={run === 1 || run === 2}>

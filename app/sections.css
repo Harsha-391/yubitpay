@@ -60,9 +60,6 @@
   opacity: 0; transform: translateY(calc(-14 * var(--u))); transition: opacity 0.4s, transform 0.7s var(--spring-drop);
 }
 .code-hook[data-open="true"] .hook-card { opacity: 1; transform: none; }
-/* the 200 OK dot breathes (paused off-screen, see [data-idle]) */
-.resp-dot, .pg-ok > svg:first-child { animation: dot-pulse 2.2s ease-in-out infinite; }
-@keyframes dot-pulse { 50% { opacity: 0.35; transform: scale(0.7); } }
 .code-note { text-align: center; font-size: calc(10 * var(--u)); line-height: calc(32 * var(--u)); color: var(--cream); }
 .journey { list-style: none; display: flex; gap: calc(32 * var(--u)); padding-top: calc(32 * var(--u)); border-top: 1px solid var(--deep); line-height: normal; }
 .step { flex: 1 0 0; min-width: 1px; display: flex; align-items: flex-start; gap: calc(16 * var(--u)); }
@@ -152,7 +149,7 @@
 @keyframes drop-in { from { opacity: 0; transform: translateY(calc(-10 * var(--u))); } to { opacity: 1; transform: none; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .resp-dot, .pg-ok > svg:first-child, .copy-btn, .code[data-run] .req, .code[data-run] .code-resp { animation: none !important; }
+  .copy-btn, .code[data-run] .req, .code[data-run] .code-resp { animation: none !important; }
   .roll > span, .roll::after, .faq-a, .btn, .sol-arrow { transition: none !important; }
 }
 

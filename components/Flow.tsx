@@ -33,7 +33,6 @@ export function Flow() {
     const tcards = track ? [...track.children] as HTMLElement[] : [];
     const tys = tcards.map((c) => c.querySelector<HTMLElement>(".tc-y"));
     const outro = $<SVGSVGElement>("#outro-mark"), outroBox = outro?.parentElement ?? null; // measure the box, move the mark
-    const fluteGlow = $<HTMLElement>(".flute-glow");
     const toneEls = [...document.querySelectorAll<HTMLElement>("[data-tone]")].filter((e) => e !== nav);
 
     const storyDim = document.createElement("div");
@@ -128,29 +127,16 @@ export function Flow() {
       for (const [t, k] of tones) if (probe >= t) tone = k; // after it: whatever scene is under the nav
       if (nav.dataset.tone !== tone) nav.dataset.tone = tone;
     };
-    const wake = () => { rest(); if (!raf) raf = requestAnimationFrame(frameFn); };
+    const wake = () => { if (!raf) raf = requestAnimationFrame(frameFn); };
 
     // the marquee doesn't run while it can't be seen
     const io = new IntersectionObserver(([en]) => rowAnims.forEach((a) => (en.isIntersecting ? a.play() : a.pause())));
     if (banner) io.observe(banner);
 
-    // idle: lights breathe once the scroll has rested; loops in [data-idle] scenes stop off-screen and while the tab is hidden
-    let idleT = 0;
-    const rest = () => { root.classList.remove("idle"); clearTimeout(idleT); idleT = window.setTimeout(() => root.classList.add("idle"), 2500); };
-    const offscreen = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle("off", !e.isIntersecting)));
-    document.querySelectorAll("[data-idle]").forEach((e) => offscreen.observe(e));
-    const away = () => root.classList.toggle("away", document.hidden);
-    document.addEventListener("visibilitychange", away);
-    rest();
-
     // pointer: spotlight, card tilt, magnetic buttons (fine pointers only; CSS transitions do the easing)
     const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
     const onPointer = (e: PointerEvent) => {
       const t = e.target as Element;
-      if (fluteGlow && t.closest(".hero")) {
-        const r = fluteGlow.getBoundingClientRect();
-        put(fluteGlow, "--fx", `${(e.clientX - r.left).toFixed(0)}px`); put(fluteGlow, "--fy", `${(e.clientY - r.top).toFixed(0)}px`);
-      }
       const spot = t.closest<HTMLElement>("[data-spot]");
       if (spot) { const r = spot.getBoundingClientRect(); spot.style.setProperty("--mx", `${e.clientX - r.left}px`); spot.style.setProperty("--my", `${e.clientY - r.top}px`); }
       const tilt = t.closest<HTMLElement>("[data-tilt]");
@@ -191,7 +177,6 @@ export function Flow() {
     document.addEventListener("click", onClick);
 
     return () => {
-      clearTimeout(idleT); offscreen.disconnect(); document.removeEventListener("visibilitychange", away); root.classList.remove("idle", "away");
       lenis.destroy(); lenisRef.current = null; offViewport(); ro.disconnect(); io.disconnect(); cancelAnimationFrame(raf); storyDim.remove();
       window.removeEventListener("scroll", wake);
       document.removeEventListener("pointermove", onPointer); document.removeEventListener("pointerout", onOut); document.removeEventListener("click", onClick);

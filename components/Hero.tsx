@@ -22,9 +22,8 @@ const px = (n: number) => `calc(${n} * var(--u))`;
 
 export function Hero() {
   return (
-    <section className="hero" aria-label="Hero" data-idle>
+    <section className="hero" aria-label="Hero">
       <div className="flutes" aria-hidden="true" />
-      <div className="flute-glow" aria-hidden="true" />
       <svg className="glow" aria-hidden="true">
         <use href="#ambient-glow" />
       </svg>

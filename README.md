@@ -19,7 +19,7 @@ node scripts/check.mjs          # dev-only checks + screenshots against a runnin
 | `components/Scenes.tsx` | statement (word-by-word light-up), tilted banner tape, pinned horizontal solutions track, letter-rise heading, outro wordmark |
 | `components/Playground.tsx` | drag playground: board zooms in, cards fly in with scroll, then throwable (momentum, tilt, bounds, parallax); ₹ counts up |
 | `components/Sections.tsx` + `CodeCard.tsx`, `Accordion.tsx`, `FootCol.tsx`, `Reveal.tsx` | developer experience (tabs, copy, "Send test request"), FAQ (one open, `#faq-1…4`), closing panel + footer; scroll reveals |
-| `components/TrackCard.tsx`, `Ticker.tsx`, `YMark.tsx` | solutions card (unfolds on hover/tap), illustrative sandbox event stream, the Y mark |
+| `components/TrackCard.tsx`, `YMark.tsx` | solutions card (unfolds on hover/tap), the Y mark |
 | `lib/viewport.ts`, `lenis.ts`, `ia.ts`, `countUp.ts` | breakpoints + `--u` read from CSS + resize filtering; shared Lenis handle; nav/footer links; ₹ count-up |
 | `components/Flow.tsx` | between-scene choreography, each scene different: statement covers the story · tape rows travel/lean · developer frame grows out of the lime · step bar · horizontal track · rising wordmark; plus Lenis, nav, spotlight, card tilt, magnetic buttons |
 | `app/globals.css`, `sections.css`, `scenes.css` | desktop styles; every size is a Figma px × `--u` so the 1400×978 frame scales to any desktop screen |
@@ -35,7 +35,6 @@ Motion is CSS + compositor transforms only (no canvas / WebGL, no video). Refere
 - If JS never comes alive the hidden-until-revealed states are dropped after 12 s (`data-ready` failsafe in `app/layout.tsx`).
 - Copy that is not in the Figma: FAQ answers 2–4 and the Node.js / Python code tabs (marked `TODO: real copy`). Replace with real text.
 - Interactive controls (menus, tabs, test request, FAQ, solutions cards, playground drag / arrow keys) all work under reduced motion, without the animation.
-- Idle: 2.5 s after scrolling stops, the hero glow, statement Y and nav progress line breathe. `[data-idle]` scenes pause their loops off-screen; everything pauses while the tab is hidden.
 - Satoshi (hero sub-line only) comes from Fontshare; the other fonts are Google Fonts via `next/font`.
 
 ## Breakpoints
@@ -45,7 +44,7 @@ Motion is CSS + compositor transforms only (no canvas / WebGL, no video). Refere
 | tablet | 768–1099px | `min(100vw / 600, 100svh / 680)` | the phone structure, roomier (2-up grids) |
 | desktop | ≥ 1100px | `min(100vw / 1400, 100svh / 978)` | the Figma layout, unchanged |
 
-JS reads the live `--u` from a probe (`lib/viewport.ts`), so the motion code never re-derives the formula. On touch devices, height-only resizes under 120px (the address bar) are ignored so pinned scenes don't jump; rotation always re-measures. Hover-only effects (spotlight, tilt, magnetic buttons, rolling labels, flute glow) run only under `(hover: hover) and (pointer: fine)`; touch gets a press state (scale 0.97 + lime ring). Safe-area insets pad the nav, menu sheet and footer (`viewport-fit=cover`).
+JS reads the live `--u` from a probe (`lib/viewport.ts`), so the motion code never re-derives the formula. On touch devices, height-only resizes under 120px (the address bar) are ignored so pinned scenes don't jump; rotation always re-measures. Hover-only effects (spotlight, tilt, magnetic buttons, rolling labels) run only under `(hover: hover) and (pointer: fine)`; touch gets a press state (scale 0.97 + lime ring). Safe-area insets pad the nav, menu sheet and footer (`viewport-fit=cover`).
 
 ## Phone / tablet behaviour per scene
 - **Nav**: logo + Start building + menu button. The menu is a full-screen glass sheet; flute lines rain in, the four groups are accordions. While it's open the page behind is inert, Lenis is stopped and focus is trapped. It closes on Esc, a link tap or a hash change.
@@ -53,7 +52,7 @@ JS reads the live `--u` from a probe (`lib/viewport.ts`), so the motion code nev
 - **Story**: the same triangle → Y → strokes → borders → fill sequence, about 3 screens of scroll instead of about 4.5 (`storyPace`). The cards stack as compact rows, and the strokes land on the measured card rects.
 - **Statement, tape**: same motion at phone type sizes.
 - **Developer**: one column. The code body scrolls sideways inside its card, never the page. The step bar is vertical.
-- **Playground**: 7 of the 11 cards, at phone positions, on a board of about 1.1 screens. Cards get `touch-action: none`, the board gets `pan-y`, so a swipe on the board still scrolls. Cards drift slowly instead of following a pointer.
+- **Playground**: 7 of the 11 cards, at phone positions, on a board of about 1.1 screens. Cards get `touch-action: none`, the board gets `pan-y`, so a swipe on the board still scrolls. No pointer parallax on touch.
 - **Solutions**: the pinned horizontal track stays, with cards at 85vw (62vw on tablet). Tapping a card unfolds it.
 - **FAQ, closing**: one column. **Footer**: columns become accordions. The outro wordmark scales to the width.
 

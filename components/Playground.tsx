@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { countUp } from "@/lib/countUp";
-import { Ticker } from "./Ticker";
 import { onViewport, unit } from "@/lib/viewport";
 import { Icon } from "./Icon";
 import { YMark } from "./YMark";
@@ -11,8 +10,7 @@ import { YMark } from "./YMark";
   flies in from its own scattered spot (scrubbed by scroll, so it plays backwards too). Once landed, cards drift with the pointer
   by depth and can be thrown — momentum, a tilt from the throw speed, soft bounces at the edges. The ₹ amount counts up once.
   One rAF loop that runs only while something is still moving; only transform / opacity are written.
-  Phones get their own spots (px/py) and fewer cards (drop) so the board fits ~1.1 screens; touch has no pointer to follow,
-  so the cards drift slowly on their own instead (a CSS `translate` animation, composited, paused off-screen).
+  Phones get their own spots (px/py) and fewer cards (drop) so the board fits ~1.1 screens; touch has no pointer, so no parallax there.
 */
 type Def = { x: number; y: number; px?: number; py?: number; drop?: true; z: number; r: number; node: React.ReactNode; cls?: string };
 
@@ -160,10 +158,8 @@ export function Playground() {
     el.addEventListener("pointerleave", leave);
     el.addEventListener("keydown", key);
     const offViewport = onViewport(() => { measure(); onScroll(); });
-    const seen = new IntersectionObserver(([e]) => el.classList.toggle("on", e.isIntersecting)); // idle drift only while visible
-    seen.observe(el);
     return () => {
-      offViewport(); seen.disconnect();
+      offViewport();
       cancelAnimationFrame(raf); window.removeEventListener("scroll", onScroll);
       el.removeEventListener("pointerdown", down); el.removeEventListener("pointermove", move);
       el.removeEventListener("pointerup", up); el.removeEventListener("pointercancel", up); el.removeEventListener("pointerleave", leave); el.removeEventListener("keydown", key);
@@ -174,12 +170,9 @@ export function Playground() {
     <section className="play sec-pad" data-tone="light" aria-label="One integration">
       <div className="play-head">
         <h2 className="h2 ink" data-r="left">One integration.<br />More potential.</h2>
-        <div className="play-aside" data-r="right">
-          <p className="play-hint mono" id="pg-hint">Drag the cards around<span className="sr-only"> (or focus one and use the arrow keys)</span></p>
-          <Ticker />
-        </div>
+        <p className="play-hint mono" data-r="right" id="pg-hint">Drag the cards around<span className="sr-only"> (or focus one and use the arrow keys)</span></p>
       </div>
-      <div className="board" ref={board} data-idle aria-describedby="pg-hint">
+      <div className="board" ref={board} aria-describedby="pg-hint">
         {DEFS.map((d, i) => (
           <div key={i} className={`pg-card ${d.cls ?? "pg-chip"}`} data-drop={d.drop} tabIndex={0} aria-roledescription="draggable card" style={{ left: `${d.x}%`, top: `${d.y}%`, "--px": `${d.px}%`, "--py": `${d.py}%`, "--z": d.z, transform: `rotate(${d.r}deg)`, "--i": i } as React.CSSProperties}>
             {d.node}

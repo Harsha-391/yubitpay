@@ -31,7 +31,7 @@
   /* the menu sheet: dark glass; the hero's flute lines rain down into it, then the groups stagger in */
   .sheet {
     display: block; position: fixed; inset: 0; z-index: 0; overflow-y: auto; overscroll-behavior: contain;
-    background: rgba(12, 32, 23, 0.94); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+    background: var(--darkest);
     opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.4s var(--ease), visibility 0s 0.4s;
   }
   .sheet[data-open="true"] { opacity: 1; visibility: visible; pointer-events: auto; transition: opacity 0.3s var(--ease); }
@@ -164,11 +164,6 @@
   /* ---------------------------------------------------------------- playground: own card spots, fewer cards, ~1.1 screens */
   .play-head { flex-direction: column; align-items: flex-start; gap: calc(10 * var(--u)); margin-bottom: calc(24 * var(--u)); }
   .play-hint { font-size: calc(13 * var(--u)); }
-  .play-aside { align-items: stretch; width: 100%; }
-  .ticker { width: 100%; max-width: calc(420 * var(--u)); }
-  .ticker-label { text-align: left; font-size: calc(12 * var(--u)); }
-  .ticker-list { height: calc(60 * var(--u)); }
-  .tk { height: calc(28 * var(--u)); font-size: calc(12 * var(--u)); transform: translateY(calc(var(--k) * 32 * var(--u))); }
   .board { height: calc(560 * var(--u)); border-radius: calc(22 * var(--u)); }
   .pg-card { left: var(--px) !important; top: var(--py) !important; gap: calc(10 * var(--u)); padding: calc(12 * var(--u)); border-radius: calc(16 * var(--u)); }
   .pg-card[data-drop] { display: none; }
@@ -256,11 +251,4 @@
 @media (min-width: 768px) and (max-width: 1099px) {
   .tcard, .tc-intro { width: 62vw; }
   .pg-chip { width: calc(210 * var(--u)); }
-}
-
-/* touch: there is no pointer to follow, so the playground cards drift on their own (composited `translate`, only while on screen) */
-@media (hover: none) {
-  .m .board.on .pg-card { animation: pg-drift 6s ease-in-out calc(var(--i) * -1.7s) infinite alternate; }
-  .m .board .pg-card.grab { animation-play-state: paused; } /* pause, not remove: removing would snap the card back */
-  @keyframes pg-drift { to { translate: calc(var(--z) * 7 * var(--u)) calc(var(--z) * -9 * var(--u)); } }
 }
