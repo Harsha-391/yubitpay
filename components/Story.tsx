@@ -24,7 +24,7 @@ export function Story() {
           <div className="tint" id="tint" aria-hidden="true" />
           <div className="intro">
             <h2 className="intro-h" id="intro-h">
-              Everything your product needs
+              Everything your product needs{" "}
               <br />
               to move money forward.
             </h2>

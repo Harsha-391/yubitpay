@@ -1,5 +1,6 @@
 "use client";
 import { useEffect } from "react";
+import { onViewport, storyPace, unit } from "@/lib/viewport";
 
 /*
   The pinned story (Story.tsx). One scroll position S, in viewport heights V, drives:
@@ -11,6 +12,8 @@ import { useEffect } from "react";
     2.45–3.05  each stroke flies to one card's top edge (left arm → left card, stem → centre, right arm → right card)
     2.95–3.33  borders draw around the cards · 3.25–3.79 cards fill · 3.6–3.9 light tint · 3.85–4.3 heading ← / text →
   Every write goes through a change-only cache, at most once per frame; Lenis (Flow.tsx) smooths the scroll.
+  On phones/tablets the same timeline runs faster (storyPace) so the pin is ~3 screens, and every position is measured from the DOM,
+  so the strokes land on whatever layout the cards have (a row on desktop, a stack on phones).
 */
 
 const clamp = (x: number, a = 0, b = 1) => Math.min(b, Math.max(a, x));
@@ -75,19 +78,19 @@ export function StoryMotion() {
       put(el, "stroke-width", w.toFixed(2)); put(el, "opacity", o.toFixed(3));
     };
 
-    let W = 0, V = 0, u = 1, top = 0, r = 0, k0 = 1, K = 1, c0 = [0, 0], C1 = [0, 0];
+    let W = 0, V = 0, u = 1, T = 1, top = 0, r = 0, k0 = 1, K = 1, c0 = [0, 0], C1 = [0, 0];
     let cards: { x: number; y: number; w: number; h: number }[] = [], fTop: number[] = [], chipDir: number[] = [];
 
     const measure = () => {
       const p = pin.getBoundingClientRect();
-      W = p.width; V = window.innerHeight;
-      u = Math.min(window.innerWidth / 1400, V / 978);
+      W = p.width; V = p.height; // the pin is 100svh: stable while a phone's address bar comes and goes
+      u = unit(); T = storyPace();
       top = $<HTMLElement>("#story").getBoundingClientRect().top + window.scrollY;
       put(mark, "viewBox", `0 0 ${W.toFixed(1)} ${p.height.toFixed(1)}`, true);
-      // start: exactly over the logo's own triangle (layout box of .illu is never transformed)
-      const ill = $<HTMLElement>("#illu").getBoundingClientRect();
-      k0 = 5.2 * u; // the logo is 520 design px for 100 logo units
-      c0 = [ill.left - p.left + 368 * u + G[0] * k0, ill.top - p.top + 96 * u + G[1] * k0];
+      // start: exactly over the logo's own triangle. .illu's box is never transformed; the logo's offsets ignore its rise/scale animation.
+      const ill = $<HTMLElement>("#illu").getBoundingClientRect(), wrap = logo.parentElement!;
+      k0 = logo.offsetWidth / 100; // the logo svg is 100 units wide
+      c0 = [ill.left - p.left + wrap.offsetLeft + logo.offsetLeft + G[0] * k0, ill.top - p.top + wrap.offsetTop + logo.offsetTop + G[1] * k0];
       K = (240 * u) / TRI_W;
       C1 = [W / 2, p.height * 0.34];
       r = 15 * u;
@@ -106,7 +109,7 @@ export function StoryMotion() {
     };
 
     const render = () => {
-      const S = window.scrollY - top;
+      const S = (window.scrollY - top) * T;
       const Vh = V;
 
       // ---- hero leaves
@@ -200,10 +203,10 @@ export function StoryMotion() {
     const remeasure = () => { measure(); render(); };
     remeasure();
     window.addEventListener("scroll", wake, { passive: true });
-    window.addEventListener("resize", remeasure);
+    const offViewport = onViewport(remeasure);
     document.fonts?.ready.then(remeasure);
     return () => {
-      window.removeEventListener("scroll", wake); window.removeEventListener("resize", remeasure);
+      window.removeEventListener("scroll", wake); offViewport();
       cancelAnimationFrame(raf);
     };
   }, []);

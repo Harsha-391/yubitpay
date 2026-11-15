@@ -67,7 +67,8 @@
 .m .frame { border-radius: calc(40 * var(--u)); transform-origin: 50% 30%; will-change: scale; box-shadow: 0 calc(40 * var(--u)) calc(90 * var(--u)) rgba(12, 32, 23, 0.35); }
 .journey { position: relative; }
 .journey-bar { position: absolute; left: 0; right: 0; top: -1px; height: 2px; list-style: none; }
-.journey-bar i { display: block; height: 100%; background: var(--lime); transform: scaleX(0); transform-origin: 0 50%; will-change: transform; }
+.journey-bar i { display: block; height: 100%; background: var(--lime); transform: scaleX(var(--j, 1)); transform-origin: 0 50%; will-change: transform; } /* full without JS; Flow.tsx writes --j */
+.m .journey-bar i { --j: 0; }
 .m .benefit svg { stroke-dasharray: 30; stroke-dashoffset: 30; transition: stroke-dashoffset 0.7s var(--ease) calc(0.25s + var(--i, 0) * 0.12s); }
 .m .benefit.in svg { stroke-dashoffset: 0; }
 
@@ -88,6 +89,7 @@
 /* ---- solutions: pinned horizontal track (Flow.tsx sets the section height = its travel) */
 .tracks { position: relative; background: var(--dark); }
 .tracks-pin { position: relative; overflow: hidden; padding: calc(120 * var(--u)) 0 calc(80 * var(--u)); }
+:root:not(.m) .tracks-pin { overflow-x: auto; scroll-snap-type: x proximity; } /* no JS / reduced motion: no pin, so the track scrolls sideways itself */
 .m .tracks-pin { position: sticky; top: 0; height: 100svh; display: flex; flex-direction: column; justify-content: center; padding: calc(80 * var(--u)) 0 0; }
 .track { display: flex; gap: calc(28 * var(--u)); width: max-content; padding: 0 max(calc(72 * var(--u)), calc((100vw - 1400 * var(--u)) / 2 + 72 * var(--u))); will-change: transform; }
 .tcard { position: relative; flex: none; width: calc(560 * var(--u)); height: calc(560 * var(--u)); border-radius: calc(32 * var(--u)); padding: calc(48 * var(--u)); overflow: hidden; display: flex; flex-direction: column; }

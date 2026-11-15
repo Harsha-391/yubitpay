@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { DM_Sans, IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
 import localFont from "next/font/local";
 import { SPRITE } from "@/components/sprite.generated";
 import "./globals.css";
 import "./sections.css";
 import "./scenes.css";
+import "./mobile.css"; // phone + tablet overrides; last so they win at equal specificity
 
 const dm = DM_Sans({ subsets: ["latin"], axes: ["opsz"], variable: "--font-dm", display: "swap" });
 const mono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "600"], variable: "--font-mono", display: "swap" });
@@ -18,6 +19,9 @@ export const metadata: Metadata = {
   title: "Yubit Pay — Financial infrastructure for India",
   description: "Connect payments, payouts and open banking with developer-friendly APIs. Less complexity. More possibility.",
 };
+
+// cover: draw under the notch / home bar; the nav, menu sheet and footer pad themselves with env(safe-area-inset-*)
+export const viewport: Viewport = { viewportFit: "cover", themeColor: "#0c2017" };
 
 // Adds `m` (scroll-morph hidden states) only when JS runs and motion is allowed; without it the page is the plain final layout.
 // If the JS never comes alive (data-ready is set by Morph/Reveal) drop `m` after 12s so nothing stays hidden.

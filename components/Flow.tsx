@@ -1,6 +1,8 @@
 "use client";
 import { useEffect } from "react";
 import Lenis from "lenis";
+import { lenisRef } from "@/lib/lenis";
+import { onViewport, storyPace, unit } from "@/lib/viewport";
 
 /*
   Scroll choreography between and inside scenes (patterns from the Loopsii / gokiwi references) — every scene enters differently:
@@ -19,6 +21,7 @@ export function Flow() {
     if (!root.classList.contains("m")) return;
 
     const lenis = new Lenis({ duration: 1.4, easing: (t) => (t === 1 ? 1 : 1 - 2 ** (-10 * t)), smoothWheel: true, syncTouch: false, wheelMultiplier: 1.6, autoRaf: true });
+    lenisRef.current = lenis;
     const $ = <T extends Element>(s: string) => document.querySelector(s) as T | null;
     const nav = $<HTMLElement>(".nav")!;
     const story = $<HTMLElement>("#story")!, storyPin = $<HTMLElement>("#story-pin")!;
@@ -47,8 +50,8 @@ export function Flow() {
     let tkTop = 0, tkTravel = 0, tkH = 0, outTop = 0, outH = 0, tones: [number, string][] = [], centers: number[] = [];
 
     const measure = () => {
-      vh = window.innerHeight; W = window.innerWidth; u = Math.min(W / 1400, vh / 978);
-      tintAt = docTop(story) + 3.75 * vh; // the story turns light here (StoryMotion)
+      vh = storyPin.offsetHeight; W = window.innerWidth; u = unit(); // the pin is 100svh: ignores a phone's address bar
+      tintAt = docTop(story) + (3.75 * vh) / storyPace(); // the story turns light here (StoryMotion)
       if (statement) { stTop = docTop(statement); stH = statement.offsetHeight; }
       if (banner) bnTop = docTop(banner);
       if (frame) { frame.style.scale = "1"; seen.delete(frame); frTop = docTop(frame); frH = frame.offsetHeight; } // measure unscaled, then re-apply
@@ -97,7 +100,7 @@ export function Flow() {
         const l = clamp((sy - (frTop + frH - vh * 0.55)) / (vh * 0.55));
         put(frame, "scale", (0.86 + 0.14 * e - 0.07 * l).toFixed(4));
       }
-      if (journeyFill) put(journeyFill, "transform", `scaleX(${clamp((sy + vh * 0.8 - jTop) / (vh * 0.35)).toFixed(4)})`);
+      if (journeyFill) put(journeyFill, "--j", clamp((sy + vh * 0.8 - jTop) / (vh * 0.35)).toFixed(4)); // CSS scales X on desktop, Y on phones
 
       // horizontal track
       if (track) {
@@ -154,7 +157,7 @@ export function Flow() {
     remeasure();
     lenis.on("scroll", wake);
     window.addEventListener("scroll", wake, { passive: true });
-    window.addEventListener("resize", remeasure);
+    const offViewport = onViewport(remeasure);
     document.fonts?.ready.then(remeasure);
     const ro = new ResizeObserver(() => remeasure()); // the FAQ accordion and late fonts change heights
     ro.observe(document.body);
@@ -170,8 +173,8 @@ export function Flow() {
     document.addEventListener("click", onClick);
 
     return () => {
-      lenis.destroy(); ro.disconnect(); io.disconnect(); cancelAnimationFrame(raf); storyDim.remove();
-      window.removeEventListener("scroll", wake); window.removeEventListener("resize", remeasure);
+      lenis.destroy(); lenisRef.current = null; offViewport(); ro.disconnect(); io.disconnect(); cancelAnimationFrame(raf); storyDim.remove();
+      window.removeEventListener("scroll", wake);
       document.removeEventListener("pointermove", onPointer); document.removeEventListener("pointerout", onOut); document.removeEventListener("click", onClick);
     };
   }, []);

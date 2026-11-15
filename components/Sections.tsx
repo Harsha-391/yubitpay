@@ -1,6 +1,8 @@
 import { Fragment } from "react";
 import { Accordion, type QA } from "./Accordion";
 import { CodeCard } from "./CodeCard";
+import { FootCol } from "./FootCol";
+import { FOOTER } from "@/lib/ia";
 import { Icon } from "./Icon";
 import { Chars, Outro } from "./Scenes";
 
@@ -18,11 +20,6 @@ const faqs: QA[] = [
   { q: "Who is Yubit Pay built for?", a: "Startups and fintechs, platforms and marketplaces, and SaaS and tech companies that want to embed collections, payouts and open banking into their product." },
   { q: "Can I test the APIs before going live?", a: "Yes. Connect your workflows in the sandbox and test them before you go live." },
   { q: "How do I get started with pricing and onboarding?", a: "Talk to our team. We’ll help you find the APIs that fit your product and get launch-ready." },
-];
-const footerCols = [
-  { h: "Platform", l: ["Collections", "Payouts", "Open banking"] },
-  { h: "Developers", l: ["API documentation", "API reference", "Get started"] },
-  { h: "Company", l: ["About Yubit Pay", "Contact us", "Talk to sales"] },
 ];
 
 // Heading words fill in with scroll: opacity comes from the panel's --enter (set by Flow.tsx), so the line reads as it rises.
@@ -42,12 +39,6 @@ export function Words({ lines, className }: { lines: string[]; className: string
     </h2>
   );
 }
-
-const Roll = ({ children }: { children: string }) => (
-  <span className="roll" data-text={children}>
-    <span>{children}</span>
-  </span>
-);
 
 export function DeveloperExperience() {
   return (
@@ -143,14 +134,7 @@ export function Closing() {
             <p className="foot-about">Financial infrastructure for the next generation of Indian businesses.</p>
             <p className="foot-tag">Built for India. Open to possibility.</p>
           </div>
-          {footerCols.map((c, n) => (
-            <nav key={c.h} className="foot-col" aria-label={c.h} data-r="up" style={i(n + 1)}>
-              <p className="foot-h">{c.h}</p>
-              {c.l.map((l) => (
-                <a key={l} href="#"><Roll>{l}</Roll></a>
-              ))}
-            </nav>
-          ))}
+          {FOOTER.map((g, n) => <FootCol key={g.h} g={g} n={n + 1} />)}
         </div>
         <div className="legal">
           <p>© 2026 Yubit Pay. All rights reserved.</p>

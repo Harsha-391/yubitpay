@@ -25,7 +25,6 @@
 .copy-btn { display: grid; place-items: center; }
 .code-tabs { display: flex; align-items: center; gap: calc(26 * var(--u)); height: calc(48 * var(--u)); padding: 0 calc(24 * var(--u)); border-bottom: 1px solid var(--deep); font-size: calc(12 * var(--u)); line-height: normal; }
 .tab { color: var(--cream); font-family: inherit; font-size: inherit; transition: color 0.3s; }
-.tab:hover { color: var(--white); }
 .tab[aria-selected="true"] { color: var(--lime); font-weight: 600; }
 .code-body { display: flex; flex-direction: column; gap: calc(9 * var(--u)); padding: calc(24 * var(--u)); color: var(--white); overflow: hidden; }
 .code-body p, .code-body pre { margin: 0; font-family: inherit; line-height: normal; white-space: pre-wrap; }
@@ -52,8 +51,6 @@
 .sol-t { font-weight: 600; font-size: calc(21 * var(--u)); line-height: normal; color: var(--white); }
 .sol-p { font-size: calc(14 * var(--u)); line-height: 1.5; color: var(--cream); }
 .sol-arrow { transition: transform 0.45s var(--ease); }
-.sol:hover .sol-arrow { transform: translate(calc(4 * var(--u)), calc(-4 * var(--u))); }
-.sol:hover .sol-sym { background: #24473a; }
 
 /* faq */
 .faq { background: var(--white); padding-block: calc(80 * var(--u)); display: flex; gap: calc(120 * var(--u)); contain-intrinsic-size: auto calc(480 * var(--u)); }
@@ -89,6 +86,7 @@
 .foot-about { width: calc(310 * var(--u)); font-size: calc(14 * var(--u)); line-height: 1.7; color: var(--cream); }
 .foot-tag { font-size: calc(12 * var(--u)); line-height: normal; color: var(--lime); }
 .foot-col { flex: 1 0 0; min-width: 1px; display: flex; flex-direction: column; align-items: flex-start; gap: calc(17 * var(--u)); font-size: calc(13 * var(--u)); line-height: normal; color: var(--cream); }
+.foot-links { display: flex; flex-direction: column; align-items: flex-start; gap: calc(17 * var(--u)); }
 .foot-h { font-weight: 700; color: var(--white); }
 .legal { display: flex; align-items: center; justify-content: space-between; padding-top: calc(24 * var(--u)); border-top: 1px solid var(--dark); font-size: calc(11 * var(--u)); line-height: normal; color: var(--cream); white-space: nowrap; }
 .legal-links { display: flex; gap: calc(24 * var(--u)); }
@@ -97,10 +95,15 @@
 .roll { display: inline-flex; flex-direction: column; height: 1.35em; line-height: 1.35em; overflow: hidden; vertical-align: top; }
 .roll::after { content: attr(data-text); }
 .roll > span, .roll::after { display: block; transition: transform 0.45s var(--ease); }
-a:hover > .roll > span, a:hover > .roll::after, button:hover > .roll > span, button:hover > .roll::after { transform: translateY(-100%); }
 .btn { transition: transform 0.35s var(--ease), filter 0.35s; }
-.btn:hover { transform: translateY(calc(-2 * var(--u))); }
-.btn-lime:hover { filter: brightness(1.06); }
+/* hover-only effects stay on devices that really hover: on touch a tap would leave them stuck "on" */
+@media (hover: hover) and (pointer: fine) {
+  a:hover > .roll > span, a:hover > .roll::after, button:hover > .roll > span, button:hover > .roll::after { transform: translateY(-100%); }
+  .btn:hover { transform: translateY(calc(-2 * var(--u))); }
+  .btn-lime:hover { filter: brightness(1.06); }
+  .tab:hover { color: var(--white); }
+  .btn-ghost:hover { background-size: 100% 100%; color: var(--dark); }
+}
 
 /* scroll reveal: the hero's "surface / two directions / pop" language, driven by Reveal.tsx adding .in */
 .m [data-r] { opacity: 0; transition: opacity 0.8s var(--ease) calc(var(--i, 0) * 90ms), transform 0.9s var(--ease) calc(var(--i, 0) * 90ms); }
@@ -142,6 +145,5 @@ a:hover > .roll > span, a:hover > .roll::after, button:hover > .roll > span, but
 
 /* ghost buttons: lime sweeps in from the left on hover */
 .btn-ghost { background: linear-gradient(var(--lime), var(--lime)) left / 0% 100% no-repeat; transition: background-size 0.5s var(--ease), color 0.3s, transform 0.35s var(--ease); }
-.btn-ghost:hover { background-size: 100% 100%; color: var(--dark); }
 
 @media (prefers-reduced-motion: reduce) { .btn-ghost { transition: none; } }
