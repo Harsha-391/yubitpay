@@ -1,0 +1,16 @@
+/* /use-cases/marketplace (Figma 144:10266; tablet 293:15376, phone 293:15269). Shares use-cases.css (same Figma template). */
+.mk-notice { display: flex; flex-direction: column; gap: calc(8 * var(--u)); padding: calc(20 * var(--u)); background: var(--white); border: 1px solid var(--cream); border-radius: calc(12 * var(--u)); }
+.mk-notice-t { font-weight: 600; font-size: calc(15 * var(--u)); line-height: normal; color: var(--darkest); }
+.pcard-flat { color: var(--darkest); }
+.pcard-flat .pcard-prev { background: var(--white); } /* the frame's card instances draw their preview on white */
+.mk-wrap { background: var(--white); } /* the band grows out of the white around it */
+.mk-row { display: flex; align-items: flex-start; gap: calc(56 * var(--u)); }
+.mk-row .panel { flex: 1 0 0; min-width: 0; align-items: flex-start; }
+.mk-impl .api .cl:first-child { color: var(--deep); } /* Figma: this card's comment line is deep green, its JSON lime tint */
+.mk-impl .api .json { color: #e8f5d0; }
+
+@media (max-width: 1099px) {
+  .mk-path .steps { grid-template-columns: 1fr; }
+  .mk-row { flex-direction: column; align-items: stretch; }
+  .mk-row :is(.panel, .code) { flex: none; }
+}

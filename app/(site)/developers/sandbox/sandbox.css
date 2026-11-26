@@ -1,0 +1,26 @@
+/* /developers/sandbox (Figma 144:8879; phone 293:14290, tablet 293:14431). Palette and shared pieces: .p2 in inner.css. */
+.sb-row { display: flex; align-items: flex-start; gap: calc(32 * var(--u)); }
+.sb-form, .sb-aside { flex: 1 0 0; min-width: 0; }
+.sb-aside { position: sticky; top: calc(96 * var(--u)); display: flex; flex-direction: column; gap: calc(24 * var(--u)); } /* L7: stays beside the longer form */
+.sb-env { display: flex; flex-direction: column; gap: calc(16 * var(--u)); padding: calc(24 * var(--u)); background: #142c22; border: 1px solid #35503e; border-radius: calc(24 * var(--u)); }
+.sb-env .p2-eb { color: var(--lime); }
+.sb-env :is(.p2-h, .p2-notice-t) { color: #f5f8ee; }
+.sb-env :is(.p2-p, .p2-p14) { color: var(--sub); }
+.sb-env-note { display: flex; flex-direction: column; gap: calc(8 * var(--u)); padding: calc(20 * var(--u)); background: #1b382a; border: 1px solid #35503e; border-radius: calc(12 * var(--u)); }
+.sb-res { display: flex; flex-direction: column; gap: calc(8 * var(--u)); padding: calc(12 * var(--u)) 0; border-bottom: 1px solid var(--line); }
+.sb-res-t { font-weight: 600; font-size: calc(18 * var(--u)); line-height: 1.12; letter-spacing: calc(-1.2 * var(--u)); color: var(--ink); }
+.sb-examples { display: flex; align-items: flex-start; gap: calc(24 * var(--u)); }
+.sb-examples > * { flex: 1 0 0; min-width: 0; }
+.sb-steps { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); align-items: start; gap: calc(20 * var(--u)); }
+.sb-no { font-size: calc(13 * var(--u)); line-height: normal; color: var(--muted); }
+.sb-wrap { background: var(--paper); } /* the band grows out of the ivory around it */
+.sb-faq .faq-list { gap: calc(32 * var(--u)); } /* Figma spaces its two items by the section gap */
+
+@media (max-width: 1099px) {
+  .sb-row, .sb-examples { flex-direction: column; align-items: stretch; }
+  .sb-form, .sb-aside, .sb-examples > * { flex: none; }
+  .sb-aside { position: static; }
+}
+@media (max-width: 767px) {
+  .sb-steps { grid-template-columns: 1fr; }
+}

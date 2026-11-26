@@ -1,0 +1,19 @@
+/* /pricing (Figma 144:9868; phone 293:14810, tablet 293:15037) */
+.pr-notice { display: flex; flex-direction: column; gap: calc(8 * var(--u)); padding: calc(20 * var(--u)); background: var(--white); border: 1px solid var(--cream); border-radius: calc(12 * var(--u)); }
+.pr-notice-t { font-weight: 600; font-size: calc(15 * var(--u)); line-height: normal; color: var(--darkest); }
+.pr-tabs { display: flex; flex-wrap: wrap; gap: calc(8 * var(--u)); }
+.pr-tab { display: inline-flex; align-items: center; min-height: max(44px, calc(44 * var(--u))); padding: 0 calc(16 * var(--u)); border: 1px solid var(--cream); border-radius: 100px; background: var(--white); font-weight: 600; font-size: calc(14 * var(--u)); line-height: normal; color: var(--deep); }
+.pr-tab[aria-current] { background: var(--darkest); color: var(--white); }
+.pr-state, .pr-sched { display: flex; flex-direction: column; }
+.pr-state { gap: calc(24 * var(--u)); }
+.pr-sched { gap: calc(20 * var(--u)); }
+.pr-state .ih3 { color: var(--darkest); }
+/* the Figma pricing tables: white header at 13px, 15px rows, 24px between cells */
+.pr .pt-head { background: var(--white); font-size: calc(13 * var(--u)); }
+.pr .pt-row { font-size: calc(15 * var(--u)); color: var(--darkest); }
+.pr :is(.pt-head, .pt-row) { gap: calc(24 * var(--u)); }
+.pr-wrap { background: var(--white); } /* the band grows out of the white around it */
+
+@media (max-width: 767px) {
+  .pr .pt-row { gap: calc(12 * var(--u)); font-size: calc(14 * var(--u)); } /* rows are records here (inner-mobile.css) */
+}

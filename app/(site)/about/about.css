@@ -1,0 +1,30 @@
+/* /about (Figma 144:8465; phone 293:14051, tablet 293:14168). Palette and shared pieces: .p2 in inner.css. */
+.ab-row { display: flex; align-items: flex-start; gap: calc(40 * var(--u)); }
+.ab-story, .ab-art { flex: 1 0 0; min-width: 0; display: flex; flex-direction: column; }
+.ab-story { gap: calc(24 * var(--u)); }
+.ab-story .ih3 { color: var(--ink); }
+.ab-art { gap: calc(16 * var(--u)); }
+.ab-art img { display: block; width: 100%; height: calc(360 * var(--u)); object-fit: cover; border-radius: calc(28 * var(--u)); }
+.ab-three { display: grid; grid-template-columns: repeat(3, 1fr); align-items: start; gap: calc(20 * var(--u)); }
+.ab-two { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: calc(24 * var(--u)); }
+.ab-fact { font-weight: 600; font-size: calc(56 * var(--u)); line-height: normal; letter-spacing: calc(-1.8 * var(--u)); color: var(--ink); }
+.ab-scope { gap: calc(24 * var(--u)); }
+.ab-stack { display: flex; flex-direction: column; gap: calc(12 * var(--u)); }
+.ab-stack-t { font-weight: 600; font-size: calc(20 * var(--u)); line-height: 1.12; letter-spacing: calc(-1.2 * var(--u)); color: var(--ink); }
+.ab-wrap { background: var(--paper); } /* the band grows out of the ivory around it */
+.ab-trust .ab-three { gap: calc(24 * var(--u)); }
+.ab-trust .ibody, .ab-trust :is(.p2-p, .p2-p14) { color: var(--sub); }
+.ab-panel { display: flex; flex-direction: column; gap: calc(16 * var(--u)); padding: calc(24 * var(--u)); background: #142c22; border: 1px solid #35503e; border-radius: calc(24 * var(--u)); }
+.ab-trust :is(.p2-h24, .p2-notice-t) { color: #f5f8ee; }
+.ab-note { display: flex; flex-direction: column; gap: calc(8 * var(--u)); padding: calc(20 * var(--u)); background: #1b382a; border: 1px solid #35503e; border-radius: calc(12 * var(--u)); }
+.ab-brand { color: var(--ink); width: auto; }
+
+@media (max-width: 1099px) {
+  .ab-row { flex-direction: column; }
+  .ab-story, .ab-art { flex: none; width: 100%; }
+  .ab-two { grid-template-columns: 1fr; }
+}
+@media (max-width: 767px) {
+  .ab-three { grid-template-columns: 1fr; }
+  .ab-art img { height: auto; aspect-ratio: 608 / 360; }
+}

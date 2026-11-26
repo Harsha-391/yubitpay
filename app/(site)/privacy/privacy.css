@@ -1,0 +1,35 @@
+/* /privacy (Figma 144:2967; phone 293:10692, tablet 293:10771). Palette and shared pieces: .p2 in inner.css. */
+
+/* Compact header ("Compact Home-style header" 144:2971). Load: eyebrow → the title rises out of its mask → the description
+   surfaces → the draft pill pops → the date drops. */
+.lg-glow { position: absolute; left: calc(50% - 268 * var(--u)); top: calc(-280 * var(--u)); pointer-events: none; }
+.lg-h { overflow: hidden; padding-bottom: 0.1em; margin-bottom: -0.1em; font-weight: 600; font-size: calc(46 * var(--u)); line-height: 1.15; letter-spacing: calc(-1.8 * var(--u)); color: #f5f8ee; }
+.lg-h > span { display: block; animation: ih-rise 0.9s var(--ease) 0.6s both; }
+.ihero[data-load="legal"] .lg-sub { max-width: calc(760 * var(--u)); animation: surface 0.8s var(--ease-soft) 0.95s both; }
+.lg-status { display: flex; flex-wrap: wrap; align-items: center; gap: calc(16 * var(--u)); }
+.lg-pill { display: inline-flex; padding: calc(8 * var(--u)) calc(16 * var(--u)); background: #1b382a; border: 1px solid #35503e; border-radius: 100px; font-weight: 600; font-size: calc(13 * var(--u)); line-height: normal; color: var(--lime); transform-origin: 0 50%; animation: pop 0.4s var(--spring-pop) 1.25s both; }
+.lg-date { font-size: calc(12 * var(--u)); line-height: 1.7; color: var(--sub); animation: ih-drop 0.8s var(--spring-drop) 1.4s both; }
+
+/* the article: no entrances (long-form reading); the contents list is sticky and marks the section being read */
+.lg-article { padding-block: calc(64 * var(--u)); }
+.lg-nt { line-height: 1.5; }
+.lg-layout { display: flex; align-items: flex-start; gap: calc(64 * var(--u)); }
+.lg-toc { position: sticky; top: calc(96 * var(--u)); flex: none; width: calc(240 * var(--u)); display: flex; flex-direction: column; gap: calc(8 * var(--u)); padding: calc(20 * var(--u)); background: var(--tint); border: 1px solid var(--line); border-radius: calc(16 * var(--u)); }
+.lg-toc-list { display: flex; flex-direction: column; gap: calc(8 * var(--u)); }
+.lg-toc-list a { display: flex; align-items: flex-start; min-height: max(44px, calc(44 * var(--u))); padding: calc(8 * var(--u)); border-radius: calc(8 * var(--u)); font-size: calc(14 * var(--u)); line-height: 1.5; color: var(--ink); white-space: pre-wrap; }
+.lg-toc-list a[aria-current="true"] { background: var(--field); box-shadow: inset 0 0 0 2px var(--ink); font-weight: 600; } /* Figma "Selected section anchor" */
+.lg-toc-note { font-size: calc(11 * var(--u)); line-height: 1.7; color: var(--muted); }
+.lg-body { flex: 1 1 0; min-width: 0; max-width: calc(820 * var(--u)); display: flex; flex-direction: column; gap: calc(40 * var(--u)); }
+.lg-sec { display: flex; flex-direction: column; gap: calc(16 * var(--u)); padding-bottom: calc(32 * var(--u)); border-bottom: 1px solid var(--line); scroll-margin-top: calc(110 * var(--u)); }
+.lg-ref { font-size: calc(11 * var(--u)); line-height: normal; color: var(--muted); }
+.lg-h2 { font-weight: 600; font-size: calc(26 * var(--u)); line-height: 1.15; letter-spacing: calc(-0.6 * var(--u)); color: var(--ink); }
+
+@media (max-width: 1099px) {
+  .lg-h { font-size: calc(36 * var(--u)); }
+  .lg-layout { flex-direction: column; align-items: stretch; gap: calc(32 * var(--u)); }
+  .lg-toc { position: static; width: auto; }
+  .lg-body { max-width: none; }
+}
+@media (max-width: 767px) {
+  .lg-ref, .lg-toc-note { font-size: calc(12 * var(--u)); } /* the site minimum on phones */
+}

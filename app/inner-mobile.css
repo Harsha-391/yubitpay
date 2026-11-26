@@ -19,6 +19,10 @@
   .steps { grid-template-columns: 1fr 1fr; }
   .pv-entry, .pv-va, .pv-status, .pv-cap, .pv-rail { font-size: calc(12 * var(--u)); }
   .pcard-link { min-height: var(--tap); font-size: calc(14 * var(--u)); }
+  .tri-wrap { top: auto; bottom: calc(24 * var(--u)); right: var(--gut); width: calc(150 * var(--u)); height: calc(132 * var(--u)); margin: 0; }
+  .tri { opacity: 0.5; }
+  .plan { padding: calc(20 * var(--u)); border-radius: calc(20 * var(--u)); }
+  .arc-sec { --fly: 115vw; } /* a full-width card has to start fully off-screen */
 }
 
 @media (max-width: 767px) {

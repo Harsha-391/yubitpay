@@ -51,8 +51,13 @@ Terms, Refund, Not Found, Maintenance, Thank You and "States" exist only as "Bui
 4. **Pricing values:** every rate in Figma is the literal text `[YOUR PRICING VALUES]`. Built word for word unless you supply rates.
 5. **Use-case details:** only Marketplace has a detail frame ("detail template"). Lending, Collections and Online Gaming have none, so their "Explore" actions have no destination.
 6. **Footer links without frames:** "Open banking", "API reference", "Terms of service".
-7. **Sign-up specimens:** the lower half of `144:7658` ("Every state, clearly signposted", `144:7705`) is a sheet of input and submission states, not a page section. Used as the source for the form's states, not rendered.
-8. **Contact success:** built as the success state of `/contact` and as its own route, since Figma draws a full page.
+7. **Sign-up specimens:** the lower half of `144:7658` ("Every state, clearly signposted", `144:7705`) is a sheet of input and submission states. Built as drawn below the sign-up form, like the other specimen sections (see 10), and also used as the source for the forms' states.
+8. **Contact success:** its own route (Figma draws a full page); a valid contact submit opens it. The login and sign-up "success" ("✓ You’re signed in.") is shown even though nothing signs anyone in: say if you'd rather they only validate.
+9. **Pricing tabs:** Figma draws each tab's content as its own section (with the "More volume?" band between Payouts and Collections) and its copy says "All tab contents are shown below as separate static state panels". Built that way, the tab lists jumping between the sections. Say if you want one section with a working tab control instead (that drops the two "TAB STATE /" intros and that sentence).
+10. **Designer notes in the copy:** several frames carry notes that read like specimen labels, built word for word: "Shared detail template for Marketplace, Lending, Collections and Online Gaming…" (marketplace), "All tab contents are shown below…" (pricing), "Focused search · Static visual state · No live search" and "All four language samples are expanded below for review…" (docs), "Focused field · Example email placeholder", "STATIC SUBMISSION EXAMPLES" and "This mockup has not created a real account" (sandbox), the whole "One identity. Across every workflow." section on About, the contact placeholders ("Example contact placeholder · not a confirmed address", "Illustrative address only…"), the privacy draft notes and "Sticky TOC pattern / Static design · focus shown", the login "STATIC REVIEW · …" line, and sign-up's whole specimen sheet with its "Consistency check —" paragraph. Keep or drop?
+11. **Link targets taken without a Figma target:** "Discuss marketplace / lending / collections / online gaming" and "Contact sales" → `/contact` (as the footer's "Talk to sales"); the sandbox resources → the docs page's sections (`#authentication`, `#webhook-events`, `#errors-and-retries`). Left `#`: "Explore the stacks", "Open sandbox workspace", the docs sidebar guides other than Getting Started and Sandbox.
+12. **Forms:** Figma calls them static ("it does not send data"), so they validate and show the confirmation in the page and send nothing. Where should real submissions go?
+13. **Payouts hero:** the Figma frame no longer has the "PAYOUTS API" eyebrow or the tags line (node `144:11913` is gone); the built page still shows both.
 
 ## Sections and motion, per page
 
@@ -62,117 +67,129 @@ Each first screen gets its own load sequence, listed as "Load". None reuses the 
 
 ### Product pages (one template, three frames)
 
-| Section | Payouts | Collections | UPI | Motion |
+Motion source: `Yubit Pay Products Pages Motion Direction.pdf` (written for Payouts; the template gives all three pages the same choreography). Its §7–9 are placeholders, so FAQ, closing band and footer keep their motion.
+
+| Section | Payouts | Collections | UPI | Motion (PDF §) |
 |---|---|---|---|---|
-| Inner page hero | `144:11890` | `144:11468` | `144:11087` | **Load:** L1 nav drops → flutes rain (brief Act II) → eyebrow, then the two title lines rise from masks (L3) → sub-line H3 → buttons H2 → code card rises from below (brief Act V), its lines settle → mono tags H4 |
-| Process (4 steps) | `144:11922` | `144:11500` | `144:11119` | The ivory panel covers the hero (L8). Steps are a G1 scroll sequence: a rule draws across (L11) and each step lights as it passes, scrubbed both ways |
-| Feature panels (2×2) | `144:11944` | `144:11521` | `144:11140` | L6 sticky stacking: heading stays, panels pile up |
-| Dark CTA band | `144:11963` | `144:11540` | `144:11159` | H8: grows out of the ivory around it |
-| Pricing table | `144:11971` | `144:11548` | `144:11167` | Row rules draw from the left (L11), rows follow in order |
-| Connected products (2 cards) | `144:12019` | `144:11577` | `144:11196` | H1: the two cards arrive from opposite sides |
+| Inner page hero | `144:11890` | `144:11468` | `144:11087` | §1 **Load:** nav drops → flutes rain → eyebrow → heading glides in from the right while the sub-line drifts in from the left, together → buttons pop, lime first → API card rises from beneath the hero's edge (slowest) → mono tags drop |
+| Process (4 steps) | `144:11922` | `144:11500` | `144:11119` | §2 a held deck (edges peeking, soft shadow, slight tilt). Scroll deals the top card to its slot, then the next, each tilting on departure and settling flat; scrubbed both ways. Pinned on desktop; on phones and tablets the deck sits on the first slot and deals as the list scrolls by |
+| Feature panels (2×2) | `144:11944` | `144:11521` | `144:11140` | §3 bento: left column lowered from above the section, right column rises from below, one clock, landing together; then heading → copy surface |
+| Dark CTA band | `144:11963` | `144:11540` | `144:11159` | §4 arrives as one object (drift + fade), then headline → sub-line → buttons. A lime gradient triangle follows the cursor with heavy lag (turns, tilts, its gradient's bright end leans toward the cursor, brightens with proximity); a hovered button blooms and lights the triangle. Static on touch |
+| Pricing table | `144:11971` | `144:11548` | `144:11167` | §5 one plan card slides up from below the section, already complete, heavy settle; one shimmer when it rests; a hovered row lights from beneath while the others dim; Get Started springs as it lands and on hover |
+| Connected products (2 cards) | `144:12019` | `144:11577` | `144:11196` | §6 a beat of empty slots, then each card is thrown from the opposite screen edge on an arc; the arcs cross mid-screen; slight overshoot and settle; key figure → detail → label last |
 | FAQ | `144:12026` | `144:11584` | `144:11203` | Heading H6; items use the L4 disclosure, one open at a time |
 
-State changes: code tabs (existing crossfade with height morph), copy button, FAQ (L4).
+PDF vs Figma: the PDF calls Payouts the right-hand card and Collections the left-hand one; the Figma Payouts frame draws Payouts first (left). The Figma order is kept; each card still launches from the opposite edge, so the arcs cross as described. The CTA triangle is drawn from the PDF: Figma has none (checked 2026-11-26: `144:11963` is gone, `144:11540` and `144:11159` hold only the intro and two buttons).
 
 ### `/use-cases` (`144:10678`)
 
-| Section | Node | Motion |
+Built. On desktop the four use cases and the band are one L6 stack (`[data-stack]`): each holds once its bottom reaches the screen's bottom (sticky `top` = screen − own height, written on measure), so the next slides over it only after it has been seen whole. Phones and tablets scroll normally. Inside, neighbouring sections never share a heading, panel, step or button entrance.
+
+| Section | Node | Motion (built) |
 |---|---|---|
-| Inner page hero | `144:10682` | **Load:** L1 → flutes → title words fill left to right (H7, timed, not scrubbed) → sub-line and buttons H1 from opposite sides → tags H4 |
-| Marketplace | `144:10711` | The four use-case sections are one L6 stack: each section pins under the nav and the next slides over it |
-| Lending | `144:10739` | L6, as above |
-| "Doesn't fit a box?" dark band | `144:10767` | H8 |
-| Collections | `144:10775` | L6 |
-| Online Gaming | `144:10803` | L6 |
+| Inner page hero | `144:10682` | **Load** (`load="words"`): nav drops → flutes rain → eyebrow → title words fill in left to right (timed) → sub-line from the left and buttons from the right, together (H1) → tags drop (H4) |
+| Marketplace (light) | `144:10711` | covers the hero (desktop); heading lines rise (H5); panels dealt (H10); steps a scrubbed sequence (G1, arrows slide); buttons pop (H2) |
+| Lending (dark) | `144:10739` | slides over Marketplace (L6); heading letters rise (H6); panels from opposite sides (H1); steps drop with a bounce (H4); buttons surface (H3) |
+| "Doesn't fit a box?" band | `144:10767` | slides up as a rounded card over Lending and grows to full width (H8, scrubbed); copy surfaces; buttons pop |
+| Collections (light) | `144:10775` | slides over the band; heading from the left, sub-line from the right (H1); panels surface (H3); steps a scrubbed sequence; buttons pop |
+| Online Gaming (dark) | `144:10803` | slides over Collections; heading lines rise; panels dealt; steps drop; buttons surface |
 
 ### `/use-cases/marketplace` (`144:10266`)
 
-| Section | Node | Motion |
+Built. Same Figma template as `/use-cases` (shares `use-cases.css`).
+
+| Section | Node | Motion (built) |
 |---|---|---|
-| Inner page hero | `144:10270` | **Load:** L1 → flutes → eyebrow → title H5 → sub H3 → buttons H2 |
-| One structure. Four use cases. | `144:10299` | L8 cover; cards H10 dealt |
-| A path from buyer to seller. | `144:10311` | G1 scroll sequence along the path, connector drawn with L11; status notice H3 after the last step |
-| Two stacks. One shared context. | `144:10335` | H1: the two stacks from opposite sides |
-| Dark band | `144:10344` | H8 |
-| Clearer handoffs. | `144:10352` | H5 heading; cards with H12 drawn borders |
-| Start with the seller settlement. | `144:10369` | L7 sticky intro beside the content |
+| Inner page hero | `144:10270` | **Load** (`load="lines"`): nav drops → flutes rain → eyebrow → each title line rises out of its mask in turn (H5) → sub-line surfaces (H3) → buttons pop (H2) → tags drop |
+| One structure. Four use cases. | `144:10299` | covers the hero (L8, desktop); heading from the left, sub from the right (H1); panels dealt (H10) |
+| A path from buyer to seller. | `144:10311` | heading lines rise; the four steps are a scrubbed sequence (G1); the notice surfaces after the last step (H3). No connector line: Figma draws none |
+| Two stacks. One shared context. | `144:10335` | heading letters rise (H6); the two product cards from opposite sides (H1); caption surfaces |
+| Dark band | `144:10344` | grows out of the white around it (H8) |
+| Clearer handoffs. | `144:10352` | heading lines rise (H5); the three cards drop with a bounce (H4). H12 drawn borders dropped: stroke animation is not transform/opacity |
+| Start with the seller settlement. | `144:10369` | heading from the left (H1); the request card rises and its lines settle in order; the panel slides in from the right. L7 dropped: Figma puts the intro above the row, not beside it |
 
 ### `/pricing` (`144:9868`)
 
-Figma draws the three tab contents as three stacked "state panels" and says so in its copy. Built as one tab list with three panels.
+Built as Figma draws it: each tab's content is its own section (Payouts, then the "More volume?" band, then Collections, then UPI), each with the tab list showing its own tab selected. The tabs are links that jump between the three sections. Figma's copy says so ("All tab contents are shown below as separate static state panels"), and folding them into one tab control would drop that copy and the two "TAB STATE /" intros. Open question below.
 
-| Section | Node | Motion |
+| Section | Node | Motion (built) |
 |---|---|---|
-| Inner page hero | `144:9872` | **Load:** L1 → flutes → title lines H1 from opposite sides → sub H3 → buttons H2 → tags H4 |
-| The details, without the guesswork. (Payouts panel) | `144:9901` | L8 cover; notice H3; table rules L11 |
-| Collections panel | `144:9972` | tab state |
-| UPI panel | `144:10000` | tab state |
-| More volume? dark band | `144:9964` | H8 |
-| Your workflow deserves a conversation. dark band | `144:10028` | H8, mirrored origin |
-| Pricing FAQ | `144:10036` | H6 heading, L4 disclosure |
-
-State changes: the tab indicator slides with the L5 knob curve; the old panel leaves toward the side the new tab is on and the new one arrives from the other (direction follows tab order); the container height morphs (as the homepage code card).
+| Inner page hero | `144:9872` | **Load** (`load="sides"`): nav drops → flutes rain → eyebrow → title line 1 from the left edge, line 2 from the right, together (H1) → sub-line surfaces (H3) → buttons pop (H2) → tags drop (H4) |
+| The details, without the guesswork. (Payouts state) | `144:9901` | covers the hero (L8, desktop); heading lines rise (H5); notice and tabs surface; both tables' rows rise in order while each rule draws from the left (L11) |
+| More volume? band | `144:9964` | grows out of the white (H8) |
+| Incoming money, clearly priced. (Collections state) | `144:9972` | heading letters rise (H6); tabs drop (H4); the table slides in whole from the right |
+| Price every UPI operation. (UPI state) | `144:10000` | heading from the left (H1); tabs pop (H2); rows rise in order |
+| Your workflow deserves a conversation. | `144:10028` | a light section in Figma (not a band): heading lines rise; buttons pop |
+| Pricing FAQ | `144:10036` | heading letters rise (H6); items from the right; L4 disclosure, one open. Only the first answer exists in Figma |
 
 ### `/developers/docs` (`144:9263`)
 
-| Section | Node | Motion |
-|---|---|---|
-| Inner page hero | `144:9267` | **Load:** L1 → flutes → title H5 → sub H3 |
-| Docs workspace: search input, sidebar, article | `144:9295` (`144:9296`, `144:9301`) | L8 cover. Sidebar is an L7 sticky aside with the current heading marked as the article scrolls. Search field focus state from `144:9296` |
-| Your next integration starts here. | `144:9399` | H8 |
+Built. The frame is drawn in its own hex palette (`#14281d` ink, `#586859` muted, `#acbdb0` sub-lines, `#eff3e8` workspace, `#e8efdd` / `#d4deca` notices, a darker code card); `docs.css` keeps those values. Two icons in that palette were added to the sprite (`window-controls-dv`, `copy-dv`). Like pricing, Figma shows all four language samples expanded with cURL selected ("tabs are static visual states"), so the language tabs jump to each sample. The search field is drawn only in its focused state ("Static visual state · No live search") and is built that way: it does not search.
 
-State changes: sidebar highlight follows scroll; code blocks reuse the code-card tabs.
+| Section | Node | Motion (built) |
+|---|---|---|
+| Inner page hero | `144:9267` | **Load** (`load="type"`): nav drops → flutes rain → eyebrow → the title types out letter by letter → sub-line surfaces → buttons pop → tags drop |
+| Docs workspace | `144:9295` | covers the hero (L8, desktop). Sidebar entries slide in from the left and the "On this page" entries from the right; both are L7 sticky asides. The current section is marked as the article scrolls (`[data-spy]`: `aria-current` plus a bar that slides with the L5 knob curve). Article blocks surface (H3); the title's line rises (H5); code cards rise and their lines settle in order; the error entries drop (H4) |
+| Your next integration starts here. | `144:9399` | grows out of the workspace's ivory (H8) |
+
+Phones and tablets: the sidebar and the "On this page" list fold into "Guides +" and "On this page +" (Figma `293:14605`), built as `<details>` so they work without JS.
 
 ### `/developers/sandbox` (`144:8879`)
 
-| Section | Node | Motion |
-|---|---|---|
-| Inner page hero | `144:8883` | **Load:** L1 → flutes → eyebrow → title H5 → sub H3 |
-| Tell us what you want to test. (form) | `144:8911` | L8 cover; L7 sticky intro beside the form; fields H3 in order |
-| Clear feedback at every step. | `144:8974` | G1 scroll sequence through the feedback states |
-| Dark band | `144:9014` | H8 |
-| FAQ | `144:9022` | H6, L4 |
+Built, in the `.p2` palette. Figma calls the form "a static form example; it does not send data", so `StaticForm` keeps everything in the page: the browser checks the fields, an invalid submit outlines them (Figma's error state: 2px ink) and shows the "Request not submitted" notice, a valid one swaps the form for Figma's success example. The submit button is disabled until hydrated, so without JS nothing submits (no personal details in a URL). The "Clear feedback" section keeps both examples as Figma draws them (static pictures).
 
-State changes: field focus, validation and submit states, taken from the specimens in `144:7705` and the docs input `144:9296`; success swaps the form for its confirmation with a height morph.
+| Section | Node | Motion (built) |
+|---|---|---|
+| Inner page hero | `144:8883` | **Load** (`load="drop"`): nav drops → flutes rain → eyebrow → each title line drops in from above and bounces (H4) → sub-line surfaces → buttons pop → tags drop |
+| Tell us what you want to test. | `144:8911` | covers the hero (L8, desktop); heading lines rise (H5); the form's fields surface in order (H3); the explanation and resources slide in from the right and stay beside the longer form (L7 sticky) |
+| Clear feedback at every step. | `144:8974` | heading from the left (H1); the validation and success examples are a scrubbed sequence (G1), validation first; the three steps pop (H2) |
+| Dark band | `144:9014` | grows out of the ivory (H8) |
+| FAQ | `144:9022` | heading letters rise (H6); items from the right; one answer in Figma |
 
 ### `/about` (`144:8465`)
 
-| Section | Node | Motion |
+Built, in the `.p2` palette. The artwork is Figma's "Financial infrastructure sculpture" image (served as a JPEG; `assets/raw/about-sculpture.jpg` → AVIF/WebP at 2×, lazy-loaded).
+
+| Section | Node | Motion (built) |
 |---|---|---|
-| Inner page hero | `144:8469` | **Load:** L1 → flutes → title letters rise (H6) → sub H3 |
-| Good ideas shouldn't get lost in the plumbing. | `144:8497` | L8 cover; body words fill with scroll (H7) |
-| A focused stack. More possibility. | `144:8511` | H10 dealt cards |
-| Dark band | `144:8529` | H8 |
-| Built for both sides of the handoff. | `144:8537` | H1 two sides; "Connected product scope" row drawn with L11 |
-| Trust comes from the details. | `144:8565` | L6 stacking; notice H3 |
-| One identity. Across every workflow. | `144:8584` | Brand mark H2 |
+| Inner page hero | `144:8469` | **Load** (`load="chars"`): nav drops → flutes rain → eyebrow → the title's letters rise and settle one after another (H6) → sub-line surfaces → buttons pop → tags drop |
+| Good ideas shouldn’t get lost in the plumbing. | `144:8497` | covers the hero (L8, desktop); heading lines rise; the mission and story text lights up word by word with scroll (H7, `[data-fill]`, scrubbed); the artwork rises |
+| A focused stack. More possibility. | `144:8511` | heading from the left, sub from the right (H1); the three facts are dealt (H10) |
+| Dark band | `144:8529` | grows out of the ivory (H8) |
+| Built for both sides of the handoff. | `144:8537` | copy surfaces (H3); the two team panels from opposite sides (H1); the scope card surfaces. No drawn line: Figma's scope card has none |
+| Trust comes from the details. | `144:8565` | heading letters rise (H6); the three panels drop in (H4); notice surfaces; button pops. L6 dropped: the panels sit in a row, not a stack |
+| One identity. Across every workflow. | `144:8584` | heading lines rise; the brand mark pops (H2); note surfaces |
 
 ### `/contact` (`144:8118`) and `/contact/success` (`144:7858`)
 
-| Section | Node | Motion |
-|---|---|---|
-| Inner page hero | `144:8122` / `144:7862` | **Load:** L1 → flutes → title H1 → sub H3 |
-| What are you building? (form) | `144:8151` | L8 cover; L7 sticky intro; fields H3 in order |
-| Prefer to start with the APIs? | `144:8216` | H8 |
-| Success: A little clarity on the next steps. | `144:7891` | Notice H2; next-step cards H10; actions H3 |
+Built, in the `.p2` palette. The contact form is static like the others; a valid submit opens `/contact/success` (Figma's own confirmation page). New icons from this frame: `messages-square`, `code-xml-ink`, `chevron-down-ink`. The contact emails and office address are Figma's placeholders ("not a confirmed address"), shown as text, not links.
 
-State changes: focus and validation as the sandbox form; on submit the form leaves and the success content arrives with a height morph.
+| Section | Node | Motion (built) |
+|---|---|---|
+| Contact hero | `144:8122` | **Load** (`load="zoom"`): nav drops → flutes rain → eyebrow → each title line settles into place from slightly larger → sub-line surfaces → buttons pop → tags drop |
+| What are you building? | `144:8151` | covers the hero (L8, desktop); heading letters rise (H6); the form's fields surface in order (H3); the three contact channels arrive from the right |
+| Prefer to start with the APIs? | `144:8216` | grows out of the ivory (H8) |
+| Success hero | `144:7862` | **Load** (`load="rise"`): the eyebrow's check pops → the title rises as one block from beneath the hero's edge → sub-line → buttons → tags |
+| A little clarity on the next steps. | `144:7891` | heading lines rise; the notice pops (H2); the three next steps are dealt (H10); the actions surface (H3) |
 
 ### `/privacy` (`144:2967`)
 
-| Section | Node | Motion |
+Built. A draft in Figma, with its placeholders ("[CONFIRMED LEGAL ENTITY]", "[DATE TO BE CONFIRMED]" …) kept word for word. No closing CTA band (Figma goes straight to the footer). The header glow is this frame's own (`legal-glow`).
+
+| Section | Node | Motion (built) |
 |---|---|---|
-| Compact header | `144:2971` | **Load:** L1 → title H5 |
-| Legal article | `144:3000` (`144:3001` notice, `144:3004` reading layout) | L7 sticky contents list with the current section marked; no other motion (long-form reading) |
+| Compact header | `144:2971` | **Load** (`data-load="legal"`): nav drops → flutes rain → eyebrow → the title rises out of its mask → description surfaces → the draft pill pops → the date drops |
+| Legal article | `144:3000` | no entrances (long-form reading); the contents list is an L7 sticky aside that marks the section being read (`[data-spy]`, Figma's "Selected section anchor" style); stacked above the text on phones and tablets |
 
 ### `/login` (`144:7424`) and `/signup` (`144:7658`)
 
-| Section | Node | Motion |
-|---|---|---|
-| Brand story (left) | `144:7427` / `144:7661` | **Load:** panel slides in from the left edge, its copy rises from masks (H5) |
-| Form region (right) | `144:7436` / `144:7670` | Fields H3 in order after the panel lands |
+Built, outside the `(site)` group (no nav or footer), in the `.p2` palette, with the About sculpture (same Figma image). Split layout on desktop, stacked on phones and tablets without the artwork (as the phone frames). The forms are static: an invalid submit outlines the fields; a valid one shows the specimens' loading label ("◌ Signing in…" / "Creating account…") and then their success message below the button, keeping the form visible ("Keep the form visible while submitting"). Nothing is sent. "Show" toggles the password's visibility. "Forgot password? ↗" is `#` (no frame). Sign-up's specimen sheet "Every state, clearly signposted." (`144:7705`) is built as drawn, below the split layout (question 10).
 
-State changes: input focus, error and success states from the specimens `144:7710`; submission states from `144:7741`.
+| Section | Node | Motion (built) |
+|---|---|---|
+| Brand story (left) | `144:7427` / `144:7661` | **Load:** the panel slides in from the left edge; its headline lines rise from their masks (H5); its copy surfaces |
+| Form region (right) | `144:7436` / `144:7670` | its blocks surface in order once the panel has landed (H3) |
+| Specimen sheet (sign-up) | `144:7705` | heading lines rise; the four input states are dealt (H10); the three submission states surface |
 
 ### Dashboard (pending question 1)
 
@@ -186,9 +203,20 @@ Frames listed in the route table. Structure in each: sidebar (workspace switcher
 
 ## Built so far
 
-| Route | Commit | Notes for review |
-|---|---|---|
-| `/products/payouts`, `/products/collections`, `/products/upi` | one commit (one template, three data sets) | see below |
+| Route | Notes for review |
+|---|---|
+| `/products/payouts`, `/products/collections`, `/products/upi` | one template, three data sets; motion from the product PDF (see below) |
+| `/use-cases` | L6 stack on desktop; "Discuss …" and "Contact sales" go to `/contact`; "Explore the stacks" is `#` (no target in Figma) |
+| `/use-cases/marketplace` | shares `use-cases.css`; its product cards draw their preview on white, as in this frame |
+| `/pricing` | the three tab states as three sections, as Figma draws them (question 9) |
+| `/developers/docs` | `.p2` palette; sidebar guides without a frame are `#`; search field is the drawn static state |
+| `/developers/sandbox` | `.p2` palette; static form (`StaticForm`); resources link to the docs page's sections; "Open sandbox workspace" is `#` |
+| `/about` | `.p2` palette; sculpture image from Figma |
+| `/contact`, `/contact/success` | `.p2` palette; static form that opens the success page |
+| `/privacy` | `.p2` palette; sticky contents list; no closing band, as in Figma |
+| `/login`, `/signup` | outside `(site)`; static forms with the specimens' loading and success states; sign-up's specimen sheet built as drawn |
+
+Shared pieces added for these pages: `InnerHero` load variants (`glide`, `sides`, `lines`, `words`, `type`, `drop`, `chars`; one per page), `Btn kind="edge"` (lime outline), plain `Band` (H8 grow), `PriceTable r`, `ApiCard file/note/reveal`, `ProductCard flat/r`, `StaticForm`, the `.uc` white section, the `.p2` palette block, and in `PageMotion`: `[data-stack]` (L6), `[data-grow]` (H8), `[data-seq]` (G1), `[data-spy]`, `[data-fill]` (H7). `scripts/check-pages.mjs` walks any inner route (390 / 1440 / 1920, mid and settled shots, overflow, console, small text, reduced motion, no JS).
 
 Missing in Figma, so not invented (product pages):
 - **FAQ answers 2–4:** Figma only draws the first answer. The other three questions are shown but do not open.

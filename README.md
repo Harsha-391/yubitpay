@@ -25,6 +25,9 @@ node scripts/check.mjs          # dev-only checks + screenshots against a runnin
 | `app/globals.css`, `sections.css`, `scenes.css` | desktop styles; every size is a Figma px × `--u` so the 1400×978 frame scales to any desktop screen |
 | `app/mobile.css` | phone + tablet overrides (own sizes and stacked layouts, not the desktop numbers scaled down) |
 | `components/sprite.generated.ts` | Figma SVG icons + logo as one inline sprite (`node scripts/build-assets.mjs`) |
+| `app/(site)/…/page.tsx` + its `.css` | the inner pages (products, use cases, pricing, developers, about, contact, privacy), each from its own Figma frame; `app/login`, `app/signup` sit outside the site layout. Section-by-section motion: `docs/pages.md` |
+| `components/inner/` | `Parts.tsx` (hero with one load sequence per page, intro, buttons, band, tables, cards), `PageMotion.tsx` (deck, stack, grow, sequence, word fill, scroll-spy, CTA triangle), `StaticForm.tsx` (the Figma forms are static: they validate and confirm, nothing is sent), `Password.tsx`, `Auth.tsx` |
+| `app/inner.css`, `app/inner-mobile.css` | shared inner-page styles, including the `.p2` palette the docs / sandbox / company / auth frames are drawn in |
 
 Motion is CSS + compositor transforms only (no canvas / WebGL, no video). References: `guidlines/reference source code` (loopsii.com) and `guidlines/gokiwi reference code`.
 
@@ -75,3 +78,5 @@ ONLY=390,1440 node scripts/check.mjs   # a quick pass
 - **Desktop baselines:** it diffs the desktop frames against `scripts/baseline/` (made by `scripts/baseline.mjs` before the responsive work). It fails above 3% changed pixels, except frames listed in `EXPECTED_DIFF`.
 
 The script uses Playwright's full Chromium (`npx playwright install chromium`).
+
+`scripts/check-pages.mjs` does the same for inner routes: `node scripts/check-pages.mjs /pricing /about …` (in Git Bash prefix `MSYS_NO_PATHCONV=1` so the routes aren't rewritten). At 390, 1440 and 1920 it screenshots the first screen and every section mid-entrance and settled (`scripts/shots/pages/`), and fails on console errors, horizontal overflow, phone text under 12px, or anything left hidden with reduced motion or without JS.

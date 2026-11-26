@@ -1,0 +1,63 @@
+/* /developers/docs (Figma 144:9263; phone 293:14577, tablet 293:14691). Palette and shared pieces: .p2 in inner.css. */
+.dv-wrap { background: var(--paper); } /* the band grows out of the workspace's ivory */
+
+.dv-ws { position: relative; display: flex; flex-direction: column; gap: calc(32 * var(--u)); padding: calc(40 * var(--u)) max(calc(72 * var(--u)), calc((100% - 1400 * var(--u)) / 2 + 72 * var(--u))); background: var(--paper); color: var(--ink); }
+/* Figma draws the search only in its focused state ("Static visual state · No live search"), so it always looks focused */
+.dv-input { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+
+.dv-fold { display: none; }
+.dv-layout { display: grid; grid-template-columns: calc(224 * var(--u)) minmax(0, 1fr) calc(152 * var(--u)); align-items: start; gap: calc(32 * var(--u)); }
+.dv-side, .dv-toc { position: sticky; top: calc(96 * var(--u)); display: flex; flex-direction: column; }
+.dv-side, .dv-guides { gap: calc(8 * var(--u)); }
+.dv-guides { display: flex; flex-direction: column; }
+.dv-item { display: flex; align-items: center; min-height: max(44px, calc(44 * var(--u))); padding: calc(12 * var(--u)); border-radius: calc(10 * var(--u)); background: var(--paper); font-size: calc(14 * var(--u)); line-height: 1.5; color: var(--ink); }
+.dv-item[aria-current] { background: var(--tint); font-weight: 600; }
+@media (hover: hover) and (pointer: fine) { .dv-item:hover { background: var(--tint); } }
+
+.dv-toc, .dv-toc-list { gap: calc(16 * var(--u)); }
+.dv-toc-list { position: relative; display: flex; flex-direction: column; }
+.dv-toc-list a { font-size: calc(13 * var(--u)); line-height: 1.6; color: var(--muted); }
+.dv-toc-list a[aria-current="true"] { color: var(--ink); }
+/* the current-section marker: slides between entries with the L5 knob curve (PageMotion [data-spy]); there is none without JS */
+.spy-bar { position: absolute; left: calc(-14 * var(--u)); top: 0; width: 2px; height: calc(21 * var(--u)); border-radius: 2px; background: var(--ink); transition: transform 0.45s cubic-bezier(0.3, 1.3, 0.4, 1); }
+:root:not(.m) .spy-bar { display: none; }
+
+.dv-article { display: flex; flex-direction: column; gap: calc(32 * var(--u)); min-width: 0; }
+.dv-crumb { font-size: calc(13 * var(--u)); line-height: normal; color: var(--muted); }
+.dv-intro { display: flex; flex-direction: column; gap: calc(18 * var(--u)); }
+.dv-intro .ih2 { color: var(--ink); }
+.dv-h4, .dv-err-t { font-weight: 600; line-height: 1.12; letter-spacing: calc(-1.2 * var(--u)); color: var(--ink); }
+.dv-h4 { font-size: calc(24 * var(--u)); }
+.dv-err-t { font-size: calc(18 * var(--u)); }
+.dv-article [id] { scroll-margin-top: calc(110 * var(--u)); }
+.dv-langs { display: flex; flex-wrap: wrap; gap: calc(8 * var(--u)); }
+.dv-lang { display: inline-flex; align-items: center; min-height: max(44px, calc(44 * var(--u))); padding: 0 calc(16 * var(--u)); border: 1px solid var(--line); border-radius: 100px; background: var(--field); font-size: calc(12 * var(--u)); line-height: normal; color: var(--ink); }
+.dv-lang[aria-current] { border: 2px solid var(--ink); background: var(--ink); color: #f5f8ee; }
+.dv-sample { display: flex; flex-direction: column; gap: calc(16 * var(--u)); }
+.dv-errors { display: flex; flex-direction: column; gap: calc(20 * var(--u)); padding: calc(20 * var(--u)); border: 1px solid var(--line); border-radius: calc(16 * var(--u)); }
+.dv-err { display: flex; flex-direction: column; gap: calc(8 * var(--u)); }
+.dv-article .btn-edge { background: var(--field); color: var(--ink); }
+
+/* the code cards in this frame's palette */
+.dc { flex: none; background: #091b13; border-color: #35503e; }
+.dc :is(.code-head, .code-resp) { background: #142c22; }
+.dc .code-tabs { border-bottom-color: #35503e; }
+.dc :is(.code-file, .tab, .dc-dim, .code-note) { color: #acbdb0; }
+.dc .tab[aria-current] { color: var(--lime); }
+.dc .code-body { color: #f5f8ee; }
+.dc .json { color: #d0e6bf; line-height: 1.8; }
+
+@media (max-width: 1099px) {
+  .dv-ws { padding: calc(40 * var(--u)) var(--gut); }
+  .dv-layout { display: block; }
+  .dv-side, .dv-toc { display: none; }
+  .dv-fold { display: flex; flex-direction: column; align-items: flex-start; gap: calc(12 * var(--u)); }
+  .dv-fold details { width: 100%; }
+  .dv-fold details > nav { margin: calc(12 * var(--u)) 0 calc(4 * var(--u)); }
+  .dv-fold .dv-toc-list { padding-left: calc(14 * var(--u)); }
+  .dv-sum { list-style: none; cursor: pointer; background: var(--field); color: var(--ink); }
+  .dv-sum::-webkit-details-marker { display: none; }
+  .dv-intro .ih2 { font-size: calc(36 * var(--u)); }
+}
+
+@media (prefers-reduced-motion: reduce) { .spy-bar { transition: none; } }

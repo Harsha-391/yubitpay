@@ -18,34 +18,123 @@
 .ihero-copy { display: flex; flex-direction: column; align-items: flex-start; gap: calc(24 * var(--u)); }
 .inner .eyebrow { line-height: 1.5; white-space: normal; }
 .ih1 { font-weight: 700; font-size: calc(56 * var(--u)); line-height: 1.13; letter-spacing: calc(-1.8 * var(--u)); }
-.ih1-l { display: block; overflow: hidden; padding-bottom: 0.1em; margin-bottom: -0.1em; } /* a mask each line rises out of; the padding keeps descenders */
+.ih1-l { display: block; }
 .ih1-l > span { display: block; }
 .ihero-sub { font-size: calc(16 * var(--u)); line-height: 1.7; color: var(--cream); }
 .ihero-actions { display: flex; flex-wrap: wrap; gap: calc(12 * var(--u)); }
-.btn-line { gap: calc(20 * var(--u)); border-color: var(--deep); color: inherit; } /* Figma "Secondary action" on inner pages */
+.btn-line { gap: calc(20 * var(--u)); border-color: var(--deep); color: inherit; } /* Figma "Secondary action" on the product heroes */
+.btn-edge { gap: calc(20 * var(--u)); color: inherit; } /* Figma "Secondary action" elsewhere: the lime outline */
 .ihero-tags { display: flex; flex-wrap: wrap; gap: 2ch; font-size: calc(11 * var(--u)); line-height: 1.8; color: var(--cream); }
 .api .json { color: var(--lime); }
 .api .code-note { line-height: calc(24 * var(--u)); }
 .api .tab[aria-current] { color: var(--lime); font-weight: 600; }
 .api-resp { flex: 1 0 0; min-width: 0; white-space: pre-wrap; }
 
-/* load sequence (inner pages' own): eyebrow → title lines rise in turn → sub-line surfaces → buttons pop → preview rises → tags drop.
-   The title lines stay unpainted until their turn and first paint near home, so the heading counts as the page's Largest Contentful Paint. */
-@keyframes ih-rise { from { transform: translateY(60%); opacity: 0.01; visibility: hidden; } 0.1% { visibility: visible; } }
-@keyframes ih-up { from { transform: translateY(calc(140 * var(--u))); opacity: 0; } }
+/* load sequence (product brief §1, the homepage's grammar): eyebrow → the heading glides in from the right while the
+   sub-line drifts in from the left, together → buttons pop, lime first → the preview rises from beneath the hero's edge
+   (the slowest entrance) → tags drop. The heading stays unpainted until its turn, so it still counts as the page's LCP. */
+@keyframes ih-from-right { from { transform: translateX(min(60vw, calc(820 * var(--u)))); opacity: 0.01; visibility: hidden; } 0.1% { visibility: visible; } }
+@keyframes ih-from-left { from { transform: translateX(calc(-420 * var(--u))); opacity: 0; } }
+@keyframes ih-up { from { transform: translateY(calc(560 * var(--u))); } }
 @keyframes ih-drop { from { transform: translateY(calc(-22 * var(--u))); opacity: 0; } }
 .ihero-eb { animation: surface 0.7s var(--ease-soft) 0.5s both; }
-.ih1-l > span { animation: ih-rise 0.9s var(--ease) 0.6s both; }
-.ih1-l + .ih1-l > span { animation-delay: 0.74s; }
-.ihero-sub { animation: surface 0.8s var(--ease-soft) 0.95s both; }
-.ihero .ihero-actions .btn { animation: pop 0.34s var(--spring-pop) 1.2s both; }
-.ihero .ihero-actions .btn + .btn { animation-delay: 1.28s; }
-.ihero-side { animation: ih-up 1s var(--ease) 0.8s both; }
-.m .ihero .code .cl { animation-delay: calc(1.35s + var(--i, 0) * 90ms); }
-.m .ihero .code.in .resp { animation-delay: 1.9s; }
-.ihero-tags span { animation: ih-drop 0.8s var(--spring-drop) calc(1.7s + var(--k, 0) * 70ms) both; }
+.ih1-l > span { animation: ih-from-right 1.05s var(--ease) 0.62s both; }
+.ihero-sub { animation: ih-from-left 0.85s var(--ease-soft) 0.62s both; } /* lighter and quicker than the heading */
+.ihero .ihero-actions .btn { animation: pop 0.34s var(--spring-pop) 1.5s both; }
+.ihero .ihero-actions .btn + .btn { animation-delay: 1.6s; }
+.ihero-side { animation: ih-up 1.5s var(--ease) 1.75s both; }
+.m .ihero .code .cl { animation-delay: calc(3s + var(--i, 0) * 90ms); }
+.m .ihero .code.in .resp { animation-delay: 3.5s; }
+.ihero-tags span { animation: ih-drop 0.8s var(--spring-drop) calc(2.2s + var(--k, 0) * 70ms) both; }
 .ihero-tags span:nth-child(n + 3) { --k: 1; }
 .ihero-tags span:nth-child(n + 5) { --k: 2; }
+
+/* load "sides" (pricing): eyebrow → the first title line from the left edge, the second from the right, together → the
+   sub-line surfaces → buttons pop → tags drop */
+@keyframes ih-l { from { transform: translateX(-70vw); visibility: hidden; } 0.1% { visibility: visible; } }
+@keyframes ih-r { from { transform: translateX(70vw); visibility: hidden; } 0.1% { visibility: visible; } }
+.ihero[data-load="sides"] .ih1-l > span { animation: ih-l 0.9s var(--ease) 0.6s both; }
+.ihero[data-load="sides"] .ih1-l + .ih1-l > span { animation-name: ih-r; }
+.ihero[data-load="sides"] .ihero-sub { animation: surface 0.8s var(--ease-soft) 1.25s both; }
+.ihero[data-load="sides"] .ihero-actions .btn { animation: pop 0.34s var(--spring-pop) 1.5s both; }
+.ihero[data-load="sides"] .ihero-actions .btn + .btn { animation-delay: 1.58s; }
+.ihero[data-load="sides"] .ihero-tags span { animation-delay: calc(1.8s + var(--k, 0) * 70ms); }
+
+/* load "type" (docs): eyebrow → the title types out letter by letter → the sub-line surfaces → buttons pop → tags drop */
+@keyframes ih-type { from { opacity: 0; } to { opacity: 1; } }
+.ihero[data-load="type"] .ih1-l > span { animation: none; }
+.ihero[data-load="type"] .ih1 .c { animation: ih-type 1ms steps(1) calc(0.6s + var(--c) * 30ms) both; }
+.ihero[data-load="type"] .ihero-sub { animation: surface 0.8s var(--ease-soft) 1.55s both; }
+.ihero[data-load="type"] .ihero-actions .btn { animation: pop 0.34s var(--spring-pop) 1.8s both; }
+.ihero[data-load="type"] .ihero-actions .btn + .btn { animation-delay: 1.88s; }
+.ihero[data-load="type"] .ihero-tags span { animation-delay: calc(2.1s + var(--k, 0) * 70ms); }
+
+/* load "drop" (sandbox): eyebrow → each title line drops in from above and bounces as it lands, the second just after the
+   first → the sub-line surfaces → buttons pop → tags drop */
+@keyframes ih-fall { from { transform: translateY(calc(-90 * var(--u))); opacity: 0; } 10% { opacity: 1; } }
+.ihero[data-load="drop"] .ih1-l > span { animation: ih-fall 0.95s var(--spring-drop) 0.6s both; }
+.ihero[data-load="drop"] .ih1-l + .ih1-l > span { animation-delay: 0.75s; }
+.ihero[data-load="drop"] .ihero-sub { animation: surface 0.8s var(--ease-soft) 1.3s both; }
+.ihero[data-load="drop"] .ihero-actions .btn { animation: pop 0.34s var(--spring-pop) 1.55s both; }
+.ihero[data-load="drop"] .ihero-actions .btn + .btn { animation-delay: 1.63s; }
+.ihero[data-load="drop"] .ihero-tags span { animation-delay: calc(1.85s + var(--k, 0) * 70ms); }
+
+/* load "chars" (about): eyebrow → the title's letters rise and settle one after another (H6) → sub-line surfaces → buttons pop → tags drop */
+@keyframes ih-ch { from { transform: translateY(70%) rotate(8deg); opacity: 0; } }
+.ihero[data-load="chars"] .ih1-l > span { animation: none; }
+.ihero[data-load="chars"] .ih1 .c { display: inline-block; animation: ih-ch 0.8s var(--spring-pop) calc(0.6s + var(--c) * 18ms) both; }
+.ihero[data-load="chars"] .ihero-sub { animation: surface 0.8s var(--ease-soft) 1.4s both; }
+.ihero[data-load="chars"] .ihero-actions .btn { animation: pop 0.34s var(--spring-pop) 1.7s both; }
+.ihero[data-load="chars"] .ihero-actions .btn + .btn { animation-delay: 1.78s; }
+.ihero[data-load="chars"] .ihero-tags span { animation-delay: calc(2s + var(--k, 0) * 70ms); }
+
+/* [data-fill] H7: words light up as the text rises through the screen (PageMotion writes each word's opacity) */
+.m [data-fill] .fw { opacity: 0.15; }
+
+/* load "zoom" (contact): eyebrow → each title line settles into place from slightly larger, as if coming into focus →
+   the sub-line surfaces → buttons pop → tags drop */
+@keyframes ih-zoom { from { transform: scale(1.14); opacity: 0; } }
+.ihero[data-load="zoom"] .ih1-l > span { transform-origin: 0 60%; animation: ih-zoom 1.05s var(--ease) 0.6s both; }
+.ihero[data-load="zoom"] .ih1-l + .ih1-l > span { animation-delay: 0.75s; }
+.ihero[data-load="zoom"] .ihero-sub { animation: surface 0.8s var(--ease-soft) 1.25s both; }
+.ihero[data-load="zoom"] .ihero-actions .btn { animation: pop 0.34s var(--spring-pop) 1.5s both; }
+.ihero[data-load="zoom"] .ihero-actions .btn + .btn { animation-delay: 1.58s; }
+.ihero[data-load="zoom"] .ihero-tags span { animation-delay: calc(1.8s + var(--k, 0) * 70ms); }
+
+/* load "rise" (contact success): the eyebrow's check pops first → the title rises as one block from beneath the hero's
+   edge, a confirmation sliding into place → sub-line surfaces → buttons pop → tags drop */
+.ihero[data-load="rise"] .ihero-eb { animation: pop 0.45s var(--spring-pop) 0.5s both; transform-origin: 0 50%; }
+.ihero[data-load="rise"] .ih1-l > span { animation: none; }
+.ihero[data-load="rise"] .ih1 { animation: ih-up 1.1s var(--ease) 0.75s both; }
+.ihero[data-load="rise"] .ihero-sub { animation: surface 0.8s var(--ease-soft) 1.35s both; }
+.ihero[data-load="rise"] .ihero-actions .btn { animation: pop 0.34s var(--spring-pop) 1.6s both; }
+.ihero[data-load="rise"] .ihero-actions .btn + .btn { animation-delay: 1.68s; }
+.ihero[data-load="rise"] .ihero-tags span { animation-delay: calc(1.9s + var(--k, 0) * 70ms); }
+/* the contact frames: description capped at 720, hero padding 64 / 72 */
+.ihero[data-load="zoom"] .ihero-sub, .ihero[data-load="rise"] .ihero-sub { max-width: calc(720 * var(--u)); }
+@media (min-width: 1100px) { .ihero:is([data-load="zoom"], [data-load="rise"]) .ihero-in { padding-block: calc(64 * var(--u)) calc(72 * var(--u)); } }
+
+/* load "lines" (marketplace): eyebrow → each title line rises out of its own mask, one after the other → the sub-line
+   surfaces → buttons pop → tags drop. A line stays unpainted until it starts rising. */
+@keyframes ih-rise { from { transform: translateY(105%); visibility: hidden; } 0.1% { visibility: visible; } }
+.ihero[data-load="lines"] .ih1-l { overflow: hidden; padding-bottom: 0.1em; margin-bottom: -0.1em; } /* the padding keeps descenders */
+.ihero[data-load="lines"] .ih1-l > span { animation: ih-rise 0.9s var(--ease) 0.6s both; }
+.ihero[data-load="lines"] .ih1-l + .ih1-l > span { animation-delay: 0.74s; }
+.ihero[data-load="lines"] .ihero-sub { animation: surface 0.8s var(--ease-soft) 0.95s both; }
+.ihero[data-load="lines"] .ihero-actions .btn { animation: pop 0.34s var(--spring-pop) 1.2s both; }
+.ihero[data-load="lines"] .ihero-actions .btn + .btn { animation-delay: 1.28s; }
+.ihero[data-load="lines"] .ihero-tags span { animation-delay: calc(1.5s + var(--k, 0) * 70ms); }
+
+/* load "words" (use cases): eyebrow → the title's words fill in left to right (timed, not scrubbed) → the sub-line from the
+   left and the buttons from the right, together → tags drop. The words are painted dim from the start (they count for LCP). */
+@keyframes ih-fill { from { opacity: 0.12; } }
+@keyframes ih-from-r { from { transform: translateX(calc(420 * var(--u))); opacity: 0; } }
+.ihero[data-load="words"] .ih1-l > span { animation: none; }
+.ihero[data-load="words"] .ih1 .w { animation: ih-fill 0.55s linear calc(0.75s + var(--w) * 120ms) both; }
+.ihero[data-load="words"] .ihero-sub { animation-delay: 1.35s; }
+.ihero[data-load="words"] .ihero-actions .btn { animation: ih-from-r 0.85s var(--ease) 1.35s both; }
+.ihero[data-load="words"] .ihero-actions .btn + .btn { animation-delay: 1.43s; }
+.ihero[data-load="words"] .ihero-tags span { animation-delay: calc(2s + var(--k, 0) * 70ms); }
 
 /* the hero stays put while the ivory page slides up over it (desktop: there the hero is always shorter than the screen) */
 @media (min-width: 1100px) {
@@ -60,6 +149,62 @@
   background: var(--cream); color: var(--dark);
 }
 .isec > * { width: 100%; }
+/* .uc: the white section of the later frames (use cases, pricing, company pages), not the product pages' ivory */
+.uc { background: var(--white); color: var(--darkest); }
+.uc-h3 { font-weight: 600; font-size: calc(24 * var(--u)); line-height: 1.12; letter-spacing: calc(-0.6 * var(--u)); }
+/* .p2: the docs, sandbox, company and sign-in frames are drawn in their own hex palette (ink #14281d, muted #586859, sub-lines
+   #acbdb0, paper #eff3e8 …). A page in that set puts .p2 on <main>; these are its shared pieces, values exactly as drawn. */
+.p2 { --ink: #14281d; --muted: #586859; --sub: #acbdb0; --line: #d4deca; --tint: #e8efdd; --paper: #eff3e8; --field: #f8faf3; }
+.p2 .ihero-in { gap: calc(24 * var(--u)); }
+.p2 :is(.ihero-sub, .ihero-tags), .p2 .band .ibody { color: var(--sub); }
+.p2 .btn-lime { color: var(--ink); }
+.p2-sec { background: var(--paper); color: var(--ink); }
+.p2-sec .eyebrow.dark, .p2-sec .ibody, .p2-eb, .p2-p, .p2-p14 { color: var(--muted); }
+.p2-eb { font-weight: 700; font-size: calc(12 * var(--u)); line-height: 1.5; letter-spacing: calc(1.7 * var(--u)); }
+.p2-p { font-size: calc(16 * var(--u)); line-height: 1.7; }
+.p2-p14 { font-size: calc(14 * var(--u)); line-height: 1.7; }
+.p2-h { font-weight: 600; font-size: calc(28 * var(--u)); line-height: 1.12; letter-spacing: calc(-1.2 * var(--u)); color: var(--ink); }
+.p2-h24 { font-weight: 600; font-size: calc(24 * var(--u)); line-height: 1.12; letter-spacing: calc(-1.2 * var(--u)); color: var(--ink); }
+.p2-notice { display: flex; flex-direction: column; gap: calc(8 * var(--u)); padding: calc(20 * var(--u)); background: var(--tint); border: 1px solid var(--line); border-radius: calc(12 * var(--u)); }
+.p2-notice-t { font-weight: 600; font-size: calc(15 * var(--u)); line-height: normal; color: var(--ink); }
+.p2-card { display: flex; flex-direction: column; align-items: flex-start; gap: calc(16 * var(--u)); padding: calc(24 * var(--u)); background: var(--field); border: 1px solid var(--line); border-radius: calc(24 * var(--u)); color: var(--ink); }
+.p2-card > :not(.btn, [data-r="pop"]) { width: 100%; }
+.p2 .btn-edge.on-paper, .p2-card .btn-edge { background: var(--field); color: var(--ink); }
+/* form fields: default 1px rule, focus and "outlined" error 2px ink (Figma Form input / Default · Focus · Error) */
+.p2-field { display: flex; flex-direction: column; gap: calc(8 * var(--u)); }
+.p2-label { font-weight: 600; font-size: calc(14 * var(--u)); line-height: normal; color: var(--ink); }
+.p2-input { width: 100%; min-height: calc(52 * var(--u)); padding: calc(16 * var(--u)); border: 1px solid var(--line); border-radius: calc(10 * var(--u)); background: var(--field); font: inherit; font-size: max(16px, calc(15 * var(--u))); line-height: 1.5; color: var(--ink); appearance: none; }
+textarea.p2-input { min-height: calc(120 * var(--u)); resize: vertical; }
+.p2-input::placeholder { color: var(--muted); opacity: 1; }
+/* the 2px edge is the border plus a 1px inset shadow, so a field's padding never shifts between states */
+.p2-input:focus, [data-tried] .p2-input:invalid, .p2-input.is-err { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); outline: none; }
+.p2-input.is-err { color: var(--muted); } /* a drawn error state, not a live field */
+select.p2-input:invalid { color: var(--muted); } /* the placeholder option */
+.p2-hint { font-size: calc(12 * var(--u)); line-height: 1.6; color: var(--ink); }
+.p2 .faq-item { border-bottom-color: var(--line); }
+.p2 .faq-q { color: var(--ink); }
+.p2 .faq-a p { color: var(--muted); }
+.p2-err { display: none; }
+[data-tried] :invalid ~ .p2-err { display: block; }
+.p2-check { display: flex; align-items: flex-start; gap: calc(12 * var(--u)); min-height: 44px; font-size: calc(14 * var(--u)); line-height: 1.7; color: var(--muted); cursor: pointer; }
+.p2-check input { flex: none; width: 24px; height: 24px; margin: 0; border: 1px solid #35503e; border-radius: calc(8 * var(--u)); background: var(--field); appearance: none; display: grid; place-content: center; cursor: pointer; }
+.p2-check input:checked { background: var(--ink); border-color: var(--ink); }
+.p2-check input:checked::after { content: ""; width: 10px; height: 6px; border: solid var(--lime); border-width: 0 0 2px 2px; transform: translateY(-1px) rotate(-45deg); }
+[data-tried] .p2-check input:invalid { border: 2px solid var(--ink); }
+.form-fail { display: none; }
+[data-tried] .form-fail { display: flex; }
+.form-done { animation: surface 0.6s var(--ease) both; }
+.isec[data-tone="dark"] { background: var(--darkest); color: var(--white); }
+.isec[data-tone="dark"] .ibody { color: var(--cream); }
+
+/* shared scroll entrances (PageMotion): H4 drop · G1 sequence (--p) · H8 grow · L6 stack (sticky on desktop; top from PageMotion) */
+.m [data-r="drop"] { transform: translateY(calc(-28 * var(--u))); transition: opacity 0.5s ease calc(var(--i, 0) * 110ms), transform 0.9s var(--spring-drop) calc(var(--i, 0) * 110ms); }
+.m [data-seq] { --p: 0; }
+.m [data-seq] > * { --t: clamp(0, (var(--p) - var(--i) * 0.18) / 0.46, 1); opacity: var(--t); translate: 0 calc((1 - var(--t)) * 44 * var(--u)); will-change: translate, opacity; }
+.m [data-seq] .step-arrow { translate: calc((var(--t) - 1) * 16 * var(--u)) 0; }
+/* the shadow reaches up as well as down: a band that rises over a dark section needs its top edge to read */
+.m [data-grow] { will-change: transform; box-shadow: 0 calc(40 * var(--u)) calc(90 * var(--u)) rgba(12, 32, 23, 0.35), 0 calc(-18 * var(--u)) calc(50 * var(--u)) rgba(0, 0, 0, 0.45); }
+@media (min-width: 1100px) { .m [data-stack] > * { position: sticky; } }
 .isec > [data-r="pop"] { width: auto; }
 .inner [data-r="pop"] { transform-origin: 0 50%; }
 .intro-i { display: flex; flex-direction: column; gap: calc(18 * var(--u)); }
@@ -69,31 +214,82 @@
 .ibody { font-size: calc(16 * var(--u)); line-height: 1.7; color: var(--deep); }
 .step-d14 { font-size: calc(14 * var(--u)); line-height: 1.7; color: var(--deep); }
 
-/* process: the steps arrive one after another as the row scrolls in (PageMotion writes --p; scrubbed, so it runs backwards too) */
-.steps { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); align-items: start; gap: calc(20 * var(--u)); }
-.step-c { display: flex; flex-direction: column; gap: calc(14 * var(--u)); padding: calc(24 * var(--u)); background: var(--white); border: 1px solid var(--cream); border-radius: calc(16 * var(--u)); }
+/* §2 process: a held deck that scroll deals out (PageMotion [data-deck]). Each card carries a soft shadow while it is in the deck. */
+.deck-sec { position: relative; background: var(--cream); }
+.steps { position: relative; list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); align-items: start; gap: calc(20 * var(--u)); }
+.step-c { position: relative; display: flex; flex-direction: column; gap: calc(14 * var(--u)); padding: calc(24 * var(--u)); background: var(--white); border: 1px solid var(--cream); border-radius: calc(16 * var(--u)); }
 .step-no { font-size: calc(13 * var(--u)); line-height: normal; color: var(--deep); }
 .step-arrow { display: inline-block; }
-.m [data-seq] { --p: 0; }
-.m [data-seq] > * { --t: clamp(0, (var(--p) - var(--i) * 0.18) / 0.46, 1); opacity: var(--t); translate: 0 calc((1 - var(--t)) * 44 * var(--u)); will-change: translate, opacity; }
-.m [data-seq] .step-arrow { translate: calc((var(--t) - 1) * 16 * var(--u)) 0; }
+.m .step-c { will-change: transform; }
+.m .step-c::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; box-shadow: 0 calc(22 * var(--u)) calc(46 * var(--u)) rgba(12, 32, 23, 0.16); opacity: var(--sh, 0); pointer-events: none; }
+@media (min-width: 1100px) {
+  .m .deck-sec { height: calc(100svh + 170svh); }
+  .m .deck-stage { position: sticky; top: 0; min-height: 100svh; justify-content: center; }
+}
+
+/* §3 bento: the left column falls from beyond the section's top, the right column rises from beyond its bottom,
+   on one curve and one clock so all four land in the same breath; then each card's heading and copy surface. */
+.bento-sec { overflow: clip; }
+.m [data-r="bento"] { opacity: 1; transform: none; }
+.m [data-r="bento"] .panel { opacity: 0; transform: translateY(-75vh); transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease; } /* lowered, not dropped */
+.m [data-r="bento"] .panel:nth-child(even) { transform: translateY(75vh); }
+.m [data-r="bento"].in .panel { opacity: 1; transform: none; }
+.m [data-r="bento"] .panel > * { opacity: 0; transform: translateY(calc(8 * var(--u))); transition: opacity 0.7s ease 1.3s, transform 0.8s var(--ease) 1.3s; }
+.m [data-r="bento"] .panel > * + * { transition-delay: 1.52s; }
+.m [data-r="bento"].in .panel > * { opacity: 1; transform: none; }
 
 .panels { display: grid; grid-template-columns: 1fr 1fr; gap: calc(20 * var(--u)); }
 .panel { display: flex; flex-direction: column; gap: calc(16 * var(--u)); padding: calc(24 * var(--u)); background: var(--white); border: 1px solid var(--cream); border-radius: calc(24 * var(--u)); }
 
-/* dark band: grows out of the ivory around it (PageMotion) */
-.grow-wrap { background: var(--cream); }
-.band { background: var(--darkest); color: var(--white); will-change: scale; }
+/* §4 CTA band: arrives as one object (drift + fade), then headline → sub-line → buttons. The triangle is PageMotion's [data-tri]. */
+.band-wrap { background: var(--cream); }
+.band { overflow: clip; background: var(--darkest); color: var(--white); }
+.band > :not(.tri-wrap) { position: relative; }
 .band .ibody { color: var(--cream); }
+.tri-wrap { position: absolute; right: max(calc(72 * var(--u)), calc((100% - 1400 * var(--u)) / 2 + 72 * var(--u))); top: 50%; width: calc(300 * var(--u)); height: calc(264 * var(--u)); margin-top: calc(-132 * var(--u)); pointer-events: none; will-change: transform; }
+.tri { display: block; width: 100%; height: 100%; opacity: 0.7; transition: scale 0.6s var(--ease); }
+.band:has(.btn:hover) .tri { scale: 1.06; opacity: 1 !important; } /* the moment of action is close */
+.band .btn { transition: transform 0.35s var(--ease), box-shadow 0.45s var(--ease), filter 0.35s; }
+.band .btn:hover { box-shadow: 0 0 0 calc(5 * var(--u)) rgba(192, 244, 118, 0.16), 0 0 calc(36 * var(--u)) rgba(192, 244, 118, 0.32); } /* the button exhales */
+.m [data-r="slab"] { opacity: 1; transform: none; }
+.m [data-r="slab"] .band { opacity: 0; transform: translateY(calc(90 * var(--u))); transition: opacity 0.9s ease, transform 1.2s var(--ease-land); }
+.m [data-r="slab"].in .band { opacity: 1; transform: none; }
+.m [data-r="slab"] :is(.slab-1, .slab-2, .slab-3) { opacity: 0; transform: translateY(calc(14 * var(--u))); transition: opacity 0.8s ease 0.75s, transform 0.9s var(--ease) 0.75s; }
+.m [data-r="slab"] .slab-2 { transition-delay: 0.95s; }
+.m [data-r="slab"] .slab-3 { transition-delay: 1.15s; }
+.m [data-r="slab"].in :is(.slab-1, .slab-2, .slab-3) { opacity: 1; transform: none; }
+.m [data-r="slab"] .tri-wrap { opacity: 0; transition: opacity 1.4s ease 0.6s; }
+.m [data-r="slab"].in .tri-wrap { opacity: 1; }
 
-/* pricing table: rows arrive in order, each row's rule draws from the left */
-.pricing-b { display: flex; flex-direction: column; gap: calc(24 * var(--u)); }
+/* §5 the plan: one card, complete, slides up from below the section with a heavy settle; a single shimmer once it rests;
+   a hovered row lights from beneath while the others dim; Get Started springs as the card lands and on hover. */
+.plan-sec { overflow: clip; }
+.plan { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: calc(24 * var(--u)); padding: calc(32 * var(--u)); background: var(--white); border: 1px solid var(--cream); border-radius: calc(28 * var(--u)); box-shadow: 0 calc(24 * var(--u)) calc(60 * var(--u)) rgba(12, 32, 23, 0.08); }
+.plan-cta { display: flex; flex-wrap: wrap; gap: calc(12 * var(--u)); }
+.plan-go { display: inline-flex; }
+.plan::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.75) 50%, rgba(192, 244, 118, 0.18) 56%, transparent 68%); transform: translateX(-110%); }
+.m [data-r="plan"] { opacity: 1; transform: none; }
+.m [data-r="plan"] .plan { transform: translateY(70vh); transition: transform 1.45s var(--ease-land); }
+.m [data-r="plan"].in .plan { transform: none; }
+.m [data-r="plan"].in .plan::after { animation: shimmer 1.3s ease-in-out 1.35s both; }
+.m [data-r="plan"].in .plan-go .btn { animation: pop-nudge 0.55s var(--spring-pop) 1.55s both; }
+@keyframes shimmer { from { transform: translateX(-110%); } to { transform: translateX(110%); } }
+@keyframes pop-nudge { from { transform: scale(0.9); } }
+.plan-go .btn:hover { animation: pop-nudge 0.5s var(--spring-pop); }
+.plan .pt-row { transition: opacity 0.35s ease; }
+.plan .pt-row::before { content: ""; position: absolute; inset: 0; background: rgba(192, 244, 118, 0.22); transform: scaleY(0); transform-origin: 50% 100%; transition: transform 0.45s var(--ease); pointer-events: none; }
+.plan .pt-row > * { position: relative; }
+@media (hover: hover) and (pointer: fine) {
+  .plan .ptable:hover .pt-row:not(:hover) { opacity: 0.55; }
+  .plan .pt-row:hover::before { transform: none; }
+}
 .ptable { background: var(--white); border: 1px solid var(--cream); border-radius: calc(16 * var(--u)); overflow: hidden; }
 .pt-head, .pt-row { display: grid; grid-template-columns: repeat(var(--cols), 1fr); gap: calc(16 * var(--u)); padding: calc(20 * var(--u)); }
 .pt-head { background: var(--cream); font-weight: 700; font-size: calc(12 * var(--u)); line-height: 1.6; color: var(--deep); }
 .pt-row { position: relative; align-items: center; font-size: calc(14 * var(--u)); line-height: 1.6; }
 .pt-row > :first-child { font-weight: 600; }
 .pt-row::after { content: ""; position: absolute; inset: auto 0 0 0; height: 1px; background: var(--cream); transform-origin: 0 50%; }
+/* [data-r="rows"]: rows rise in order and each row's rule draws from the left (L11) */
 .m [data-r="rows"] { opacity: 1; transform: none; }
 .m [data-r="rows"] .pt-row { opacity: 0; transform: translateY(calc(12 * var(--u))); transition: opacity 0.5s ease, transform 0.7s var(--ease); transition-delay: calc(0.15s + var(--i) * 110ms); }
 .m [data-r="rows"] .pt-row::after { transform: scaleX(0); transition: transform 0.9s var(--ease) calc(0.15s + var(--i) * 110ms); }
@@ -102,6 +298,48 @@
 
 /* product cards (Figma "Home / Card / …") */
 .pcards { display: flex; gap: calc(24 * var(--u)); }
+
+/* §6 money in, money out: the slots wait a beat (the inhale), then each card is thrown from the opposite edge of the screen.
+   x and y are separate animations (translate / transform), so the path is an arc: up to its apex as the two cross mid-screen,
+   then down, flattening into the slot with a slight overshoot and a settle. Then: key figure → supporting detail → label. */
+.arc-sec { overflow: clip; --fly: 70vw; } /* throw distance: from just off-screen */
+.m [data-r="arc"] { opacity: 1; transform: none; }
+.m [data-r="arc"] .pcard { translate: var(--fly) 0; opacity: 0; }
+.m [data-r="arc"] .pcard + .pcard { translate: calc(-1 * var(--fly)) 0; }
+.m [data-r="arc"].in .pcard { opacity: 1; animation: arc-x-l 1.6s 0.35s both, arc-y 1.6s 0.35s both; }
+.m [data-r="arc"].in .pcard + .pcard { animation-name: arc-x-r, arc-y-r; animation-delay: 0.39s; }
+@keyframes arc-x-l {
+  0% { translate: var(--fly) 0; animation-timing-function: linear; }
+  45% { translate: calc(var(--fly) * 0.36) 0; animation-timing-function: cubic-bezier(0.2, 0.6, 0.3, 1); }
+  90% { translate: calc(-6 * var(--u)) 0; animation-timing-function: ease-in-out; }
+  100% { translate: 0 0; }
+}
+@keyframes arc-x-r {
+  0% { translate: calc(-1 * var(--fly)) 0; animation-timing-function: linear; }
+  45% { translate: calc(var(--fly) * -0.36) 0; animation-timing-function: cubic-bezier(0.2, 0.6, 0.3, 1); }
+  90% { translate: calc(6 * var(--u)) 0; animation-timing-function: ease-in-out; }
+  100% { translate: 0 0; }
+}
+@keyframes arc-y {
+  0% { transform: translateY(calc(70 * var(--u))) rotate(7deg); animation-timing-function: cubic-bezier(0.3, 0.6, 0.5, 1); }
+  45% { transform: translateY(calc(-120 * var(--u))) rotate(2deg); animation-timing-function: cubic-bezier(0.5, 0, 0.7, 0.4); }
+  85% { transform: translateY(calc(4 * var(--u))) rotate(-0.4deg); animation-timing-function: ease-out; }
+  100% { transform: none; }
+}
+@keyframes arc-y-r {
+  0% { transform: translateY(calc(70 * var(--u))) rotate(-7deg); animation-timing-function: cubic-bezier(0.3, 0.6, 0.5, 1); }
+  45% { transform: translateY(calc(-120 * var(--u))) rotate(-2deg); animation-timing-function: cubic-bezier(0.5, 0, 0.7, 0.4); }
+  85% { transform: translateY(calc(4 * var(--u))) rotate(0.4deg); animation-timing-function: ease-out; }
+  100% { transform: none; }
+}
+.m [data-r="arc"] :is(.pcard-prev > *, .pcard-p, .pcard-link, .pcard-t) { opacity: 0; transition: opacity 0.6s ease; }
+.m [data-r="arc"].in .pcard-prev > * { opacity: 1; transition-delay: 2.1s; }
+.m [data-r="arc"].in .pcard-prev > .pv-amt { transition-delay: 1.95s; } /* the key figure first */
+.m [data-r="arc"].in .pcard-prev > :nth-child(2):not(.pv-amt) { transition-delay: 2.2s; }
+.m [data-r="arc"].in .pcard-prev > :nth-child(3):not(.pv-amt) { transition-delay: 2.3s; }
+.m [data-r="arc"].in .pcard-p { opacity: 1; transition-delay: 2.4s; }
+.m [data-r="arc"].in .pcard-link { opacity: 1; transition-delay: 2.55s; }
+.m [data-r="arc"].in .pcard-t { opacity: 1; transition-delay: 2.7s; } /* the label last: a quiet confirmation */
 .pcard { flex: 1 0 0; min-width: 0; display: flex; flex-direction: column; gap: calc(24 * var(--u)); padding: calc(24 * var(--u)); background: var(--white); border: 1px solid var(--cream); border-radius: calc(24 * var(--u)); }
 .pcard-prev { height: calc(168 * var(--u)); display: flex; flex-direction: column; justify-content: center; gap: calc(10 * var(--u)); padding: calc(18 * var(--u)); background: var(--cream); border-radius: calc(16 * var(--u)); line-height: normal; }
 .pv-entry { display: flex; align-items: center; gap: calc(8 * var(--u)); height: calc(40 * var(--u)); padding: calc(8 * var(--u)) calc(10 * var(--u)); background: var(--white); border-radius: calc(8 * var(--u)); font-size: calc(11 * var(--u)); }
@@ -131,4 +369,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .ihero * { animation: none !important; }
+  .tri, .band .btn { transition: none; }
 }

@@ -1,0 +1,75 @@
+/* /login and /signup (Figma 144:7424, 144:7658; phone 293:13473 / 293:13555, tablet 293:13514 / 293:13651). Palette: .p2 in inner.css.
+   The split fills the screen; each half's content keeps Figma's 580px column. */
+.au { display: flex; align-items: stretch; min-height: 100svh; background: var(--paper); }
+.au-story, .au-form { flex: 1 0 0; min-width: 0; display: flex; flex-direction: column; }
+.au-story > *, .au-form > * { width: 100%; max-width: calc(580 * var(--u)); }
+.au-story { position: relative; z-index: 1; gap: calc(32 * var(--u)); padding: calc(56 * var(--u)); background: var(--darkest); color: #f5f8ee; }
+.au-form { gap: calc(24 * var(--u)); padding: calc(64 * var(--u)); color: var(--ink); }
+.au-brand { width: auto; }
+.au-intro { display: flex; flex-direction: column; gap: calc(20 * var(--u)); padding-top: calc(48 * var(--u)); }
+.au-headline { font-weight: 600; font-size: calc(46 * var(--u)); line-height: 1.12; letter-spacing: calc(-1.8 * var(--u)); }
+.au-m { display: block; overflow: hidden; padding-bottom: 0.1em; margin-bottom: -0.1em; } /* masks the lines rise out of */
+.au-m > span { display: block; }
+.au-sub { color: var(--sub); }
+.au-art { display: block; }
+.au-art img { display: block; width: 100%; height: calc(330 * var(--u)); object-fit: cover; border-radius: calc(28 * var(--u)); }
+.au-signals { font-size: calc(11 * var(--u)); line-height: 1.8; color: var(--sub); }
+
+.au-back, .au-link, .au-cross { display: flex; align-items: center; min-height: 44px; color: var(--ink); }
+.au-back, .au-link { font-weight: 600; font-size: calc(14 * var(--u)); line-height: normal; }
+.au-cross { font-size: calc(15 * var(--u)); line-height: 1.7; }
+.au-head { display: flex; flex-direction: column; gap: calc(16 * var(--u)); }
+.au-h { font-weight: 600; font-size: calc(46 * var(--u)); line-height: 1.12; letter-spacing: calc(-1.2 * var(--u)); color: var(--ink); }
+.au-f { display: flex; flex-direction: column; gap: calc(24 * var(--u)); }
+.au-f .p2-input { padding: calc(14 * var(--u)) calc(16 * var(--u)); }
+.au-f .btn-lime { width: 100%; }
+.au-f .btn-lime:disabled { cursor: progress; }
+.au-prefs { display: flex; flex-wrap: wrap; align-items: center; gap: calc(16 * var(--u)); }
+/* Figma "Consent checkbox": a 20px box in a 44px touch target, the label in ink */
+.au-check { gap: calc(10 * var(--u)); line-height: 1.65; color: var(--ink); }
+.au-check input { width: 20px; height: 20px; margin: 12px; border-color: var(--muted); }
+
+.au-note { font-size: calc(11 * var(--u)); line-height: 1.8; color: var(--muted); }
+.au-legal { font-size: calc(12 * var(--u)); line-height: 1.8; color: var(--muted); }
+.au-legal a { text-decoration: underline; text-underline-offset: 2px; }
+
+/* password field with its 44px "Show" control inside */
+.pw { position: relative; display: block; }
+.pw .p2-input { padding-right: calc(16 * var(--u) + 52px); }
+.pw-btn { position: absolute; right: calc(12 * var(--u)); top: 50%; min-width: 44px; height: 44px; margin-top: -22px; font-weight: 600; font-size: calc(13 * var(--u)); color: var(--ink); }
+
+/* the specimen sheet (sign-up) */
+.au-states { color: var(--ink); }
+.au-grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: calc(20 * var(--u)); }
+.au-grid3 { display: grid; grid-template-columns: repeat(3, 1fr); align-items: start; gap: calc(20 * var(--u)); }
+.au-spec { display: flex; align-items: center; justify-content: space-between; gap: calc(8 * var(--u)); padding: calc(14 * var(--u)) calc(16 * var(--u)); color: var(--muted); }
+.au-wide { width: 100%; }
+.au-lh { line-height: 1.5; }
+.au-errcard { box-shadow: inset 0 0 0 1px var(--ink); border-color: var(--ink); }
+.au-okcard { background: var(--tint); }
+
+/* load: the brand panel slides in from the left edge, its headline lines rise from their masks, its copy surfaces;
+   then the form region's blocks surface in order (each carries --i) */
+@keyframes au-in { from { transform: translateX(-100%); } }
+.au-story { animation: au-in 0.9s var(--ease) 0.1s both; }
+.au-m > span { animation: ih-rise 0.9s var(--ease) 0.75s both; }
+.au-m + .au-m > span { animation-delay: 0.87s; }
+.au-up { animation: surface 0.8s var(--ease-soft) 1.05s both; }
+.au-form > :not(.au-f), .au-f > :not(.form-done) { animation: surface 0.7s var(--ease-soft) calc(1.1s + var(--i, 8) * 70ms) both; }
+
+@media (prefers-reduced-motion: reduce) { .au * , .au-story { animation: none !important; } }
+
+@media (max-width: 1099px) {
+  .au { flex-direction: column; }
+  .au-story, .au-form { flex: none; padding: calc(24 * var(--u)) var(--gut); }
+  .au-story > *, .au-form > * { max-width: none; }
+  .au-intro { padding-top: calc(16 * var(--u)); }
+  .au-headline, .au-h { font-size: calc(36 * var(--u)); }
+  .au-story { gap: calc(24 * var(--u)); }
+  .au-art { display: none; } /* the phone frames drop the artwork */
+  .au-grid2 { grid-template-columns: 1fr; }
+}
+@media (max-width: 767px) {
+  .au-grid3 { grid-template-columns: 1fr; }
+  .au-signals, .au-note { font-size: calc(12 * var(--u)); } /* the site minimum on phones */
+}

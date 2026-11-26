@@ -1,0 +1,17 @@
+/* /use-cases (Figma 144:10678; phone 293:15488, tablet 293:15633). Its light sections are the Figma white, not the product pages' ivory. */
+.uc-stack { background: var(--white); } /* what the band grows out of where nothing is stacked behind it (phones, tablets) */
+.uc-panels { gap: calc(24 * var(--u)); }
+.uc-steps { grid-template-columns: repeat(3, 1fr); }
+.uc :is(.panel, .step-c) { color: var(--darkest); }
+.uc[data-tone="dark"] .panel { border-color: #2e5c40; }
+.uc .is-dark { background: var(--dark); color: var(--white); }
+.uc .is-dark :is(.ibody, .step-d14) { color: var(--cream); }
+.uc .is-dark .step-no { color: var(--white); }
+
+@media (max-width: 1099px) {
+  .uc-panels { grid-template-columns: 1fr; } /* tablet and phone: the two panels stack; tablet keeps the three steps in a row */
+  .uc-steps { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 767px) {
+  .uc-steps { grid-template-columns: 1fr; }
+}

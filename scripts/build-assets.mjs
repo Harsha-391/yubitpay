@@ -8,9 +8,10 @@ mkdirSync("assets/img", { recursive: true });
 // --- images -------------------------------------------------------------
 const jobs = [
   ["connector", 1552], // sprite shown at 776 css px -> 2x
+  ["about-sculpture", 1216, "jpg"], // /about artwork shown at 608 css px -> 2x (Figma serves it as a JPEG)
 ];
-for (const [name, w] of jobs) {
-  const src = sharp(`assets/raw/${name}.png`).resize({ width: w });
+for (const [name, w, ext = "png"] of jobs) {
+  const src = sharp(`assets/raw/${name}.${ext}`).resize({ width: w });
   await src.clone().avif({ quality: 55, effort: 6 }).toFile(`assets/img/${name}-${w}.avif`);
   await src.clone().webp({ quality: 78, effort: 6 }).toFile(`assets/img/${name}-${w}.webp`);
 }

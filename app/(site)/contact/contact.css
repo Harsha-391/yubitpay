@@ -1,0 +1,29 @@
+/* /contact (Figma 144:8118) and /contact/success (144:7858). Palette and shared pieces: .p2 in inner.css. */
+.ct-row { display: flex; align-items: flex-start; gap: calc(56 * var(--u)); }
+.ct-form, .ct-channels { flex: 1 0 0; min-width: 0; }
+.ct-channels { display: flex; flex-direction: column; gap: calc(24 * var(--u)); }
+.ct-two { display: grid; grid-template-columns: 1fr 1fr; gap: calc(16 * var(--u)); }
+.ct-form .p2-input { padding: calc(14 * var(--u)) calc(16 * var(--u)); }
+.ct-select { position: relative; display: block; }
+.ct-select svg { position: absolute; right: calc(16 * var(--u)); top: 50%; margin-top: calc(-8 * var(--u)); pointer-events: none; }
+.ct-select select { padding-right: calc(40 * var(--u)); }
+/* Figma "Consent checkbox": a 20px box in a 44px touch target, the label in ink */
+.ct-check { gap: calc(10 * var(--u)); line-height: 1.65; color: var(--ink); }
+.ct-check input { width: 20px; height: 20px; margin: 12px; border-color: var(--muted); }
+.ct-form .btn-lime { width: 100%; }
+.ct-ch { display: flex; align-items: center; gap: calc(16 * var(--u)); font-weight: 600; font-size: calc(24 * var(--u)); line-height: 1.12; letter-spacing: calc(-1.2 * var(--u)); color: var(--ink); }
+.ct-mail { font-weight: 600; font-size: calc(16 * var(--u)); line-height: 1.5; color: var(--ink); }
+.ct-wrap { background: var(--paper); } /* the band grows out of the ivory around it */
+
+/* /contact/success */
+.cs-steps { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); align-items: start; gap: calc(20 * var(--u)); }
+.cs-no { font-size: calc(13 * var(--u)); line-height: normal; color: var(--muted); }
+
+@media (max-width: 1099px) {
+  .ct-row { flex-direction: column; align-items: stretch; }
+  .ct-form, .ct-channels { flex: none; }
+}
+@media (max-width: 767px) {
+  .ct-two, .cs-steps { grid-template-columns: 1fr; }
+}
+.isec > .p2-notice[data-r="pop"] { width: 100%; } /* the notice pops (H2) but keeps its full width */
